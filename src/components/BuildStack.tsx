@@ -5,13 +5,13 @@ import { site } from "@/data/site";
 import { useSite } from "./SiteProvider";
 
 export function BuildStack() {
-  const { t, copyEmail } = useSite();
+  const { t } = useSite();
 
   return (
     <section className="border-t border-line py-16 md:py-20">
       <div className="site-shell min-w-0">
-        <h2 className="text-[28px] font-medium tracking-[-0.03em] text-ink md:text-[40px]">
-          {t.build.headline}
+        <h2 className="max-w-[18ch] text-[28px] font-medium tracking-[-0.03em] text-ink md:text-[40px]">
+          {t.build.heading}
         </h2>
         <p className="mt-8 break-words font-mono text-[13px] tracking-[0.04em] text-ink md:text-[14px]">
           {buildTrail.join(" → ")} → {site.domain}
@@ -20,14 +20,12 @@ export function BuildStack() {
           {stackNames.join(" · ")}
         </p>
         <p className="mt-6 text-[15px] leading-7 text-muted">{t.build.copy}</p>
-        <button
-          type="button"
-          onClick={copyEmail}
-          className="mt-5 flex min-h-11 items-center text-[14px] text-ink hover:text-accent"
+        <a
+          href="#ai-services"
+          className="mt-5 inline-flex min-h-11 items-center text-[14px] text-accent hover:text-ink"
         >
-          {t.build.ask}
-        </button>
-        <p className="sr-only">{site.email}</p>
+          {t.build.action}
+        </a>
       </div>
     </section>
   );

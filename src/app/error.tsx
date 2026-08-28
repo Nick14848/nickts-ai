@@ -17,7 +17,7 @@ export default function ErrorPage({
       <button
         type="button"
         onClick={reset}
-        className="mt-8 min-h-11 border border-white/10 px-4 text-[12px] tracking-[0.14em] text-[#3B6FFF]"
+        className="mt-8 min-h-11 border border-white/10 px-4 text-[12px] tracking-[0.14em] text-accent"
       >
         RELOAD
       </button>

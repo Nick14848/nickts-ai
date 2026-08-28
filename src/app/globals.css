@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-bg: #1a1b21;
-  --color-elevated: #23252d;
+  --color-bg: #161b24;
+  --color-elevated: #1e2430;
+  --color-nav: #1a2030;
   --color-ink: #ffffff;
-  --color-muted: #d2d5dd;
-  --color-line: rgb(255 255 255 / 18%);
-  --color-accent: #5b8aff;
+  --color-muted: #c5cad3;
+  --color-line: rgb(210 222 240 / 14%);
+  --color-accent: #477aff;
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, sfmono-regular, monospace;
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
@@ -14,7 +15,7 @@
 }
 
 html {
-  background: #1a1b21;
+  background: #161b24;
   color: #ffffff;
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -22,11 +23,8 @@ html {
 
 body {
   overflow-x: hidden;
-}
-
-body {
   min-height: 100vh;
-  background: #1a1b21;
+  background: #161b24;
   color: #ffffff;
   font-family: var(--font-sans);
   font-feature-settings: "ss01" on, "cv11" on;
@@ -34,12 +32,12 @@ body {
 }
 
 ::selection {
-  background: rgb(59 111 255 / 28%);
-  color: #f3f4f6;
+  background: rgb(71 122 255 / 28%);
+  color: #f7f9fc;
 }
 
 :focus-visible {
-  outline: 1px solid #3b6fff;
+  outline: 1px solid #477aff;
   outline-offset: 3px;
 }
 
@@ -66,27 +64,87 @@ a {
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #d2d5dd;
+  color: #c5cad3;
 }
 
 .hairline {
-  border-color: rgb(255 255 255 / 10%);
+  border-color: rgb(210 222 240 / 14%);
 }
 
-@keyframes signal-run {
-  0% {
-    transform: translateX(-8%);
-    opacity: 0;
+.hero-signal {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgb(210 222 240 / 3%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(210 222 240 / 3%) 1px, transparent 1px);
+  background-position: center top;
+  background-size: 64px 64px;
+  opacity: 0.62;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+}
+
+.hero-signal svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-signal-path {
+  fill: none;
+  stroke: rgb(71 122 255 / 34%);
+  stroke-width: 1.25;
+  stroke-dasharray: 10 14;
+  vector-effect: non-scaling-stroke;
+  animation: signal-dash 14s linear infinite;
+}
+
+.hero-signal-anchor {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #161b24;
+  border-radius: 9999px;
+  transform: translate(-50%, -50%);
+}
+
+.hero-signal-node {
+  background: #477aff;
+  opacity: 0.58;
+  animation: signal-node-breathe 8s ease-in-out infinite;
+}
+
+.hero-signal-node:first-of-type {
+  top: 60.833%;
+  left: 32.5%;
+}
+
+.hero-signal-node:last-child {
+  top: 50%;
+  left: 65.833%;
+  animation-delay: -4s;
+}
+
+@keyframes signal-dash {
+  from {
+    stroke-dashoffset: 0;
   }
-  8% {
-    opacity: 1;
+  to {
+    stroke-dashoffset: -96;
   }
-  92% {
-    opacity: 1;
-  }
+}
+
+@keyframes signal-node-breathe {
+  0%,
   100% {
-    transform: translateX(108%);
-    opacity: 0;
+    opacity: 0.38;
+    filter: drop-shadow(0 0 0 rgb(71 122 255 / 0%));
+  }
+  50% {
+    opacity: 0.92;
+    filter: drop-shadow(0 0 5px rgb(71 122 255 / 48%));
   }
 }
 
@@ -98,10 +156,6 @@ a {
   50% {
     opacity: 0.28;
   }
-}
-
-.signal-runner {
-  animation: signal-run 7.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
 .status-dot {
@@ -128,12 +182,12 @@ a {
 .group:focus-within .diagram rect,
 .group:hover .diagram line,
 .group:focus-within .diagram line {
-  stroke: rgba(59, 111, 255, 0.55);
+  stroke: rgba(71, 122, 255, 0.55);
 }
 
 .group:hover .diagram circle,
 .group:focus-within .diagram circle {
-  fill: #3b6fff;
+  fill: #477aff;
 }
 
 @keyframes hero-reveal {
@@ -151,16 +205,6 @@ a {
   animation: hero-reveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.hero-grid {
-  background-image: repeating-linear-gradient(
-    to right,
-    rgb(255 255 255 / 6%) 0,
-    rgb(255 255 255 / 6%) 1px,
-    transparent 1px,
-    transparent calc(100% / 12)
-  );
-}
-
 .ai-mark {
   cursor: default;
 }
@@ -170,8 +214,9 @@ a {
     scroll-behavior: auto;
   }
 
-  .signal-runner,
   .status-dot,
+  .hero-signal-path,
+  .hero-signal-node,
   .hero-reveal {
     animation: none;
   }

@@ -11,7 +11,7 @@ export function Community() {
       <div className="site-shell site-grid gap-y-12">
         <article className="col-span-12 md:col-span-6">
           <p className="meta">{t.community.dsaRole}</p>
-          <h3 className="mt-4 max-w-[16ch] text-[24px] font-medium tracking-[-0.03em] text-ink md:text-[32px]">
+          <h3 className="mt-4 max-w-[16ch] text-[24px] font-medium tracking-[-0.03em] md:text-[32px]">
             {t.community.dsaTitle}
           </h3>
           <p className="mt-5 max-w-md text-[16px] leading-7 text-muted">
@@ -20,7 +20,7 @@ export function Community() {
         </article>
         <article className="col-span-12 md:col-span-6">
           <p className="meta">{t.community.creatorTitle}</p>
-          <h3 className="mt-4 text-[24px] font-medium tracking-[-0.03em] text-ink md:text-[32px]">
+          <h3 className="mt-4 text-[24px] font-medium tracking-[-0.03em] md:text-[32px]">
             <AccentText text={t.community.creatorCopy} />
           </h3>
           <p className="meta mt-6">{t.community.topics}</p>

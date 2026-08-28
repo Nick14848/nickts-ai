@@ -17,7 +17,7 @@ for (const width of widths) {
 test("language toggle switches visible copy", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "A personal homepage",
+    "Personal homepage",
   );
   await page.getByRole("button", { name: "Switch language" }).click();
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
@@ -25,17 +25,20 @@ test("language toggle switches visible copy", async ({ page }) => {
   );
   await expect(page.getByRole("navigation").getByText("关于我")).toBeVisible();
   await expect(page.getByRole("navigation").getByText("我的项目")).toBeVisible();
-  await expect(page.getByText("港大 数据科学 · 香港")).toBeVisible();
-  await expect(page.getByRole("tab", { name: "自媒体" })).toBeVisible();
+  await expect(page.getByText("港大 数据科学")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "自媒体" })).toBeVisible();
 });
 
-test("lens selector updates snapshot metadata", async ({ page }) => {
+test("audience cards navigate directly", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByTestId("lens-snapshot-item").first()).toBeVisible();
-  await page.getByRole("tab", { name: "AI / Startup" }).click();
-  await expect(
-    page.getByTestId("lens-snapshot-item").filter({ hasText: "See projects" }),
-  ).toBeVisible();
+  await page.getByRole("link", { name: "View projects →" }).click();
+  await expect(page.locator("#work")).toBeInViewport();
+  await page.getByRole("link", { name: "View experience →" }).click();
+  await expect(page.locator("#experience")).toBeInViewport();
+  await expect(page.getByRole("link", { name: "View CV ↗" })).toHaveAttribute(
+    "href",
+    "/resume.pdf",
+  );
 });
 
 test("external links open safely", async ({ page }) => {
@@ -66,21 +69,26 @@ test("reduced motion keeps the page usable", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-  await page.getByRole("tab", { name: "Media" }).click();
-  await expect(
-    page.getByTestId("lens-snapshot-item").filter({ hasText: "See the work" }),
-  ).toBeVisible();
+  await expect(page.getByRole("link", { name: "View content →" })).toBeVisible();
 });
 
 test("work cards do not name the employer", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "NEXUS" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Request for demo" })).toHaveAttribute(
-    "href",
-    "mailto:nicktsai1221@gmail.com?subject=NEXUS%20Demo",
-  );
+  await expect(page.getByRole("heading", { name: "DEEP PIVOT" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "INVESTMENT WORKSPACE" }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "NEXUS" })).toHaveCount(0);
   await expect(page.locator("#work")).not.toContainText("Archbridge");
   await expect(page.locator("#experience")).toContainText(
     "ARCHBRIDGE CAPITAL PARTNERS",
   );
+});
+
+test("inquiry form shows the 163 draft destination", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("#ai-services")).toContainText("nicktsai1221@163.com");
+  await expect(
+    page.getByRole("button", { name: "Open email draft ↗" }),
+  ).toBeVisible();
 });

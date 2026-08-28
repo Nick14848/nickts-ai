@@ -1,6 +1,5 @@
 const domain = "nicktsai.me";
 const email = "nicktsai1221@gmail.com";
-const inquiryEmail = "nicktsai1221@163.com";
 
 export const site = {
   domain,
@@ -8,12 +7,12 @@ export const site = {
   name: "Nick Tsai",
   nameZh: "蔡逸凯",
   email,
-  inquiryEmail,
+  inquiryEmail: "nicktsai1221@163.com",
   githubUrl: "https://github.com/Nick14848",
   resumePath: "/resume.pdf",
   REDNOTE_URL: "https://xhslink.com/m/8uQvbHfgDI6",
   DOUYIN_URL: "https://www.douyin.com/search/%E5%B0%8F%E8%8F%9CNick",
-  nexusDemoHref: `mailto:${email}?subject=${encodeURIComponent("NEXUS Demo")}`,
+  deepPivotUrl: null as string | null,
   location: "Taiwan · Shenzhen · Hong Kong",
   identity: "AI × FINANCE × SYSTEMS × PRODUCT",
   title: "Nick Tsai — AI × Finance × Builder",

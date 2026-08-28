@@ -43,7 +43,7 @@ export default function OpenGraphImage() {
         </div>
         <div style={{ display: "flex", fontSize: 28, letterSpacing: -0.6 }}>
           <span>{host}</span>
-          <span style={{ color: "#3B6FFF" }}>{tld}</span>
+          <span style={{ color: "#477AFF" }}>{tld}</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
           <div style={{ fontSize: 22, color: "#8B8D93", letterSpacing: 3 }}>

@@ -2,12 +2,18 @@
 
 import Image from "next/image";
 import { lifePhotos } from "@/data/content";
-import { PlaceMark } from "./TextMarks";
+import { AccentTerms } from "./AccentTerms";
 import { useSite } from "./SiteProvider";
 
+const placeTerms = {
+  en: ["Taiwan", "Shenzhen", "Hong Kong"],
+  zh: ["台湾", "深圳", "香港"],
+} as const;
+
 export function Story() {
-  const { t } = useSite();
+  const { t, locale } = useSite();
   const gallery = lifePhotos.filter((photo) => photo.id !== "bike");
+  const terms = placeTerms[locale];
 
   return (
     <section id="story" className="scroll-mt-20 border-t border-line py-20 md:py-28">
@@ -20,9 +26,9 @@ export function Story() {
             {t.story.headline}
           </h2>
           <div className="mt-10 space-y-5 text-[16px] leading-7 text-ink/88">
-            {t.story.paragraphs.map((paragraph) => (
+            {t.story.paragraphs.map((paragraph, index) => (
               <p key={paragraph}>
-                <PlaceMark text={paragraph} />
+                {index < 3 ? <AccentTerms text={paragraph} terms={terms} /> : paragraph}
               </p>
             ))}
           </div>
@@ -47,18 +53,21 @@ export function Story() {
         </aside>
       </div>
 
-      <div className="site-shell mt-16 grid grid-cols-1 gap-x-8 gap-y-12 md:mt-24 md:grid-cols-3">
+      <div
+        data-testid="story-gallery"
+        className="site-shell mt-16 grid grid-cols-1 gap-x-6 gap-y-10 md:mt-24 md:grid-cols-2 lg:grid-cols-3"
+      >
         {gallery.map((photo) => {
           const copy = t.story.photos[photo.id];
           return (
             <figure key={photo.id} className="min-w-0">
-              <div className="relative aspect-[4/5] overflow-hidden border border-line bg-elevated">
+              <div className="relative aspect-[4/3] overflow-hidden border border-line bg-elevated">
                 <Image
                   src={photo.src}
                   alt={copy.title}
                   fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-contain p-2"
                 />
               </div>
               <figcaption className="mt-4">

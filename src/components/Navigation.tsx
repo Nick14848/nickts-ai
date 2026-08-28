@@ -25,8 +25,8 @@ export function Navigation() {
       className={cn(
         "sticky top-0 z-40 border-b backdrop-blur-md transition-colors duration-300",
         scrolled
-          ? "border-accent/45 bg-[#22263a]/94"
-          : "border-line bg-bg/90",
+          ? "border-accent/45 bg-[#22263a]/94 shadow-[0_12px_34px_rgb(0_0_0_/_0.24)]"
+          : "border-line bg-nav/90",
       )}
     >
       <a
@@ -41,7 +41,7 @@ export function Navigation() {
           <span className="sr-only">{site.domain}</span>
         </a>
 
-        <nav className="hidden items-center gap-7 text-[13px] tracking-[0.08em] text-ink/80 md:flex">
+        <nav className="hidden items-center gap-7 text-[13px] tracking-[0.08em] text-ink md:flex">
           {navItems.map((item) => (
             <a
               key={item.id}
@@ -55,7 +55,7 @@ export function Navigation() {
 
         <div className="flex items-center gap-6 md:gap-10">
           <details className="relative md:hidden">
-            <summary className="flex min-h-11 min-w-11 cursor-pointer list-none items-center justify-center text-[13px] tracking-[0.08em] text-muted [&::-webkit-details-marker]:hidden">
+            <summary className="flex min-h-11 min-w-11 cursor-pointer list-none items-center justify-center text-[13px] tracking-[0.08em] text-ink/80 [&::-webkit-details-marker]:hidden">
               {t.nav.menu}
             </summary>
             <div className="absolute right-0 top-full z-50 mt-2 w-44 border border-line bg-elevated p-2">

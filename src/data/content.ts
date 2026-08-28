@@ -1,42 +1,60 @@
 import { sectionIds, type Lens } from "./site";
 
-export const projects = [
+export const projectEntries = [
   {
-    id: "nexus",
+    id: "deep-pivot",
     index: "01",
-    name: "NEXUS",
-    tags: ["AI SYSTEMS", "FINANCE", "ENTERPRISE", "NODE.JS"],
-    visual: "nexus",
-    demo: true,
+    copyKey: "deepPivot",
   },
   {
-    id: "feasibility",
+    id: "ai-services",
     index: "02",
-    name: "FEASIBILITY AGENT",
-    tags: ["LLM AGENTS", "HUMAN-IN-THE-LOOP", "PRIVATE CREDIT", "WORKFLOW"],
-    visual: "feasibility",
-    demo: false,
-  },
-  {
-    id: "private-ai",
-    index: "03",
-    name: "PRIVATE AI INFRASTRUCTURE",
-    tags: ["DGX SPARK", "vLLM", "LOCAL LLM", "INFRASTRUCTURE"],
-    visual: "privateAi",
-    demo: false,
-  },
-  {
-    id: "market-intel",
-    index: "04",
-    name: "MARKET INTELLIGENCE PIPELINE",
-    tags: ["BLOOMBERG", "BLPAPI", "AUTOMATION", "MARKETS"],
-    visual: "market",
-    demo: false,
+    copyKey: "service",
   },
 ] as const;
 
-export type ProjectId = (typeof projects)[number]["id"];
-export type ProjectVisual = (typeof projects)[number]["visual"];
+export type ProjectEntryId = (typeof projectEntries)[number]["id"];
+export type ProjectCopyKey = (typeof projectEntries)[number]["copyKey"];
+
+export const solutionModules = [
+  {
+    id: "investment-workspace",
+    name: "INVESTMENT WORKSPACE",
+    tags: ["AI SYSTEMS", "PRIVATE MARKETS", "WORKFLOW", "NODE.JS"],
+    visual: "workspace",
+  },
+  {
+    id: "feasibility",
+    name: "FEASIBILITY AGENT",
+    tags: ["LLM AGENTS", "HUMAN-IN-THE-LOOP", "PRIVATE CREDIT"],
+    visual: "feasibility",
+  },
+  {
+    id: "private-ai",
+    name: "PRIVATE AI INFRASTRUCTURE",
+    tags: ["DGX SPARK", "vLLM", "LOCAL LLM"],
+    visual: "privateAi",
+  },
+  {
+    id: "market-intel",
+    name: "MARKET INTELLIGENCE PIPELINE",
+    tags: ["BLOOMBERG", "BLPAPI", "AUTOMATION"],
+    visual: "market",
+  },
+] as const;
+
+export type SolutionId = (typeof solutionModules)[number]["id"];
+export type SolutionVisual = (typeof solutionModules)[number]["visual"];
+
+export const inquiryTypes = [
+  "ai-workflows",
+  "internal-tools",
+  "data-automation",
+  "website",
+  "other",
+] as const;
+
+export type InquiryType = (typeof inquiryTypes)[number];
 
 export const experiences = [
   {
@@ -92,37 +110,15 @@ export const paletteActions = [
   { id: "switch-language", kind: "language" },
 ] as const;
 
-export const lensOrder: Lens[] = ["recruiter", "builder", "creator"];
+export const audienceOrder: Lens[] = ["recruiter", "builder", "creator"];
 
-export const lensStarts: Record<Lens, string> = {
-  recruiter: `#${sectionIds.experience}`,
-  builder: `#${sectionIds.work}`,
-  creator: `#${sectionIds.community}`,
+export const audienceRoutes: Record<Lens, { href: string }> = {
+  recruiter: { href: `#${sectionIds.experience}` },
+  builder: { href: `#${sectionIds.work}` },
+  creator: { href: `#${sectionIds.community}` },
 };
 
-export const workChapters = [
-  {
-    id: "deep-pivot",
-    index: "01",
-    demoIds: ["nexus", "feasibility", "private-ai", "market-intel"],
-  },
-  {
-    id: "custom-ai",
-    index: "02",
-    demoIds: [],
-  },
-] as const;
-
-export type WorkChapterId = (typeof workChapters)[number]["id"];
-
-export const inquiryTypes = [
-  "consulting",
-  "deep-pivot",
-  "website",
-  "other",
-] as const;
-
-export type InquiryType = (typeof inquiryTypes)[number];
+export const lensOrder = audienceOrder;
 
 export const buildTrail = ["Cursor", "GitHub", "Vercel"] as const;
 
