@@ -43,6 +43,12 @@ export function Story() {
             <p className="mt-2 text-[14px] text-ink">{t.story.rail.cfaStatus}</p>
           </div>
           <div>
+            <p className="meta">{t.story.rail.principle}</p>
+            <p className="mt-2 text-[14px] leading-6 text-ink">
+              {t.story.rail.principleLine}
+            </p>
+          </div>
+          <div>
             <p className="meta">{t.story.rail.languages}</p>
             <ul className="mt-2 space-y-1 text-[14px] text-ink">
               {t.story.rail.languageList.map((language) => (

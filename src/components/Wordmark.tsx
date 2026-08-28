@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { splitDomain } from "@/data/site";
+import { markDomainAccent } from "@/data/site";
 
 export function Wordmark({
   className,
@@ -8,7 +8,7 @@ export function Wordmark({
   className?: string;
   size?: "sm" | "lg";
 }) {
-  const { host, tld } = splitDomain();
+  const { before, accent, after } = markDomainAccent();
 
   return (
     <span
@@ -18,8 +18,9 @@ export function Wordmark({
         className,
       )}
     >
-      <span className="text-ink">{host}</span>
-      {tld ? <span className="text-accent">{tld}</span> : null}
+      <span className="text-ink">{before}</span>
+      {accent ? <span className="text-accent">{accent}</span> : null}
+      {after ? <span className="text-ink">{after}</span> : null}
     </span>
   );
 }

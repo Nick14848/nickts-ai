@@ -1,7 +1,12 @@
 "use client";
 
 import { useState, type ChangeEvent, type FormEvent } from "react";
-import { inquiryTypes, type InquiryType } from "@/data/content";
+import {
+  inquiryRoles,
+  inquiryTypes,
+  type InquiryRole,
+  type InquiryType,
+} from "@/data/content";
 import { site } from "@/data/site";
 import { buildInquiryMailto, MAX_MAILTO_URI_LENGTH } from "@/lib/inquiry";
 import { useSite } from "./SiteProvider";
@@ -19,7 +24,8 @@ export function InquiryForm({ openDraft = openDraftInEmailApp }: InquiryFormProp
   const inquiry = t.work.service.inquiry;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [type, setType] = useState<InquiryType>("ai-workflows");
+  const [role, setRole] = useState<InquiryRole>("individual");
+  const [type, setType] = useState<InquiryType>("deep-pivot");
   const [message, setMessage] = useState("");
   const [draftTooLong, setDraftTooLong] = useState(false);
 
@@ -30,6 +36,11 @@ export function InquiryForm({ openDraft = openDraftInEmailApp }: InquiryFormProp
 
   function handleEmailChange(event: ChangeEvent<HTMLInputElement>) {
     setEmail(event.target.value);
+    setDraftTooLong(false);
+  }
+
+  function handleRoleChange(event: ChangeEvent<HTMLSelectElement>) {
+    setRole(event.target.value as InquiryRole);
     setDraftTooLong(false);
   }
 
@@ -49,6 +60,7 @@ export function InquiryForm({ openDraft = openDraftInEmailApp }: InquiryFormProp
       recipient: site.inquiryEmail,
       name,
       email,
+      role: inquiry.roles[role],
       type: inquiry.types[type],
       message,
     });
@@ -97,6 +109,26 @@ export function InquiryForm({ openDraft = openDraftInEmailApp }: InquiryFormProp
           type="email"
           value={email}
         />
+      </div>
+
+      <div>
+        <label className="block text-[13px] text-muted" htmlFor="inquiry-role">
+          {inquiry.role}
+        </label>
+        <select
+          className={fieldClassName}
+          id="inquiry-role"
+          name="role"
+          onChange={handleRoleChange}
+          required
+          value={role}
+        >
+          {inquiryRoles.map((inquiryRole) => (
+            <option key={inquiryRole} value={inquiryRole}>
+              {inquiry.roles[inquiryRole]}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div>

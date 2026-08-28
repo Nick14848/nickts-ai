@@ -14,6 +14,14 @@ for (const width of widths) {
   });
 }
 
+test("navigation stays pinned to the top while scrolling", async ({ page }) => {
+  await page.goto("/");
+  const nav = page.getByRole("banner");
+  await expect(nav).toBeVisible();
+  await page.evaluate(() => window.scrollTo(0, 1200));
+  await expect.poll(async () => nav.evaluate((el) => el.getBoundingClientRect().top)).toBe(0);
+});
+
 test("language toggle switches visible copy", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
@@ -31,14 +39,13 @@ test("language toggle switches visible copy", async ({ page }) => {
 
 test("audience cards navigate directly", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("link", { name: "View projects →" }).click();
+  await page.getByRole("link", { name: "Projects →" }).click();
   await expect(page.locator("#work")).toBeInViewport();
-  await page.getByRole("link", { name: "View experience →" }).click();
+  await page.getByRole("link", { name: "Experience →" }).click();
   await expect(page.locator("#experience")).toBeInViewport();
-  await expect(page.getByRole("link", { name: "View CV ↗" })).toHaveAttribute(
-    "href",
-    "/resume.pdf",
-  );
+  await expect(
+    page.getByTestId("audience-card").getByRole("link", { name: "CV ↗" }),
+  ).toHaveAttribute("href", "/resume.pdf");
 });
 
 test("external links open safely", async ({ page }) => {
@@ -69,7 +76,7 @@ test("reduced motion keeps the page usable", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-  await expect(page.getByRole("link", { name: "View content →" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Content →" })).toBeVisible();
 });
 
 test("work cards do not name the employer", async ({ page }) => {
@@ -88,7 +95,25 @@ test("work cards do not name the employer", async ({ page }) => {
 test("inquiry form shows the 163 draft destination", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("#ai-services")).toContainText("nicktsai1221@163.com");
+  await expect(page.getByLabel("Are you an individual or a company?")).toBeVisible();
+  await expect(page.locator("#inquiry-type")).toContainText(
+    "DEEP PIVOT investment AI platform",
+  );
   await expect(
     page.getByRole("button", { name: "Open email draft ↗" }),
   ).toBeVisible();
+});
+
+test("mobile menu aligns with the header content", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 800 });
+  await page.goto("/");
+  await page.getByRole("button", { name: "Menu" }).click();
+  const about = page.locator("#mobile-nav").getByRole("link", { name: "About", exact: true });
+  await expect(about).toBeVisible();
+  const wordmark = page.locator("header .site-shell a").first();
+  const aboutBox = await about.boundingBox();
+  const markBox = await wordmark.boundingBox();
+  expect(aboutBox).toBeTruthy();
+  expect(markBox).toBeTruthy();
+  expect(Math.abs((aboutBox?.x ?? 0) - (markBox?.x ?? 0))).toBeLessThan(8);
 });

@@ -10,6 +10,7 @@ import { useSite } from "./SiteProvider";
 export function Navigation() {
   const { t, locale, toggleLocale } = useSite();
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     function onScroll() {
@@ -18,6 +19,16 @@ export function Navigation() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    function onResize() {
+      if (window.matchMedia("(min-width: 768px)").matches) {
+        setMenuOpen(false);
+      }
+    }
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
 
   return (
@@ -53,24 +64,7 @@ export function Navigation() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-6 md:gap-10">
-          <details className="relative md:hidden">
-            <summary className="flex min-h-11 min-w-11 cursor-pointer list-none items-center justify-center text-[13px] tracking-[0.08em] text-ink/80 [&::-webkit-details-marker]:hidden">
-              {t.nav.menu}
-            </summary>
-            <div className="absolute right-0 top-full z-50 mt-2 w-44 border border-line bg-elevated p-2">
-              {navItems.map((item) => (
-                <a
-                  key={item.id}
-                  href={item.href}
-                  className="block min-h-11 px-3 py-3 text-[13px] tracking-[0.08em] text-ink"
-                >
-                  {t.nav[item.id]}
-                </a>
-              ))}
-            </div>
-          </details>
-
+        <div className="flex items-center gap-5 md:gap-10">
           <button
             type="button"
             onClick={toggleLocale}
@@ -90,8 +84,35 @@ export function Navigation() {
           >
             {t.nav.resume}
           </a>
+
+          <button
+            type="button"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav"
+            className="flex min-h-11 items-center text-[13px] tracking-[0.08em] text-ink md:hidden"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? t.nav.closeMenu : t.nav.menu}
+          </button>
         </div>
       </div>
+
+      {menuOpen ? (
+        <div id="mobile-nav" className="border-t border-line md:hidden">
+          <nav className="site-shell flex flex-col py-2">
+            {navItems.map((item) => (
+              <a
+                key={item.id}
+                href={item.href}
+                className="flex min-h-11 items-center text-[14px] tracking-[0.06em] text-ink"
+                onClick={() => setMenuOpen(false)}
+              >
+                {t.nav[item.id]}
+              </a>
+            ))}
+          </nav>
+        </div>
+      ) : null}
     </header>
   );
 }

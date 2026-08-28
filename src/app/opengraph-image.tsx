@@ -1,12 +1,12 @@
 import { ImageResponse } from "next/og";
-import { site, splitDomain } from "@/data/site";
+import { site, markDomainAccent } from "@/data/site";
 
 export const alt = site.ogAlt;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default function OpenGraphImage() {
-  const { host, tld } = splitDomain();
+  const { before, accent, after } = markDomainAccent();
 
   return new ImageResponse(
     (
@@ -42,8 +42,9 @@ export default function OpenGraphImage() {
           ))}
         </div>
         <div style={{ display: "flex", fontSize: 28, letterSpacing: -0.6 }}>
-          <span>{host}</span>
-          <span style={{ color: "#477AFF" }}>{tld}</span>
+          <span>{before}</span>
+          <span style={{ color: "#477AFF" }}>{accent}</span>
+          <span>{after}</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
           <div style={{ fontSize: 22, color: "#8B8D93", letterSpacing: 3 }}>

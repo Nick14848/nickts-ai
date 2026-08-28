@@ -4,6 +4,7 @@ export type InquiryDraft = {
   recipient: string;
   name: string;
   email: string;
+  role: string;
   type: string;
   message: string;
 };
@@ -19,6 +20,7 @@ export function buildInquiryMailto(input: InquiryDraft): string {
   const singleLineFields = [
     ["name", input.name],
     ["email", input.email],
+    ["role", input.role],
     ["type", input.type],
   ] as const;
   for (const [field, value] of singleLineFields) {
@@ -32,6 +34,7 @@ export function buildInquiryMailto(input: InquiryDraft): string {
   const body = [
     `Name: ${input.name}`,
     `Email: ${input.email}`,
+    `Role: ${input.role}`,
     `Type: ${input.type}`,
     "",
     normalizedMessage,

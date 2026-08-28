@@ -13,12 +13,13 @@ function renderHero() {
 
 describe("Hero", () => {
   it("renders the institutional hero contract accessibly", () => {
-    const { container } = renderHero();
+    renderHero();
 
     expect(
       screen.getByRole("heading", { level: 1, name: "Personal homepage" }),
     ).toBeInTheDocument();
     expect(screen.getByText("蔡逸凯")).toBeInTheDocument();
+    expect(screen.getByText("Hi guys, welcome to")).toBeInTheDocument();
 
     const wordmark = screen.getByRole("img", { name: "NICK TSAI" });
     expect(wordmark).toHaveTextContent("NICK TSAI");
@@ -33,10 +34,5 @@ describe("Hero", () => {
     for (const place of ["Taiwan", "Shenzhen", "Hong Kong"]) {
       expect(screen.getByRole("button", { name: place })).toBeInTheDocument();
     }
-
-    expect(container.querySelector(".hero-signal")).toHaveAttribute(
-      "aria-hidden",
-      "true",
-    );
   });
 });

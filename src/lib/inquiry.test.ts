@@ -7,6 +7,7 @@ describe("buildInquiryMailto", () => {
       recipient: "nicktsai1221@163.com",
       name: "Ada Lovelace",
       email: "ada@example.com",
+      role: "Individual",
       type: "AI workflows",
       message: "Please help us review an internal research workflow.",
     });
@@ -22,6 +23,7 @@ describe("buildInquiryMailto", () => {
       [
         "Name: Ada Lovelace",
         "Email: ada@example.com",
+        "Role: Individual",
         "Type: AI workflows",
         "",
         "Please help us review an internal research workflow.",
@@ -36,6 +38,7 @@ describe("buildInquiryMailto", () => {
       recipient: "nicktsai1221@163.com",
       name: "Ada & Co?",
       email: "ada+tag@example.com&body=changed",
+      role: "Individual",
       type: "AI workflows?subject=changed",
       message: "First line\nSecond line\rThird line\r\nFourth &body=changed#fragment",
     };
@@ -43,6 +46,7 @@ describe("buildInquiryMailto", () => {
     const body = [
       `Name: ${input.name}`,
       `Email: ${input.email}`,
+      `Role: ${input.role}`,
       `Type: ${input.type}`,
       "",
       "First line\r\nSecond line\r\nThird line\r\nFourth &body=changed#fragment",
@@ -65,6 +69,8 @@ describe("buildInquiryMailto", () => {
     { field: "name", value: "Ada\rInjected" },
     { field: "email", value: "ada@example.com\nBcc: other@example.com" },
     { field: "email", value: "ada@example.com\rBcc: other@example.com" },
+    { field: "role", value: "Individual\nInjected" },
+    { field: "role", value: "Individual\rInjected" },
     { field: "type", value: "AI workflows\nBcc: other@example.com" },
     { field: "type", value: "AI workflows\rBcc: other@example.com" },
   ] as const)("rejects line breaks in $field", ({ field, value }) => {
@@ -72,6 +78,7 @@ describe("buildInquiryMailto", () => {
       recipient: "nicktsai1221@163.com",
       name: "Ada",
       email: "ada@example.com",
+      role: "Individual",
       type: "AI workflows",
       message: "Hello",
     };
@@ -106,6 +113,7 @@ describe("buildInquiryMailto", () => {
         recipient,
         name: "Ada",
         email: "ada@example.com",
+        role: "Individual",
         type: "AI workflows",
         message: "Hello",
       }),
@@ -117,6 +125,7 @@ describe("buildInquiryMailto", () => {
       recipient: "nick+inquiry@example.com",
       name: "Ada",
       email: "ada@example.com",
+      role: "Individual",
       type: "AI workflows",
       message: "Hello",
     });

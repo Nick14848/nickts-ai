@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import { site } from "@/data/site";
 import { cn } from "@/lib/utils";
-import { HeroSignal } from "./HeroSignal";
 import { useSite } from "./SiteProvider";
 
 function renderCredential(credential: string) {
@@ -27,9 +26,8 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden pb-16 pt-5 md:pb-24 md:pt-8"
+      className="relative pb-16 pt-5 md:pb-24 md:pt-8"
     >
-      <HeroSignal />
       <div className="site-shell site-grid relative z-10 items-start md:items-stretch">
         <div className="col-span-12 flex min-w-0 flex-col justify-between md:col-span-7">
           <div>

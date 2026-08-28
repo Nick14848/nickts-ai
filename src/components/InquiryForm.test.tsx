@@ -21,6 +21,7 @@ describe("InquiryForm", () => {
 
     expect(screen.getByLabelText("Name")).toBeRequired();
     expect(screen.getByLabelText("Contact email")).toBeRequired();
+    expect(screen.getByLabelText("Are you an individual or a company?")).toBeRequired();
     expect(screen.getByLabelText("What do you need?")).toBeRequired();
     expect(screen.getByLabelText("Context")).toBeRequired();
     expect(
@@ -33,12 +34,20 @@ describe("InquiryForm", () => {
         .getAllByRole("option")
         .map((option) => option.textContent),
     ).toEqual([
-      "AI workflows",
-      "Internal tools",
-      "Data and automation",
-      "Website building",
-      "Other",
+      "DEEP PIVOT investment AI platform",
+      "Custom AI solutions",
+      "Personal website (like this one)",
+      "Other inquiries (including study abroad)",
     ]);
+
+    const roleSelect = screen.getByRole("combobox", {
+      name: "Are you an individual or a company?",
+    });
+    expect(
+      within(roleSelect)
+        .getAllByRole("option")
+        .map((option) => option.textContent),
+    ).toEqual(["Individual", "Company"]);
 
     expect(
       screen.getByText(
@@ -57,8 +66,12 @@ describe("InquiryForm", () => {
     await user.type(screen.getByLabelText("Name"), "Ada Lovelace");
     await user.type(screen.getByLabelText("Contact email"), "ada+ops@example.com");
     await user.selectOptions(
+      screen.getByLabelText("Are you an individual or a company?"),
+      "company",
+    );
+    await user.selectOptions(
       screen.getByLabelText("What do you need?"),
-      "data-automation",
+      "website",
     );
     await user.type(
       screen.getByLabelText("Context"),
@@ -72,12 +85,13 @@ describe("InquiryForm", () => {
     const params = new URLSearchParams(query);
 
     expect(recipient).toBe("nicktsai1221@163.com");
-    expect(params.get("subject")).toBe("AI Inquiry — Data and automation");
+    expect(params.get("subject")).toBe("AI Inquiry — Personal website (like this one)");
     expect(params.get("body")).toBe(
       [
         "Name: Ada Lovelace",
         "Email: ada+ops@example.com",
-        "Type: Data and automation",
+        "Role: Company",
+        "Type: Personal website (like this one)",
         "",
         "Automate investor updates & weekly reporting.",
       ].join("\r\n"),
@@ -92,6 +106,7 @@ describe("InquiryForm", () => {
       recipient: "nicktsai1221@163.com",
       name: "Ada Lovelace",
       email: "ada@example.com",
+      role: "Individual",
       type: "AI workflows",
       message,
     });

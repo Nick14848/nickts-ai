@@ -1,4 +1,4 @@
-import type { ExperienceId, InquiryType, LifePhotoId, SolutionId } from "./content";
+import type { ExperienceId, InquiryRole, InquiryType, LifePhotoId, SolutionId } from "./content";
 import type { Lens, Locale } from "./site";
 
 export type AudienceCardCopy = {
@@ -16,11 +16,13 @@ export type InquiryCopy = {
   heading: string;
   name: string;
   email: string;
+  role: string;
   type: string;
   message: string;
   submit: string;
   note: string;
   tooLong: string;
+  roles: Record<InquiryRole, string>;
   types: Record<InquiryType, string>;
 };
 
@@ -100,6 +102,8 @@ export type Dictionary = {
       degree: string;
       cfa: string;
       cfaStatus: string;
+      principle: string;
+      principleLine: string;
       languages: string;
       languageList: string[];
     };
@@ -169,7 +173,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "ex-HSBC CIB",
         "小菜Nick",
       ],
-      corridorHint: "Hi, I’m",
+      corridorHint: "Hi guys, welcome to",
       explore: "About ↓",
       resume: "CV ↗",
       github: "GitHub ↗",
@@ -190,24 +194,23 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     audience: {
       label: "A different view",
-      hint: "Choose your role and see only what matters to you.",
+      hint: "Pick a path. Skip the rest.",
       cards: {
         recruiter: {
           title: "Recruiter",
-          description:
-            "See my previous internships and work experience, or go straight to my CV.",
-          action: "View experience →",
-          secondaryAction: "View CV ↗",
+          description: "Internships, work history, CV.",
+          action: "Experience →",
+          secondaryAction: "CV ↗",
         },
         builder: {
           title: "AI Venture",
-          description: "See the cool AI products I build, from B2B to B2C.",
-          action: "View projects →",
+          description: "AI products, B2B and B2C.",
+          action: "Projects →",
         },
         creator: {
           title: "Media",
-          description: "See my content, community, and 小菜Nick off-camera.",
-          action: "View content →",
+          description: "小菜Nick — content off-camera.",
+          action: "Content →",
         },
       },
     },
@@ -260,18 +263,22 @@ export const dictionaries: Record<Locale, Dictionary> = {
           heading: "Tell me what you want to improve",
           name: "Name",
           email: "Contact email",
+          role: "Are you an individual or a company?",
           type: "What do you need?",
           message: "Context",
           submit: "Open email draft ↗",
           note: "This opens a prepared draft in your email app. You decide when to send it.",
           tooLong:
             "This draft is too long for a reliable email link. Shorten the context or email me directly.",
+          roles: {
+            individual: "Individual",
+            company: "Company",
+          },
           types: {
-            "ai-workflows": "AI workflows",
-            "internal-tools": "Internal tools",
-            "data-automation": "Data and automation",
-            website: "Website building",
-            other: "Other",
+            "deep-pivot": "DEEP PIVOT investment AI platform",
+            "custom-ai": "Custom AI solutions",
+            website: "Personal website (like this one)",
+            other: "Other inquiries (including study abroad)",
           },
         },
       },
@@ -309,29 +316,31 @@ export const dictionaries: Record<Locale, Dictionary> = {
       label: "01 / About",
       headline: "About me",
       paragraphs: [
-        "Born in Taiwan, raised in Shenzhen, studying and working in Hong Kong.",
-        "Years across Taiwan, Shenzhen and Hong Kong gave me a fairly unusual perspective.",
-        "I mostly live in Nanshan, Shenzhen, work in Hong Kong, and go back to Taiwan for breaks.",
-        "Yes, the chubby kid in the photos is me. I lost weight because I felt too heavy and wanted to be healthier — and why not?",
-        "I think fitness, investing in financial markets, work, and entrepreneurship are fundamentally the same game: discipline, patience, resilience, compounding, and systems.",
-        "I study Data Science at HKU (graduating at the end of 2026), previously worked in analytics at HSBC CIB, and now build private AI systems inside a Hong Kong asset manager.",
-        "Outside work, I create content on RedNote and Douyin as 小菜Nick — recording life, making people smile, sharing study-abroad and career experiences, exploring cultural differences across the Taiwan Strait, and publishing practical AI notes.",
-        "I enjoy studying investing and asset allocation, cycling, basketball, and training. I also like building useful things — for example, helping companies and friends solve problems with AI and create real value.",
+        "Born in Taiwan, raised in Shenzhen, now studying and working in Hong Kong.",
+        "Years living between Taiwan, Shenzhen and Hong Kong have made me used to seeing things through different cities, cultures and environments.",
+        "I mostly live in Nanshan, Shenzhen, work in Hong Kong, and go back to Taiwan from time to time.",
+        "Haha — the chubby kid in the photos is me. I later started cutting fat and training seriously, just because I felt I should be healthier. And why not?",
+        "I've come to think fitness, investing, work, even building a company, are essentially the same game: discipline, the long term, resilience, compounding, and building systems.",
+        "I study Data Science at HKU, graduating at the end of 2026. I previously did analytics at HSBC CIB. Now I do AI Transformation at a Hong Kong asset manager — building private AI systems and working inside real investment workflows.",
+        "Outside work I make content on RedNote and Douyin as 小菜Nick — mostly study abroad, job hunting, AI, life in Hong Kong, and things I'm learning and trying.",
+        "I like investing and asset allocation, and I like cycling, basketball, and training. More than talking about ideas, I like actually making things — using AI to solve problems for companies and friends, and building products people will use and that create real value.",
       ],
       photos: {
         bike: { title: "Cycling", caption: "" },
         "used-to-be-fat": { title: "I used to be really fat", caption: "" },
         "really-fat": { title: "Not going back", caption: "" },
         "wall-street": {
-          title: "time in the market > timing the market",
-          caption: "",
+          title: "Investment principle",
+          caption: "time in the market > timing the market",
         },
       },
       rail: {
         school: "HKU",
         degree: "BEng Data Science & Engineering",
         cfa: "CFA",
-        cfaStatus: "Level I passed",
+        cfaStatus: "Level I Passed",
+        principle: "Investment principle",
+        principleLine: "time in the market > timing the market",
         languages: "Languages",
         languageList: ["Mandarin", "English", "Cantonese"],
       },
@@ -395,7 +404,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       thesis: "投资自己 · 构建系统 · 长期主义",
       line3: "Stay Childish.",
       credentials: ["港大 数据科学", "香港 AI + Finance", "ex-HSBC CIB", "小菜Nick"],
-      corridorHint: "Hi 大家好我是",
+      corridorHint: "Hi guys 欢迎来到",
       explore: "关于我 ↓",
       resume: "简历 ↗",
       github: "GitHub ↗",
@@ -416,23 +425,23 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     audience: {
       label: "换个角度看",
-      hint: "选择你的角色，只看你感兴趣的部分",
+      hint: "选一条路，直达你想看的部分。",
       cards: {
         recruiter: {
           title: "招聘",
-          description: "查看我的过往实习工作经历，或者直接看简历",
-          action: "查看过往经历 →",
+          description: "实习、经历、简历。",
+          action: "过往经历 →",
           secondaryAction: "看简历 ↗",
         },
         builder: {
           title: "AI创业",
-          description: "查看我做的一些 cool AI 产品项目，to B or to C",
-          action: "查看项目 →",
+          description: "我在做的 AI 产品。",
+          action: "看项目 →",
         },
         creator: {
           title: "自媒体",
-          description: "查看我做的自媒体内容，以及镜头外面的那个小菜Nick~",
-          action: "查看内容 →",
+          description: "镜头外的小菜Nick。",
+          action: "看内容 →",
         },
       },
     },
@@ -477,17 +486,21 @@ export const dictionaries: Record<Locale, Dictionary> = {
           heading: "告诉我你想改善什么",
           name: "姓名",
           email: "联系邮箱",
+          role: "你是个人还是公司企业？",
           type: "你需要什么？",
           message: "补充背景",
           submit: "在邮箱中打开草稿 ↗",
           note: "会在你的邮箱应用里打开已填写的草稿，由你确认发送。",
           tooLong: "内容较长，无法可靠地打开邮件草稿。请精简背景，或直接发邮件联系我。",
+          roles: {
+            individual: "个人",
+            company: "公司企业",
+          },
           types: {
-            "ai-workflows": "AI 工作流",
-            "internal-tools": "内部工具",
-            "data-automation": "数据与自动化",
-            website: "网站搭建",
-            other: "其他",
+            "deep-pivot": "DEEP PIVOT 投资 AI 工具平台",
+            "custom-ai": "AI定制化服务",
+            website: "个人网站搭建 (比如这个网站)",
+            other: "其他咨询（包括留学）",
           },
         },
       },
@@ -525,29 +538,31 @@ export const dictionaries: Record<Locale, Dictionary> = {
       label: "01 / 关于我",
       headline: "关于我",
       paragraphs: [
-        "生于台湾，深圳长大，在香港读书和工作。",
-        "多年在两岸三地生活，给了我比较独特的视野。",
-        "现在主要住在深圳南山，香港工作，偶尔回台湾度假。",
-        "哈哈照片里那个小胖子是我，减肥只是因为觉得以前太胖了，想健康一点，and why not?",
-        "我觉得减肥健身、投资金融市场、工作、创业本质其实是同一件事：自律、长期、韧性、复利、系统。",
-        "我在港大读 Data Science（即将 2026 年底毕业），在 HSBC CIB 做过分析，现在在香港资管机构里搭私有 AI 系统。",
-        "工作之外我在小红书和抖音做自媒体，小菜Nick，主要是记录生活，给其他人带来快乐，分享留学求职日常，记录两岸文化差异，AI学习干货等等。",
-        "我喜欢研究投资、资产配置，还喜欢骑车、打篮球、健身，也喜欢上手做一些有价值、有意义的东西。比如帮企业/朋友用AI解决问题，创造价值！",
+        "生于台湾，深圳长大，现在在香港读书和工作。",
+        "多年在台湾、深圳和香港之间生活，也让我习惯从不同城市、文化和环境里看事情。",
+        "现在主要生活在深圳南山，在香港工作，偶尔回台湾。",
+        "哈哈，照片里那个小胖子是我。后来开始认真减脂、训练，只是因为觉得自己应该更健康一点。And why not?",
+        "我越来越觉得，健身、投资、工作甚至创业，本质上其实很像：自律、长期、韧性、复利，以及建立系统。",
+        "我在港大读 Data Science，预计 2026 年底毕业。之前在 HSBC CIB 做数据分析，现在在香港一家资产管理机构里做 AI Transformation，搭建私有 AI 系统，也参与真实的投资工作流。",
+        "工作之外，我在小红书和抖音做内容，叫 小菜Nick。主要记录留学、求职、AI、香港生活，以及一些我正在学习和尝试的东西。",
+        "我喜欢投资和资产配置，也喜欢骑车、篮球、健身。比起单纯讨论想法，我更喜欢真正把东西做出来——用 AI 帮企业和朋友解决问题，做一些真正有人会用、有价值的产品。",
       ],
       photos: {
         bike: { title: "骑车", caption: "" },
         "used-to-be-fat": { title: "以前真的好胖", caption: "" },
         "really-fat": { title: "现在胖不回去了", caption: "" },
         "wall-street": {
-          title: "time in the market > timing the market",
-          caption: "",
+          title: "投资原则",
+          caption: "time in the market > timing the market",
         },
       },
       rail: {
         school: "HKU",
         degree: "数据科学与工程学士（BEng）",
         cfa: "CFA",
-        cfaStatus: "已通过 Level I",
+        cfaStatus: "Level I Passed",
+        principle: "投资原则",
+        principleLine: "time in the market > timing the market",
         languages: "语言",
         languageList: ["普通话", "英语", "粤语"],
       },

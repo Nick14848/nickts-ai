@@ -38,7 +38,7 @@ describe("Story", () => {
       locale: "zh" as const,
       expectedAccents: [
         ["台湾", "深圳", "香港"],
-        [],
+        ["台湾", "深圳", "香港"],
         ["深圳", "香港", "台湾"],
       ],
     },

@@ -34,6 +34,22 @@ export function splitDomain(value: string = site.domain): {
   return { host: value.slice(0, dot), tld: value.slice(dot) };
 }
 
+export function markDomainAccent(value: string = site.domain): {
+  before: string;
+  accent: string;
+  after: string;
+} {
+  const index = value.toLowerCase().lastIndexOf("ai");
+  if (index < 0) {
+    return { before: value, accent: "", after: "" };
+  }
+  return {
+    before: value.slice(0, index),
+    accent: value.slice(index, index + 2),
+    after: value.slice(index + 2),
+  };
+}
+
 export const STORAGE_KEYS = {
   locale: "nickts.ai:locale",
   lens: "nickts.ai:lens",

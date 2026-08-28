@@ -46,10 +46,13 @@ export const solutionModules = [
 export type SolutionId = (typeof solutionModules)[number]["id"];
 export type SolutionVisual = (typeof solutionModules)[number]["visual"];
 
+export const inquiryRoles = ["individual", "company"] as const;
+
+export type InquiryRole = (typeof inquiryRoles)[number];
+
 export const inquiryTypes = [
-  "ai-workflows",
-  "internal-tools",
-  "data-automation",
+  "deep-pivot",
+  "custom-ai",
   "website",
   "other",
 ] as const;

@@ -20,15 +20,15 @@ describe("AudiencePaths", () => {
     expect(screen.getByRole("heading", { name: "Recruiter" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "AI Venture" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Media" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "View experience →" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Experience →" })).toHaveAttribute(
       "href",
       "#experience",
     );
-    expect(screen.getByRole("link", { name: "View projects →" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Projects →" })).toHaveAttribute(
       "href",
       "#work",
     );
-    expect(screen.getByRole("link", { name: "View content →" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Content →" })).toHaveAttribute(
       "href",
       "#community",
     );
@@ -37,7 +37,7 @@ describe("AudiencePaths", () => {
   it("opens the CV path safely in a new tab", () => {
     renderAudiencePaths();
 
-    const cvLink = screen.getByRole("link", { name: "View CV ↗" });
+    const cvLink = screen.getByRole("link", { name: "CV ↗" });
     expect(cvLink).toHaveAttribute("href", site.resumePath);
     expect(cvLink).toHaveAttribute("target", "_blank");
     const relTokens = cvLink.getAttribute("rel")?.split(/\s+/);
