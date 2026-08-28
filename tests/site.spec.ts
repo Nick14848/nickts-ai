@@ -17,16 +17,16 @@ for (const width of widths) {
 test("language toggle switches visible copy", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "Long-termism",
+    "A personal homepage",
   );
   await page.getByRole("button", { name: "Switch language" }).click();
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "长期主义",
+    "的个人主页",
   );
   await expect(page.getByRole("navigation").getByText("关于我")).toBeVisible();
   await expect(page.getByRole("navigation").getByText("我的项目")).toBeVisible();
-  await expect(page.getByText("香港 AI + Finance")).toBeVisible();
-  await expect(page.getByRole("tab", { name: "自媒体 (我的粉丝？)" })).toBeVisible();
+  await expect(page.getByText("港大 数据科学 · 香港")).toBeVisible();
+  await expect(page.getByRole("tab", { name: "自媒体" })).toBeVisible();
 });
 
 test("lens selector updates snapshot metadata", async ({ page }) => {
@@ -34,7 +34,7 @@ test("lens selector updates snapshot metadata", async ({ page }) => {
   await expect(page.getByTestId("lens-snapshot-item").first()).toBeVisible();
   await page.getByRole("tab", { name: "AI / Startup" }).click();
   await expect(
-    page.getByTestId("lens-snapshot-item").filter({ hasText: "vLLM" }),
+    page.getByTestId("lens-snapshot-item").filter({ hasText: "See projects" }),
   ).toBeVisible();
 });
 
@@ -66,9 +66,9 @@ test("reduced motion keeps the page usable", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-  await page.getByRole("tab", { name: "Media (my people?)" }).click();
+  await page.getByRole("tab", { name: "Media" }).click();
   await expect(
-    page.getByTestId("lens-snapshot-item").filter({ hasText: "7K+ community" }),
+    page.getByTestId("lens-snapshot-item").filter({ hasText: "See the work" }),
   ).toBeVisible();
 });
 

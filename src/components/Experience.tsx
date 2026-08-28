@@ -22,7 +22,7 @@ export function Experience() {
                   <p className="meta mt-4">{copy.location}</p>
                 </div>
                 <div className="col-span-12 mt-6 min-w-0 md:col-span-9 md:mt-0">
-                  <h3 className="break-words text-[22px] font-medium tracking-[-0.02em] md:text-[28px]">
+                  <h3 className="break-words text-[22px] font-medium tracking-[-0.02em] text-ink md:text-[28px]">
                     {item.organization}
                   </h3>
                   <p className="mt-3 whitespace-pre-line text-[15px] leading-6 text-muted">

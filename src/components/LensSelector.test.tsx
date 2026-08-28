@@ -21,7 +21,7 @@ describe("LensSelector", () => {
       "aria-selected",
       "true",
     );
-    expect(screen.getByText("Financial workflows")).toBeInTheDocument();
+    expect(screen.getByText("open the CV")).toBeInTheDocument();
 
     await user.click(screen.getByRole("tab", { name: "AI / Startup" }));
 
@@ -29,19 +29,22 @@ describe("LensSelector", () => {
       "aria-selected",
       "true",
     );
-    expect(screen.getByText("DGX Spark")).toBeInTheDocument();
-    expect(screen.queryByText("Financial workflows")).not.toBeInTheDocument();
+    expect(screen.getByText(/cool AI products/i)).toBeInTheDocument();
+    expect(screen.getByRole("tab", { name: "Recruiter" })).toHaveAttribute(
+      "aria-selected",
+      "false",
+    );
   });
 
   it("persists the selected lens", async () => {
     const user = userEvent.setup();
     const { unmount } = renderLens();
-    await user.click(screen.getByRole("tab", { name: "Media (my people?)" }));
+    await user.click(screen.getByRole("tab", { name: "Media" }));
     expect(window.localStorage.getItem("nickts.ai:lens")).toBe("creator");
     unmount();
     renderLens();
     await waitFor(() => {
-      expect(screen.getByRole("tab", { name: "Media (my people?)" })).toHaveAttribute(
+      expect(screen.getByRole("tab", { name: "Media" })).toHaveAttribute(
         "aria-selected",
         "true",
       );

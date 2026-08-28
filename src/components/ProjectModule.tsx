@@ -19,15 +19,20 @@ const visuals = {
 
 export function ProjectModule({
   project,
+  compact = false,
 }: {
   project: (typeof projects)[number];
+  compact?: boolean;
 }) {
   const { t } = useSite();
   const Visual = visuals[project.visual];
   const copy = t.work.projects[project.id];
 
   return (
-    <article id={`project-${project.id}`} className="border-t border-line py-14 md:py-20">
+    <article
+      id={`project-${project.id}`}
+      className={compact ? "border-t border-line py-10 md:py-14" : "border-t border-line py-14 md:py-20"}
+    >
       <div className="site-shell site-grid">
         <div className="col-span-12 md:col-span-3">
           <p className="font-mono text-[42px] leading-none tracking-tight text-ink/20 md:text-[64px]">
@@ -35,7 +40,13 @@ export function ProjectModule({
           </p>
         </div>
         <div className="col-span-12 mt-6 min-w-0 md:col-span-9 md:mt-0">
-          <h3 className="break-words text-[26px] font-medium tracking-[-0.03em] md:text-[40px]">
+          <h3
+            className={
+              compact
+                ? "break-words text-[22px] font-medium tracking-[-0.03em] md:text-[28px]"
+                : "break-words text-[26px] font-medium tracking-[-0.03em] md:text-[40px]"
+            }
+          >
             {project.name}
           </h3>
           <p className="mt-5 max-w-2xl text-[16px] leading-7 text-muted">

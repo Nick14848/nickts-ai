@@ -10,7 +10,10 @@ export function BuildStack() {
   return (
     <section className="border-t border-line py-16 md:py-20">
       <div className="site-shell min-w-0">
-        <p className="break-words font-mono text-[13px] tracking-[0.04em] text-ink md:text-[14px]">
+        <h2 className="text-[28px] font-medium tracking-[-0.03em] text-ink md:text-[40px]">
+          {t.build.headline}
+        </h2>
+        <p className="mt-8 break-words font-mono text-[13px] tracking-[0.04em] text-ink md:text-[14px]">
           {buildTrail.join(" → ")} → {site.domain}
         </p>
         <p className="mt-4 break-words font-mono text-[12px] tracking-[0.08em] text-muted">

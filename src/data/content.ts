@@ -100,6 +100,30 @@ export const lensStarts: Record<Lens, string> = {
   creator: `#${sectionIds.community}`,
 };
 
+export const workChapters = [
+  {
+    id: "deep-pivot",
+    index: "01",
+    demoIds: ["nexus", "feasibility", "private-ai", "market-intel"],
+  },
+  {
+    id: "custom-ai",
+    index: "02",
+    demoIds: [],
+  },
+] as const;
+
+export type WorkChapterId = (typeof workChapters)[number]["id"];
+
+export const inquiryTypes = [
+  "consulting",
+  "deep-pivot",
+  "website",
+  "other",
+] as const;
+
+export type InquiryType = (typeof inquiryTypes)[number];
+
 export const buildTrail = ["Cursor", "GitHub", "Vercel"] as const;
 
 export const stackNames = ["Next.js", "TypeScript", "Tailwind CSS", "Motion"] as const;

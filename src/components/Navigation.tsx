@@ -1,15 +1,34 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { navItems } from "@/data/content";
 import { site } from "@/data/site";
+import { cn } from "@/lib/utils";
 import { Wordmark } from "./Wordmark";
 import { useSite } from "./SiteProvider";
 
 export function Navigation() {
   const { t, locale, toggleLocale } = useSite();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    function onScroll() {
+      setScrolled(window.scrollY > 12);
+    }
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-bg/88 backdrop-blur-md">
+    <header
+      className={cn(
+        "sticky top-0 z-40 border-b backdrop-blur-md transition-colors duration-300",
+        scrolled
+          ? "border-accent/45 bg-[#22263a]/94"
+          : "border-line bg-bg/90",
+      )}
+    >
       <a
         href="#story"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-elevated focus:px-4 focus:py-2"
@@ -22,12 +41,12 @@ export function Navigation() {
           <span className="sr-only">{site.domain}</span>
         </a>
 
-        <nav className="hidden items-center gap-7 text-[13px] tracking-[0.08em] text-muted md:flex">
+        <nav className="hidden items-center gap-7 text-[13px] tracking-[0.08em] text-ink/80 md:flex">
           {navItems.map((item) => (
             <a
               key={item.id}
               href={item.href}
-              className="min-h-11 content-center hover:text-ink"
+              className="min-h-11 content-center hover:text-accent"
             >
               {t.nav[item.id]}
             </a>
@@ -67,7 +86,7 @@ export function Navigation() {
             href={site.resumePath}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex min-h-11 items-center text-[12px] tracking-[0.12em] text-muted hover:text-ink"
+            className="flex min-h-11 items-center text-[12px] tracking-[0.12em] text-ink hover:text-accent"
           >
             {t.nav.resume}
           </a>

@@ -1,4 +1,4 @@
-# nickts.ai
+# nicktsai.me
 
 Personal digital identity for **Nick Tsai / 蔡逸凯**.
 
@@ -6,9 +6,9 @@ This is not a résumé website. It is a quiet, dark, editorial product: a public
 
 Primary positioning:
 
-> Long-termism. Invest in yourself · Capital · Build systems. Stay Childish.
+> Invest in yourself · Build systems · Long-termism. Stay Childish.
 
-Live domain: [nickts.ai](https://nickts.ai)
+Live domain: [nicktsai.me](https://nicktsai.me)
 
 ## Why this is not a résumé website
 
@@ -45,7 +45,7 @@ No backend, database, CMS, auth or analytics in V1. The site is intentionally st
 
 Build path shown on the site:
 
-`Cursor → GitHub → Vercel → nickts.ai`
+`Cursor → GitHub → Vercel → nicktsai.me`
 
 ## Local development
 
@@ -147,13 +147,13 @@ Selected work uses abstract CSS/SVG system diagrams on purpose. There are no fak
 3. Framework preset: Next.js. Build command: `npm run build`. Output: default.
 4. Deploy.
 
-### Connect nickts.ai
+### Connect nicktsai.me
 
-1. In Vercel: Project → Settings → Domains → add `nickts.ai` and `www.nickts.ai`.
+1. In Vercel: Project → Settings → Domains → add `nicktsai.me` and `www.nicktsai.me`.
 2. At your registrar, point DNS as Vercel instructs (usually an A record for the apex and a CNAME for `www`).
-3. Wait for HTTPS. Set the canonical domain to `https://nickts.ai`.
+3. Wait for HTTPS. Set the canonical domain to `https://nicktsai.me`.
 
-`src/data/site.ts` already uses `https://nickts.ai` for metadata, sitemap, robots and JSON-LD.
+`src/data/site.ts` is the source of truth: `domain` and `url` feed metadata, sitemap, robots and JSON-LD.
 
 ## Interactions worth knowing
 

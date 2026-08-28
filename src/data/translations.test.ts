@@ -8,7 +8,7 @@ describe("translations", () => {
 
   it("does not translate brand and product names", () => {
     expect(dictionaries.zh.hero.given).toContain("蔡逸凯");
-    expect(dictionaries.zh.hero.subline).toContain("HKU");
+    expect(dictionaries.zh.hero.subline).toContain("港大");
     expect(dictionaries.zh.hero.subline).not.toContain("Archbridge");
     expect(dictionaries.zh.hero.subline).toContain("HSBC CIB");
     expect(dictionaries.zh.work.label).toBe("03 / 我的项目");
@@ -17,7 +17,7 @@ describe("translations", () => {
     expect(dictionaries.zh.hero.corridorHint).toBe("Hi 大家好我是");
     expect(dictionaries.zh.footer.built).toBe("By Nick Tsai");
     expect(dictionaries.zh.elsewhere.github).toContain("GitHub");
-    expect(dictionaries.en.hero.line1).toBe("Long-termism");
-    expect(dictionaries.zh.hero.line1).toBe("长期主义");
+    expect(dictionaries.en.hero.line1).toBe("A personal homepage");
+    expect(dictionaries.zh.hero.line1).toBe("的个人主页");
   });
 });

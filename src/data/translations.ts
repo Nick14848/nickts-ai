@@ -1,4 +1,4 @@
-import type { ExperienceId, LifePhotoId, ProjectId } from "./content";
+import type { ExperienceId, InquiryType, LifePhotoId, ProjectId, WorkChapterId } from "./content";
 import type { Lens, Locale } from "./site";
 
 type ProjectCopy = {
@@ -15,9 +15,27 @@ type ExperienceCopy = {
   points: [string, string, string];
 };
 
-type LensCue = {
+type LensAction = {
   label: string;
   href: string;
+};
+
+type ChapterCopy = {
+  name: string;
+  tagline: string;
+  summary: string;
+  details: string;
+  solutions?: string;
+};
+
+type InquiryCopy = {
+  name: string;
+  email: string;
+  type: string;
+  message: string;
+  submit: string;
+  note: string;
+  types: Record<InquiryType, string>;
 };
 
 export type Dictionary = {
@@ -55,13 +73,15 @@ export type Dictionary = {
     recruiter: string;
     builder: string;
     creator: string;
+    resumeCta: string;
     briefs: Record<Lens, string>;
-    destinations: Record<Lens, string>;
-    cues: Record<Lens, LensCue[]>;
+    actions: Record<Lens, LensAction[]>;
   };
   work: {
     label: string;
     headline: string;
+    chapters: Record<WorkChapterId, ChapterCopy>;
+    inquiry: InquiryCopy;
     projects: Record<ProjectId, ProjectCopy>;
   };
   experience: {
@@ -100,6 +120,7 @@ export type Dictionary = {
     copied: string;
   };
   build: {
+    headline: string;
     copy: string;
     ask: string;
   };
@@ -129,7 +150,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       work: "Projects",
       story: "About",
       elsewhere: "Contact",
-      resume: "Resume ↗",
+      resume: "CV ↗",
       command: "⌘K",
       menu: "Menu",
       closeMenu: "Close",
@@ -137,13 +158,13 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     hero: {
       given: "蔡逸凯",
-      line1: "Long-termism",
-      line2: "Invest in yourself · Capital · Build systems",
+      line1: "A personal homepage",
+      line2: "Invest in yourself · Build systems · Long-termism",
       line3: "Stay Childish.",
       subline: "HKU Data Science · Hong Kong AI + Finance · ex-HSBC CIB · 小菜Nick",
       corridorHint: "Hi, I’m",
       explore: "About ↓",
-      resume: "Resume ↗",
+      resume: "CV ↗",
       github: "GitHub ↗",
       bikeAlt: "Nick on a morning ride, caught in a traffic mirror",
       places: [
@@ -166,44 +187,58 @@ export const dictionaries: Record<Locale, Dictionary> = {
       start: "Start here →",
       recruiter: "Recruiter",
       builder: "AI / Startup",
-      creator: "Media (my people?)",
+      creator: "Media",
+      resumeCta: "open the CV",
       briefs: {
-        recruiter: "See internships and work history — or go straight to the resume.",
-        builder: "Some cool products I built, to B or to C.",
-        creator: "Content, community, and 小菜Nick off-camera.",
+        recruiter: "See internships and work history, or ",
+        builder: "See some cool AI products I built, to B or to C.",
+        creator: "See the content I make, and 小菜Nick off-camera.",
       },
-      destinations: {
-        recruiter: "Past experience",
-        builder: "Projects",
-        creator: "Community",
-      },
-      cues: {
+      actions: {
         recruiter: [
-          { label: "AI Transformation", href: "#experience" },
-          { label: "Financial workflows", href: "#experience" },
-          { label: "HSBC CIB", href: "#experience" },
-          { label: "HKU", href: "#story" },
-          { label: "CFA Level I", href: "#story" },
+          { label: "Past experience →", href: "#experience" },
+          { label: "Open CV ↗", href: "resume" },
         ],
-        builder: [
-          { label: "LLM Agents", href: "#project-feasibility" },
-          { label: "DGX Spark", href: "#project-private-ai" },
-          { label: "vLLM", href: "#project-private-ai" },
-          { label: "FastAPI", href: "#work" },
-          { label: "Enterprise integrations", href: "#project-nexus" },
-        ],
-        creator: [
-          { label: "AI", href: "#community" },
-          { label: "Careers", href: "#community" },
-          { label: "HKU", href: "#story" },
-          { label: "Student life", href: "#story" },
-          { label: "7K+ community", href: "#community" },
-        ],
+        builder: [{ label: "See projects →", href: "#work" }],
+        creator: [{ label: "See the work →", href: "#community" }],
       },
     },
     work: {
       label: "03 / Projects",
       headline: "Projects",
+      chapters: {
+        "deep-pivot": {
+          name: "Deep Pivot",
+          tagline: "Private Market AI Workspace",
+          summary:
+            "AI implementation for mid-market financial firms — PE, private credit, VC and family offices. One workspace for deal data, screening, private inference and market monitoring.",
+          details:
+            "Nexus, Feasibility Agent, private AI infrastructure and the market-intelligence pipeline are product demos under this umbrella. Client names and deal data stay off this site.",
+          solutions: "Solution demos",
+        },
+        "custom-ai": {
+          name: "Custom AI",
+          tagline: "Forward-deployed, mixed tech and talking to customers",
+          summary:
+            "I help people and companies use AI to solve real problems: cut cost, raise throughput, and bridge technical work with business requirements.",
+          details:
+            "If you want a scoped build, an internal workflow, or a site like this one, send an inquiry. It opens a draft email you can edit before it goes out.",
+        },
+      },
+      inquiry: {
+        name: "Full name",
+        email: "Email",
+        type: "What is this about?",
+        message: "Message",
+        submit: "Draft an email →",
+        note: "Opens your mail app with a draft to Nick. Edit it before sending.",
+        types: {
+          consulting: "AI consulting / FDE",
+          "deep-pivot": "Deep Pivot",
+          website: "Personal site / build",
+          other: "Other",
+        },
+      },
       projects: {
         nexus: {
           summary:
@@ -268,14 +303,15 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "Born in Taiwan, raised in Shenzhen, studying and working in Hong Kong.",
         "Years across Taiwan, Shenzhen and Hong Kong gave me a fairly unusual view of things.",
         "I mostly live in Nanshan, Shenzhen, work in Hong Kong, and go back to Taiwan when I can.",
-        "The chubby kid in the photos is me. I got leaner because I felt too fat and wanted to be healthier. And why not?",
-        "I think cutting weight, investing, and work are the same game: discipline, long-term, resilience, compounding, systems.",
+        "Haha — the chubby kid in the photos is me. I cut weight because I felt too fat and wanted to be healthier. And why not?",
+        "I think fitness, investing, work and building a company are the same game: discipline, long-term, resilience, compounding, systems.",
         "I study Data Science at HKU (graduating end of 2026), interned in analytics at HSBC CIB, and now build private AI systems inside a Hong Kong asset manager.",
-        "Outside work I make content on RedNote and Douyin as 小菜Nick. I like investing and asset allocation, cycling, basketball, training, and making things that actually matter — like using AI to solve problems for companies and friends, and creating value.",
+        "Outside work I’m 小菜Nick on RedNote and Douyin. I record life, make people laugh, share study-abroad and job-hunting days, the cultural gaps across the strait, and practical AI notes.",
+        "I like investing and asset allocation, cycling, basketball, training, and making things that actually matter — like using AI to solve problems for companies and friends, and creating value.",
       ],
       photos: {
         bike: { title: "Cycling", caption: "" },
-        "used-to-be-fat": { title: "I used to be really fat", caption: "" },
+        "used-to-be-fat": { title: "Used to be really fat", caption: "" },
         "really-fat": { title: "Not going back", caption: "" },
         "wall-street": {
           title: "time in the market > timing the market",
@@ -309,7 +345,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
       copied: "Copied",
     },
     build: {
-      copy: "This is a personal homepage.",
+      headline: "Want a site like this?",
+      copy: "Using AI is not that hard. This homepage took me one morning.",
       ask: "How I made this?",
     },
     footer: {
@@ -325,7 +362,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "go-work": "Go to Projects",
         "go-story": "Go to About",
         "go-elsewhere": "Go to Contact",
-        "open-resume": "Open Resume",
+        "open-resume": "Open CV",
         "open-github": "Open GitHub",
         "copy-email": "Copy Email",
         "switch-language": "Switch Language",
@@ -345,25 +382,25 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     hero: {
       given: "蔡逸凯",
-      line1: "长期主义",
-      line2: "投资自己 · 资本 · 构建系统",
+      line1: "的个人主页",
+      line2: "投资自己 · 构建系统 · 长期主义",
       line3: "Stay Childish.",
-      subline: "HKU Data Science · 香港 AI + Finance · ex-HSBC CIB · 小菜Nick",
+      subline: "港大 数据科学 · 香港 AI + Finance · ex-HSBC CIB · 小菜Nick",
       corridorHint: "Hi 大家好我是",
       explore: "关于我 ↓",
       resume: "简历 ↗",
       github: "GitHub ↗",
       bikeAlt: "Nick 骑行时拍在凸面镜里的一张照片",
       places: [
-        { id: "taiwan", name: "Taiwan", note: "我的快乐老家" },
+        { id: "taiwan", name: "台湾", note: "我的快乐老家" },
         {
           id: "shenzhen",
-          name: "Shenzhen",
+          name: "深圳",
           note: "住了十几年也算半个深圳人吧",
         },
         {
           id: "hongkong",
-          name: "Hong Kong",
+          name: "香港",
           note: "我在港大念书和工作",
         },
       ],
@@ -374,44 +411,58 @@ export const dictionaries: Record<Locale, Dictionary> = {
       start: "从这里开始 →",
       recruiter: "招聘",
       builder: "AI创业",
-      creator: "自媒体 (我的粉丝？)",
+      creator: "自媒体",
+      resumeCta: "看简历",
       briefs: {
-        recruiter: "看我的过往实习工作经历，或者直接看简历",
-        builder: "看我做的一些 cool 产品项目，to B or to C",
-        creator: "看内容、社区，以及镜头外面的那个小菜Nick~",
+        recruiter: "查看我的过往实习工作经历，或者直接",
+        builder: "查看我做的一些 cool AI 产品项目，to B or to C",
+        creator: "查看我做的自媒体内容，以及镜头外面的那个小菜Nick~",
       },
-      destinations: {
-        recruiter: "过往经历",
-        builder: "我的项目",
-        creator: "社区",
-      },
-      cues: {
+      actions: {
         recruiter: [
-          { label: "AI Transformation", href: "#experience" },
-          { label: "金融工作流", href: "#experience" },
-          { label: "HSBC CIB", href: "#experience" },
-          { label: "HKU", href: "#story" },
-          { label: "CFA Level I", href: "#story" },
+          { label: "过往经历 →", href: "#experience" },
+          { label: "看简历 ↗", href: "resume" },
         ],
-        builder: [
-          { label: "LLM Agents", href: "#project-feasibility" },
-          { label: "DGX Spark", href: "#project-private-ai" },
-          { label: "vLLM", href: "#project-private-ai" },
-          { label: "FastAPI", href: "#work" },
-          { label: "企业系统集成", href: "#project-nexus" },
-        ],
-        creator: [
-          { label: "AI", href: "#community" },
-          { label: "求职干货", href: "#community" },
-          { label: "HKU", href: "#story" },
-          { label: "港大日常", href: "#story" },
-          { label: "7K+ 粉丝", href: "#community" },
-        ],
+        builder: [{ label: "看项目 →", href: "#work" }],
+        creator: [{ label: "看内容 →", href: "#community" }],
       },
     },
     work: {
       label: "03 / 我的项目",
       headline: "我的项目",
+      chapters: {
+        "deep-pivot": {
+          name: "Deep Pivot",
+          tagline: "私募投资 AI 工作平台",
+          summary:
+            "给中小金融机构做 AI 落地：PE、私募信贷、VC、家族办公室。把交易资料、筛选、私有推理和市场监测收在同一套工作台里。",
+          details:
+            "Nexus、Feasibility Agent、私有 AI 基础设施和市场情报流水线，是这套平台下的落地 demo。客户名和交易数据不会出现在这个站点。",
+          solutions: "落地案例",
+        },
+        "custom-ai": {
+          name: "AI 定制服务",
+          tagline: "定制化落地，技术与业务之间的翻译",
+          summary:
+            "我帮人和公司用 AI 解决问题、降本增效。擅长把技术工作和业务需求接上，一边写系统一边和客户把问题谈清楚。",
+          details:
+            "如果你想做内部流程、一个具体系统，或是像这样一份个人主页，发一条咨询。会打开一封邮件草稿，你可以改完再发。",
+        },
+      },
+      inquiry: {
+        name: "姓名",
+        email: "邮箱",
+        type: "想聊什么？",
+        message: "留言",
+        submit: "生成邮件草稿 →",
+        note: "会打开邮件应用，草稿发给 Nick。发出前你可以自己改。",
+        types: {
+          consulting: "AI 咨询 / FDE",
+          "deep-pivot": "Deep Pivot",
+          website: "个人网站 / 搭建",
+          other: "其他",
+        },
+      },
       projects: {
         nexus: {
           summary:
@@ -476,14 +527,15 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "生于台湾，深圳长大，在香港读书和工作。",
         "多年在两岸三地生活，给了我比较独特的视野。",
         "现在主要住在深圳南山，香港工作，偶尔回台湾度假。",
-        "照片里那个小胖子是我，变瘦只是因为觉得以前太胖了，想健康一点，and why not?",
-        "我觉得减肥、投资金融市场、工作其实是同一件事：自律、长期、韧性、复利、系统。",
+        "哈哈照片里那个小胖子是我，减肥只是因为觉得以前太胖了，想健康一点，and why not?",
+        "我觉得减肥健身、投资金融市场、工作、创业本质其实是同一件事：自律、长期、韧性、复利、系统。",
         "我在港大读 Data Science（即将 2026 年底毕业），在 HSBC CIB 做过分析，现在在香港资管机构里搭私有 AI 系统。",
-        "工作之外我在小红书和抖音做自媒体，小菜Nick，喜欢研究投资、资产配置，还喜欢骑车、打篮球、健身，也喜欢上手做一些有价值、有意义的东西。比如帮企业/朋友用AI解决问题，创造价值！",
+        "工作之外我在小红书和抖音做自媒体，小菜Nick，主要是记录生活，给其他人带来快乐，分享留学求职日常，记录两岸文化差异，AI学习干货等等。",
+        "我喜欢研究投资、资产配置，还喜欢骑车、打篮球、健身，也喜欢上手做一些有价值、有意义的东西。比如帮企业/朋友用AI解决问题，创造价值！",
       ],
       photos: {
         bike: { title: "骑车", caption: "" },
-        "used-to-be-fat": { title: "我以前真的好胖", caption: "" },
+        "used-to-be-fat": { title: "以前真的好胖", caption: "" },
         "really-fat": { title: "现在胖不回去了", caption: "" },
         "wall-street": {
           title: "time in the market > timing the market",
@@ -517,7 +569,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
       copied: "已复制",
     },
     build: {
-      copy: "这是一份个人主页。",
+      headline: "也想搭建属于自己的网站吗？",
+      copy: "其实用 AI 真的不难，这个网站花了我一个早上",
       ask: "我怎么做的？",
     },
     footer: {

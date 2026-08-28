@@ -1,5 +1,6 @@
-const domain = "nickts.ai";
+const domain = "nicktsai.me";
 const email = "nicktsai1221@gmail.com";
+const inquiryEmail = "nicktsai1221@163.com";
 
 export const site = {
   domain,
@@ -7,6 +8,7 @@ export const site = {
   name: "Nick Tsai",
   nameZh: "蔡逸凯",
   email,
+  inquiryEmail,
   githubUrl: "https://github.com/Nick14848",
   resumePath: "/resume.pdf",
   REDNOTE_URL: "https://xhslink.com/m/8uQvbHfgDI6",
@@ -16,7 +18,7 @@ export const site = {
   identity: "AI × FINANCE × SYSTEMS × PRODUCT",
   title: "Nick Tsai — AI × Finance × Builder",
   description:
-    "Nick Tsai builds AI systems, invests for the long term, and treats discipline as the same skill in body, markets and work.",
+    "Nick Tsai builds AI systems for financial workflows across enterprise AI, data and investment technology.",
   headline: "Long-termism",
   ogAlt: `${domain} — Nick Tsai / 蔡逸凯. Long-termism.`,
   creatorName: "小菜Nick",

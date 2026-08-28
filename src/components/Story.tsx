@@ -2,14 +2,8 @@
 
 import Image from "next/image";
 import { lifePhotos } from "@/data/content";
-import { cn } from "@/lib/utils";
+import { PlaceMark } from "./TextMarks";
 import { useSite } from "./SiteProvider";
-
-const frameClass = {
-  wide: "aspect-[16/10]",
-  portrait: "aspect-[3/4]",
-  square: "aspect-square",
-} as const;
 
 export function Story() {
   const { t } = useSite();
@@ -22,12 +16,14 @@ export function Story() {
           <p className="meta">{t.story.label}</p>
         </div>
         <div className="col-span-12 mt-8 md:col-span-6 md:mt-0">
-          <h2 className="max-w-[12ch] text-[40px] font-medium leading-[1.02] tracking-[-0.04em] md:text-[56px]">
+          <h2 className="max-w-[12ch] text-[40px] font-medium leading-[1.02] tracking-[-0.04em] text-ink md:text-[56px]">
             {t.story.headline}
           </h2>
-          <div className="mt-10 space-y-5 text-[16px] leading-7 text-muted">
+          <div className="mt-10 space-y-5 text-[16px] leading-7 text-ink/88">
             {t.story.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
+              <p key={paragraph}>
+                <PlaceMark text={paragraph} />
+              </p>
             ))}
           </div>
         </div>
@@ -51,22 +47,17 @@ export function Story() {
         </aside>
       </div>
 
-      <div className="site-shell mt-16 grid grid-cols-1 gap-x-8 gap-y-12 md:mt-24 md:grid-cols-2">
+      <div className="site-shell mt-16 grid grid-cols-1 gap-x-8 gap-y-12 md:mt-24 md:grid-cols-3">
         {gallery.map((photo) => {
           const copy = t.story.photos[photo.id];
           return (
             <figure key={photo.id} className="min-w-0">
-              <div
-                className={cn(
-                  "relative overflow-hidden border border-line bg-elevated",
-                  frameClass[photo.frame],
-                )}
-              >
+              <div className="relative aspect-[4/5] overflow-hidden border border-line bg-elevated">
                 <Image
                   src={photo.src}
                   alt={copy.title}
                   fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover"
                 />
               </div>

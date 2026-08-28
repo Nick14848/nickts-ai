@@ -1,8 +1,8 @@
 "use client";
 
-import { lensOrder, lensStarts } from "@/data/content";
+import { lensOrder } from "@/data/content";
+import { site } from "@/data/site";
 import { cn } from "@/lib/utils";
-import { AccentText } from "./AccentText";
 import { useSite } from "./SiteProvider";
 
 export function LensSelector() {
@@ -29,57 +29,70 @@ export function LensSelector() {
             {lensOrder.map((value) => {
               const selected = lens === value;
               return (
-                <button
+                <div
                   key={value}
-                  type="button"
                   role="tab"
+                  tabIndex={0}
                   aria-label={t.lens[value]}
                   aria-selected={selected}
                   onClick={() => setLens(value)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      setLens(value);
+                    }
+                  }}
                   className={cn(
-                    "relative z-10 min-h-[8.75rem] cursor-pointer border px-4 py-4 text-left transition-colors duration-300 sm:min-h-[10.5rem]",
+                    "relative z-10 min-h-[9rem] cursor-pointer border px-4 py-4 text-left transition-colors duration-300",
                     selected
-                      ? "border-accent bg-accent/10"
-                      : "border-line text-muted hover:border-ink/30 hover:text-ink",
+                      ? "border-accent bg-accent/15 text-ink"
+                      : "border-white/20 text-muted hover:border-accent/70 hover:bg-accent/10 hover:text-ink",
                   )}
                 >
                   <span
                     className={cn(
-                      "block font-mono text-[11px] tracking-[0.16em]",
-                      selected ? "text-accent" : "text-muted",
+                      "block font-mono text-[12px] tracking-[0.16em]",
+                      selected ? "text-accent" : "text-ink/80",
                     )}
                   >
                     {t.lens[value]}
                   </span>
                   <span className="mt-3 block text-[14px] leading-6 text-ink">
                     {t.lens.briefs[value]}
+                    {value === "recruiter" ? (
+                      <a
+                        href={site.resumePath}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(event) => event.stopPropagation()}
+                        className="text-accent underline decoration-accent underline-offset-4 hover:decoration-white"
+                      >
+                        {t.lens.resumeCta}
+                      </a>
+                    ) : null}
                   </span>
-                </button>
+                </div>
               );
             })}
           </div>
 
-          <div className="mt-8 flex flex-col gap-6 border-t border-line pt-6 md:flex-row md:items-end md:justify-between">
-            <ul className="grid min-w-0 flex-1 grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-5">
-              {t.lens.cues[lens].map((cue) => (
-                <li key={`${lens}-${cue.label}-${cue.href}`}>
-                  <a
-                    href={cue.href}
-                    data-testid="lens-snapshot-item"
-                    className="block border-t border-line pt-3 font-mono text-[12px] tracking-[0.08em] text-ink hover:text-accent"
-                  >
-                    <span className="mb-2 block size-1 bg-accent" />
-                    <AccentText text={cue.label} />
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <a
-              href={lensStarts[lens]}
-              className="flex min-h-11 shrink-0 items-center text-[13px] tracking-[0.08em] text-accent"
-            >
-              {t.lens.start} {t.lens.destinations[lens]}
-            </a>
+          <div className="mt-6 flex flex-wrap gap-3">
+            {t.lens.actions[lens].map((action) => {
+              const href = action.href === "resume" ? site.resumePath : action.href;
+              const external = action.href === "resume";
+              return (
+                <a
+                  key={`${lens}-${action.label}`}
+                  href={href}
+                  data-testid="lens-snapshot-item"
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noopener noreferrer" : undefined}
+                  className="inline-flex min-h-11 cursor-pointer items-center bg-accent px-5 text-[12px] tracking-[0.14em] text-white hover:bg-accent/85"
+                >
+                  {action.label}
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>

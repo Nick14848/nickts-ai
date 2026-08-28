@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-bg: #0a0a0b;
-  --color-elevated: #111113;
-  --color-ink: #f3f4f6;
-  --color-muted: #8b8d93;
-  --color-line: rgb(255 255 255 / 10%);
-  --color-accent: #3b6fff;
+  --color-bg: #1a1b21;
+  --color-elevated: #23252d;
+  --color-ink: #ffffff;
+  --color-muted: #d2d5dd;
+  --color-line: rgb(255 255 255 / 18%);
+  --color-accent: #5b8aff;
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, sfmono-regular, monospace;
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
@@ -14,8 +14,8 @@
 }
 
 html {
-  background: #0a0a0b;
-  color: #f3f4f6;
+  background: #1a1b21;
+  color: #ffffff;
   scroll-behavior: smooth;
   overflow-x: hidden;
 }
@@ -26,8 +26,8 @@ body {
 
 body {
   min-height: 100vh;
-  background: #0a0a0b;
-  color: #f3f4f6;
+  background: #1a1b21;
+  color: #ffffff;
   font-family: var(--font-sans);
   font-feature-settings: "ss01" on, "cv11" on;
   text-rendering: optimizeLegibility;
@@ -66,7 +66,7 @@ a {
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #8b8d93;
+  color: #d2d5dd;
 }
 
 .hairline {
@@ -149,6 +149,16 @@ a {
 
 .hero-reveal {
   animation: hero-reveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-grid {
+  background-image: repeating-linear-gradient(
+    to right,
+    rgb(255 255 255 / 6%) 0,
+    rgb(255 255 255 / 6%) 1px,
+    transparent 1px,
+    transparent calc(100% / 12)
+  );
 }
 
 .ai-mark {
