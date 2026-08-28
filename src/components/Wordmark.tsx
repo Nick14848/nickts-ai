@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { splitDomain } from "@/data/site";
 
 export function Wordmark({
   className,
@@ -7,6 +8,8 @@ export function Wordmark({
   className?: string;
   size?: "sm" | "lg";
 }) {
+  const { host, tld } = splitDomain();
+
   return (
     <span
       className={cn(
@@ -15,8 +18,8 @@ export function Wordmark({
         className,
       )}
     >
-      <span className="text-ink">nickts</span>
-      <span className="text-accent">.ai</span>
+      <span className="text-ink">{host}</span>
+      {tld ? <span className="text-accent">{tld}</span> : null}
     </span>
   );
 }

@@ -53,7 +53,7 @@ export function ProjectModule({
           </ul>
           {project.demo && copy.demo ? (
             <a
-              href={site.NEXUS_DEMO_URL}
+              href={site.nexusDemoHref}
               className="mt-6 inline-flex min-h-11 items-center border border-accent px-4 text-[12px] tracking-[0.12em] text-accent hover:bg-accent/10"
             >
               {copy.demo}

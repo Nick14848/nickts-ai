@@ -54,7 +54,6 @@ export function Story() {
       <div className="site-shell mt-16 grid grid-cols-1 gap-x-8 gap-y-12 md:mt-24 md:grid-cols-2">
         {gallery.map((photo) => {
           const copy = t.story.photos[photo.id];
-          const contain = photo.id === "portfolio";
           return (
             <figure key={photo.id} className="min-w-0">
               <div
@@ -68,7 +67,7 @@ export function Story() {
                   alt={copy.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className={contain ? "object-contain p-4" : "object-cover"}
+                  className="object-cover"
                 />
               </div>
               <figcaption className="mt-4">

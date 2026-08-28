@@ -72,11 +72,6 @@ export const lifePhotos = [
     src: "/life/wall-street.jpg",
     frame: "square",
   },
-  {
-    id: "portfolio",
-    src: "/life/portfolio.jpg",
-    frame: "square",
-  },
 ] as const;
 
 export type LifePhotoId = (typeof lifePhotos)[number]["id"];
@@ -105,6 +100,6 @@ export const lensStarts: Record<Lens, string> = {
   creator: `#${sectionIds.community}`,
 };
 
-export const buildTrail = ["Cursor", "GitHub", "Vercel", "nickts.ai"] as const;
+export const buildTrail = ["Cursor", "GitHub", "Vercel"] as const;
 
 export const stackNames = ["Next.js", "TypeScript", "Tailwind CSS", "Motion"] as const;

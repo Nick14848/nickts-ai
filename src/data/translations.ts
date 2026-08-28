@@ -281,7 +281,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
           title: "time in the market > timing the market",
           caption: "",
         },
-        portfolio: { title: "My portfolio (2026/08/28 snapshot)", caption: "" },
       },
       rail: {
         school: "HKU",
@@ -490,7 +489,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
           title: "time in the market > timing the market",
           caption: "",
         },
-        portfolio: { title: "我的投资组合 (2026/08/28 snapshot)", caption: "" },
       },
       rail: {
         school: "HKU",

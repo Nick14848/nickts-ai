@@ -1,23 +1,37 @@
+const domain = "nickts.ai";
+const email = "nicktsai1221@gmail.com";
+
 export const site = {
-  domain: "nickts.ai",
-  url: "https://nickts.ai",
+  domain,
+  url: `https://${domain}`,
   name: "Nick Tsai",
   nameZh: "蔡逸凯",
-  email: "nicktsai1221@gmail.com",
+  email,
   githubUrl: "https://github.com/Nick14848",
   resumePath: "/resume.pdf",
   REDNOTE_URL: "https://xhslink.com/m/8uQvbHfgDI6",
   DOUYIN_URL: "https://www.douyin.com/search/%E5%B0%8F%E8%8F%9CNick",
-  NEXUS_DEMO_URL: "#",
+  nexusDemoHref: `mailto:${email}?subject=${encodeURIComponent("NEXUS Demo")}`,
   location: "Taiwan · Shenzhen · Hong Kong",
   identity: "AI × FINANCE × SYSTEMS × PRODUCT",
   title: "Nick Tsai — AI × Finance × Builder",
   description:
     "Nick Tsai builds AI systems, invests for the long term, and treats discipline as the same skill in body, markets and work.",
   headline: "Long-termism",
-  ogAlt: "nickts.ai — Nick Tsai / 蔡逸凯. Long-termism.",
+  ogAlt: `${domain} — Nick Tsai / 蔡逸凯. Long-termism.`,
   creatorName: "小菜Nick",
 } as const;
+
+export function splitDomain(value: string = site.domain): {
+  host: string;
+  tld: string;
+} {
+  const dot = value.lastIndexOf(".");
+  if (dot <= 0) {
+    return { host: value, tld: "" };
+  }
+  return { host: value.slice(0, dot), tld: value.slice(dot) };
+}
 
 export const STORAGE_KEYS = {
   locale: "nickts.ai:locale",

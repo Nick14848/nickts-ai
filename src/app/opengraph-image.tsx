@@ -1,11 +1,13 @@
 import { ImageResponse } from "next/og";
-import { site } from "@/data/site";
+import { site, splitDomain } from "@/data/site";
 
 export const alt = site.ogAlt;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default function OpenGraphImage() {
+  const { host, tld } = splitDomain();
+
   return new ImageResponse(
     (
       <div
@@ -40,8 +42,8 @@ export default function OpenGraphImage() {
           ))}
         </div>
         <div style={{ display: "flex", fontSize: 28, letterSpacing: -0.6 }}>
-          <span>nickts</span>
-          <span style={{ color: "#3B6FFF" }}>.ai</span>
+          <span>{host}</span>
+          <span style={{ color: "#3B6FFF" }}>{tld}</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
           <div style={{ fontSize: 22, color: "#8B8D93", letterSpacing: 3 }}>

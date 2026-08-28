@@ -1,6 +1,7 @@
 "use client";
 
 import { navItems } from "@/data/content";
+import { site } from "@/data/site";
 import { Wordmark } from "./Wordmark";
 import { useSite } from "./SiteProvider";
 
@@ -18,7 +19,7 @@ export function Navigation() {
       <div className="site-shell flex h-14 min-w-0 items-center justify-between gap-3 md:h-16 md:gap-4">
         <a href="#top" className="min-h-11 min-w-11 content-center">
           <Wordmark />
-          <span className="sr-only">nickts.ai</span>
+          <span className="sr-only">{site.domain}</span>
         </a>
 
         <nav className="hidden items-center gap-7 text-[13px] tracking-[0.08em] text-muted md:flex">
@@ -63,7 +64,7 @@ export function Navigation() {
           </button>
 
           <a
-            href="/resume.pdf"
+            href={site.resumePath}
             target="_blank"
             rel="noopener noreferrer"
             className="flex min-h-11 items-center text-[12px] tracking-[0.12em] text-muted hover:text-ink"

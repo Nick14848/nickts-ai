@@ -75,7 +75,10 @@ test("reduced motion keeps the page usable", async ({ page }) => {
 test("work cards do not name the employer", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { name: "NEXUS" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Request for demo" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Request for demo" })).toHaveAttribute(
+    "href",
+    "mailto:nicktsai1221@gmail.com?subject=NEXUS%20Demo",
+  );
   await expect(page.locator("#work")).not.toContainText("Archbridge");
   await expect(page.locator("#experience")).toContainText(
     "ARCHBRIDGE CAPITAL PARTNERS",
