@@ -1,36 +1,173 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# nickts.ai
 
-## Getting Started
+Personal digital identity for **Nick Tsai / 蔡逸凯**.
 
-First, run the development server:
+This is not a résumé website. It is a quiet, dark, editorial product: a public operating system for how Nick thinks and what he actually builds across AI, finance, systems and product.
+
+Primary positioning:
+
+> Long-termism. Invest in yourself · Capital · Build systems. Stay Childish.
+
+Live domain: [nickts.ai](https://nickts.ai)
+
+## Why this is not a résumé website
+
+A résumé lists credentials. This site is structured around four things:
+
+1. **Identity** — a precise thesis in the first screen.
+2. **Proof of work** — four systems, shown as architecture, not job bullets.
+3. **Story** — photos, discipline, markets, the long game.
+4. **Distribution** — GitHub, RedNote, Douyin, email, and the command palette as a product surface.
+
+The first screen is a person, not an availability status.
+
+## Design philosophy
+
+Editorial minimalism × AI product × institutional quality × personal taste.
+
+- Dark-first, near-black canvas
+- Swiss typography with oversized headlines and tiny mono labels
+- 12-column editorial grid, asymmetric composition, leftover space
+- Cobalt `#3B6FFF` used at roughly 5–10% of the surface
+- No purple AI gradients, no glassmorphism, no 3D, no fake terminals
+
+Whitespace is a feature. Precision beats decoration.
+
+## Tech stack
+
+- Next.js 16 (App Router)
+- TypeScript
+- Tailwind CSS 4
+- Motion (`motion/react`)
+- Geist and Geist Mono, bundled locally via the `geist` package (no Google Fonts request at runtime)
+
+No backend, database, CMS, auth or analytics in V1. The site is intentionally static and easy to extend.
+
+Build path shown on the site:
+
+`Cursor → GitHub → Vercel → nickts.ai`
+
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Other commands:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run typecheck
+npm test
+npm run test:e2e
+npm run build
+npm start
+```
 
-## Learn More
+`npm run test:e2e` will install Playwright’s Chromium browser on first run if needed:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npx playwright install chromium
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Content structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+All editable personal information lives in `src/data/`. Do not hunt through components.
 
-## Deploy on Vercel
+| File | What it owns |
+| --- | --- |
+| [`src/data/site.ts`](src/data/site.ts) | Domain, email, GitHub, RedNote, Douyin, résumé path, SEO strings |
+| [`src/data/content.ts`](src/data/content.ts) | Project ids, tags, experience, photos, nav, lens order |
+| [`src/data/translations.ts`](src/data/translations.ts) | English and 简体中文 copy |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Brand names and technology names stay untranslated.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Language and lens choices persist in `localStorage`.
+
+## How to replace the important bits
+
+### Email
+
+In [`src/data/site.ts`](src/data/site.ts):
+
+```ts
+email: "nicktsai1221@gmail.com",
+```
+
+### GitHub
+
+```ts
+githubUrl: "https://github.com/Nick14848",
+```
+
+### RedNote / 小红书
+
+```ts
+REDNOTE_URL: "https://xhslink.com/m/8uQvbHfgDI6",
+```
+
+### Douyin / 抖音
+
+Search page for 小菜Nick:
+
+```ts
+DOUYIN_URL: "https://www.douyin.com/search/%E5%B0%8F%E8%8F%9CNick",
+```
+
+### Résumé
+
+The public résumé currently lives at [`public/resume.pdf`](public/resume.pdf), copied from `cv/Tsai_Yi_Kai_Nick_CV.pdf`. Replace that file to update the download.
+
+### Bio, projects, availability
+
+Edit copy in `src/data/translations.ts` and structural facts in `src/data/content.ts` / `src/data/site.ts`.
+
+## Privacy
+
+This is a public website. Never add:
+
+- home address or exact Shenzhen neighborhood
+- phone number
+- family assets or structures
+- private client names, deal names, or internal screenshots
+
+Investing is shown as a way of thinking. Do not add extra numbers, net worth, or new holdings into the copy.
+
+Investing is described only at a high level: long-term investor, index investing, asset allocation, compounding, CFA Level I.
+
+Selected work uses abstract CSS/SVG system diagrams on purpose. There are no fake dashboards and no confidential data.
+
+## Deploy through GitHub → Vercel
+
+1. Create a GitHub repository and push this project.
+2. Import the repo in [Vercel](https://vercel.com).
+3. Framework preset: Next.js. Build command: `npm run build`. Output: default.
+4. Deploy.
+
+### Connect nickts.ai
+
+1. In Vercel: Project → Settings → Domains → add `nickts.ai` and `www.nickts.ai`.
+2. At your registrar, point DNS as Vercel instructs (usually an A record for the apex and a CNAME for `www`).
+3. Wait for HTTPS. Set the canonical domain to `https://nickts.ai`.
+
+`src/data/site.ts` already uses `https://nickts.ai` for metadata, sitemap, robots and JSON-LD.
+
+## Interactions worth knowing
+
+- **换个角度看** — Recruiter / AI · Startup / Media. Changes the snapshot and jump links.
+- **EN / 中** — typed content dictionary, no i18n framework.
+- **⌘K / Ctrl+K** — command palette.
+- Email links copy `nicktsai1221@gmail.com` and briefly show `COPIED`.
+
+## Project map
+
+```text
+src/
+  app/             layout, page, metadata, OG image, robots, sitemap
+  components/      editorial sections, palette, diagrams
+  data/            site config and copy
+  lib/             preferences and helpers
+```
