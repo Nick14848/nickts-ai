@@ -1,173 +1,99 @@
-# nicktsai.me
+# nicktsai.me — Digital Business Card
 
-Personal digital identity for **Nick Tsai / 蔡逸凯**.
+A bilingual, mobile-first business card for **Nick Tsai / 蔡逸凯**. A paper-like card flips and expands into a professional introduction, followed by work experience, education and the creator story.
 
-This is not a résumé website. It is a quiet, dark, editorial product: a public operating system for how Nick thinks and what he actually builds across AI, finance, systems and product.
+Live website: [nicktsai.me](https://nicktsai.me)
 
-Primary positioning:
+## Start in a fresh desktop folder
 
-> Invest in yourself · Build systems · Long-termism. Stay Childish.
+Open a terminal **in your Desktop directory**, then run:
 
-Live domain: [nicktsai.me](https://nicktsai.me)
-
-## Why this is not a résumé website
-
-A résumé lists credentials. This site is structured around four things:
-
-1. **Identity** — a precise thesis in the first screen.
-2. **Proof of work** — four systems, shown as architecture, not job bullets.
-3. **Story** — photos, discipline, markets, the long game.
-4. **Distribution** — GitHub, RedNote, Douyin, email, and the command palette as a product surface.
-
-The first screen is a person, not an availability status.
-
-## Design philosophy
-
-Editorial minimalism × AI product × institutional quality × personal taste.
-
-- Dark-first, near-black canvas
-- Swiss typography with oversized headlines and tiny mono labels
-- 12-column editorial grid, asymmetric composition, leftover space
-- Cobalt `#3B6FFF` used at roughly 5–10% of the surface
-- No purple AI gradients, no glassmorphism, no 3D, no fake terminals
-
-Whitespace is a feature. Precision beats decoration.
-
-## Tech stack
-
-- Next.js 16 (App Router)
-- TypeScript
-- Tailwind CSS 4
-- Motion (`motion/react`)
-- Geist and Geist Mono, bundled locally via the `geist` package (no Google Fonts request at runtime)
-
-No backend, database, CMS, auth or analytics in V1. The site is intentionally static and easy to extend.
-
-Build path shown on the site:
-
-`Cursor → GitHub → Vercel → nicktsai.me`
-
-## Local development
-
-```bash
-npm install
+```sh
+git clone https://github.com/Nick14848/nickts-ai.git nicktsai-website-v2
+cd nicktsai-website-v2
+npm ci
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+This folder is independent of the old `nicktsai_website` folder. Cloning connects `origin` to the existing GitHub repository and checks out `main`. Open this new folder in Codex or Cursor for future edits.
 
-Other commands:
+Development runs at [localhost:3000](http://localhost:3000). Use a supported Node.js LTS compatible with the installed Next.js version.
 
-```bash
-npm run lint
+## Edit content
+
+| File                                  | What to edit                                                                            |
+| ------------------------------------- | --------------------------------------------------------------------------------------- |
+| `src/data/business-card.ts`           | Phone, cities, follower total, work history, education and current Chinese/English copy |
+| `src/data/site.ts`                    | Email, domain, social URLs, résumé path and metadata                                    |
+| `src/components/BusinessCardSite.tsx` | Structure, scroll interaction and dialogs                                               |
+| `src/app/business-card.css`           | Colors, typography and responsive layout                                                |
+| `public/resume.pdf`                   | Public résumé download                                                                  |
+| `public/life/bike.jpg`                | Creator photograph                                                                      |
+
+The domain highlights `ai` in **nicktsai.me**. The signature highlights **AI** and the **i / a** in **Finance**. The name uses solid, high-contrast blue with no translucent layer over the text.
+
+Previous V1 components and translations remain for reference, but the homepage now renders `BusinessCardSite`. Edit the current files above to change the live page.
+
+### Social links
+
+- RedNote uses the existing personal sharing URL.
+- **Douyin currently uses the existing search for 小菜Nick, not a verified profile URL.** The button is labelled accordingly. Replace `DOUYIN_URL` in `src/data/site.ts` when the exact profile link is available; also update `creator.douyinNote` in both languages.
+- The `7K+` total is user-provided and manually maintained, not a live counter.
+
+### Accuracy and privacy
+
+- The displayed phone and email were explicitly approved by Nick for this public business card.
+- HKU is an education affiliation. The degree is marked as in progress, with expected graduation in late 2026. No official crest or endorsement claim is used.
+- Company names describe work experience, not sponsorship.
+- Never add client names, deal details, confidential screenshots, home addresses or family information.
+
+## Interactions
+
+- Scroll: the card flips, expands and blends into work experience.
+- Header: direct work-experience navigation and Chinese/English switch; language persists locally.
+- Keep in touch: native modal with email, phone and email-copy action; Escape closes it.
+- `Cmd+K` / `Ctrl+K`: quick navigation, résumé, GitHub and contact.
+- Reduced motion: static card and separate introduction.
+- No JavaScript: server-rendered content and ordinary contact links remain available.
+
+## Validate changes
+
+```sh
 npm run typecheck
+npm run lint
 npm test
-npm run test:e2e
 npm run build
-npm start
 ```
 
-`npm run test:e2e` will install Playwright’s Chromium browser on first run if needed:
+For browser checks on your computer:
 
-```bash
+```sh
 npx playwright install chromium
+npm run test:e2e
 ```
 
-## Content structure
+The browser suite covers 320–1440px widths, card overflow, name color, language persistence, scroll, contact dialog and reduced motion. Unit/build checks do not replace a browser run.
 
-All editable personal information lives in `src/data/`. Do not hunt through components.
+`scripts/dev.mjs` retains the Next.js dev server while translating the supervised preview's `--host` option to Next.js `--hostname`. It does not change Vercel production hosting.
 
-| File | What it owns |
-| --- | --- |
-| [`src/data/site.ts`](src/data/site.ts) | Domain, email, GitHub, RedNote, Douyin, résumé path, SEO strings |
-| [`src/data/content.ts`](src/data/content.ts) | Project ids, tags, experience, photos, nav, lens order |
-| [`src/data/translations.ts`](src/data/translations.ts) | English and 简体中文 copy |
+## Publish future edits
 
-Brand names and technology names stay untranslated.
+Before editing, update a clean checkout:
 
-Language and lens choices persist in `localStorage`.
-
-## How to replace the important bits
-
-### Email
-
-In [`src/data/site.ts`](src/data/site.ts):
-
-```ts
-email: "nicktsai1221@gmail.com",
+```sh
+git pull --ff-only
 ```
 
-### GitHub
+After making and validating changes, stage the intended files and publish:
 
-```ts
-githubUrl: "https://github.com/Nick14848",
+```sh
+git add src/data/business-card.ts src/app/business-card.css
+git commit -m "Update business card"
+git push origin main
 ```
 
-### RedNote / 小红书
+Adjust the `git add` paths to your actual edits. The existing Vercel integration deploys `main`; check deployment status before assuming the production site has updated.
 
-```ts
-REDNOTE_URL: "https://xhslink.com/m/8uQvbHfgDI6",
-```
+## Stack
 
-### Douyin / 抖音
-
-Search page for 小菜Nick:
-
-```ts
-DOUYIN_URL: "https://www.douyin.com/search/%E5%B0%8F%E8%8F%9CNick",
-```
-
-### Résumé
-
-The public résumé currently lives at [`public/resume.pdf`](public/resume.pdf), copied from `cv/Tsai_Yi_Kai_Nick_CV.pdf`. Replace that file to update the download.
-
-### Bio, projects, availability
-
-Edit copy in `src/data/translations.ts` and structural facts in `src/data/content.ts` / `src/data/site.ts`.
-
-## Privacy
-
-This is a public website. Never add:
-
-- home address or exact Shenzhen neighborhood
-- phone number
-- family assets or structures
-- private client names, deal names, or internal screenshots
-
-Investing is shown as a way of thinking. Do not add extra numbers, net worth, or new holdings into the copy.
-
-Investing is described only at a high level: long-term investor, index investing, asset allocation, compounding, CFA Level I.
-
-Selected work uses abstract CSS/SVG system diagrams on purpose. There are no fake dashboards and no confidential data.
-
-## Deploy through GitHub → Vercel
-
-1. Create a GitHub repository and push this project.
-2. Import the repo in [Vercel](https://vercel.com).
-3. Framework preset: Next.js. Build command: `npm run build`. Output: default.
-4. Deploy.
-
-### Connect nicktsai.me
-
-1. In Vercel: Project → Settings → Domains → add `nicktsai.me` and `www.nicktsai.me`.
-2. At your registrar, point DNS as Vercel instructs (usually an A record for the apex and a CNAME for `www`).
-3. Wait for HTTPS. Set the canonical domain to `https://nicktsai.me`.
-
-`src/data/site.ts` is the source of truth: `domain` and `url` feed metadata, sitemap, robots and JSON-LD.
-
-## Interactions worth knowing
-
-- **换个角度看** — Recruiter / AI · Startup / Media. Changes the snapshot and jump links.
-- **EN / 中** — typed content dictionary, no i18n framework.
-- **⌘K / Ctrl+K** — command palette.
-- Email links copy `nicktsai1221@gmail.com` and briefly show `COPIED`.
-
-## Project map
-
-```text
-src/
-  app/             layout, page, metadata, OG image, robots, sitemap
-  components/      editorial sections, palette, diagrams
-  data/            site config and copy
-  lib/             preferences and helpers
-```
+Next.js App Router · React · TypeScript · Tailwind CSS · Motion · locally bundled Geist fonts. No backend, database, authentication or tracking analytics is required.

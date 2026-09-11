@@ -1,9 +1,11 @@
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { site } from "@/data/site";
 import { SiteProvider } from "@/components/SiteProvider";
 import "./globals.css";
+import "./business-card.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -41,7 +43,7 @@ const jsonLd = {
   alternateName: site.nameZh,
   url: site.url,
   email: site.email,
-  jobTitle: "AI Transformation & Systems Builder",
+  jobTitle: "AI Builder",
   affiliation: {
     "@type": "Organization",
     name: "Archbridge Capital Partners",
@@ -54,7 +56,7 @@ const jsonLd = {
   description: site.description,
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
