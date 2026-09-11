@@ -104,6 +104,10 @@ describe("Business card website", () => {
     expect(screen.getByText("往下滑查看更多")).toBeInTheDocument();
     expect(screen.getByText("很高兴认识你～")).toBeInTheDocument();
     expect(screen.getByText("全平台粉丝")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "查看简历" })).toHaveAttribute(
+      "href",
+      "/resume-zh.pdf",
+    );
     expect(window.localStorage.getItem(STORAGE_KEYS.locale)).toBe("zh");
     expect(document.documentElement.lang).toBe("zh-CN");
   });

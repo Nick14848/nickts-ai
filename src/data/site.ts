@@ -10,6 +10,7 @@ export const site = {
   inquiryEmail: "nicktsai1221@163.com",
   githubUrl: "https://github.com/Nick14848",
   resumePath: "/resume.pdf",
+  resumePathZh: "/resume-zh.pdf",
   REDNOTE_URL: "https://xhslink.com/m/8uQvbHfgDI6",
   DOUYIN_URL: "https://www.douyin.com/search/%E5%B0%8F%E8%8F%9CNick",
   deepPivotUrl: null as string | null,

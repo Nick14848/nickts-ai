@@ -123,6 +123,7 @@ export function BusinessCardSite() {
     emailCopied,
   } = useSite();
   const copy = businessCardCopy[locale];
+  const resumePath = locale === "zh" ? site.resumePathZh : site.resumePath;
   const storyRef = useRef<HTMLElement>(null);
   const reducedMotion = useReducedMotion();
   const [backVisible, setBackVisible] = useState(false);
@@ -143,7 +144,7 @@ export function BusinessCardSite() {
   const backdrop = useTransform(
     scrollYProgress,
     [0.42, 0.72],
-    ["#edf0f5", "#102337"],
+    ["#dfe7f1", "#102337"],
   );
   const radius = useTransform(unfold, [0, 1], [10, 0]);
   const backDetails = useTransform(scrollYProgress, [0.45, 0.64], [0, 1]);
@@ -230,7 +231,7 @@ export function BusinessCardSite() {
         >
           <motion.div
             className="bc-card-stage"
-            style={{ backgroundColor: reducedMotion ? "#edf0f5" : backdrop }}
+            style={{ backgroundColor: reducedMotion ? "#dfe7f1" : backdrop }}
           >
             <motion.div
               className="bc-stage-topline"
@@ -361,7 +362,7 @@ export function BusinessCardSite() {
               </div>
               <a
                 className="bc-text-link"
-                href={site.resumePath}
+                href={resumePath}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -370,7 +371,7 @@ export function BusinessCardSite() {
               </a>
             </div>
             <div className="bc-career-list">
-              {copy.experience.jobs.map((job, index) => (
+              {copy.experience.jobs.map((job) => (
                 <article className="bc-career" key={job.company}>
                   <div className="bc-career-meta">
                     <p>{job.dates}</p>
@@ -378,12 +379,6 @@ export function BusinessCardSite() {
                   </div>
                   <div className="bc-career-body">
                     <div className="bc-company-heading">
-                      <span
-                        className={`bc-company-mark bc-company-mark-${index}`}
-                        aria-hidden="true"
-                      >
-                        {index === 0 ? "A" : "H"}
-                      </span>
                       <h3>{job.company}</h3>
                     </div>
                     <p className="bc-job-role">{job.role}</p>
@@ -541,7 +536,7 @@ export function BusinessCardSite() {
           <button type="button" onClick={openContact}>
             {copy.commands.contact}
           </button>
-          <a href={site.resumePath} target="_blank" rel="noopener noreferrer">
+          <a href={resumePath} target="_blank" rel="noopener noreferrer">
             {copy.commands.resume} ↗
           </a>
           <a href={site.githubUrl} target="_blank" rel="noopener noreferrer">

@@ -1,7 +1,7 @@
 /* Digital business card: editorial precision, paper -> deep-blue canvas. */
 html,
 body {
-  background: #edf0f5;
+  background: #dfe7f1;
   color: #14253b;
 }
 .bc-app {
@@ -10,7 +10,7 @@ body {
   --bc-muted: #596b7f;
   --bc-dark: #102337;
   --bc-line: #cdd5df;
-  background: #edf0f5;
+  background: #dfe7f1;
   color: var(--bc-ink);
 }
 .bc-app *,
@@ -77,7 +77,7 @@ body {
   right: 0;
   height: 76px;
   z-index: 30;
-  background: rgb(237 240 245 / 94%);
+  background: transparent;
   border-bottom: 1px solid rgb(155 171 191 / 20%);
   backdrop-filter: blur(14px);
   transition:
@@ -168,8 +168,7 @@ body {
     var(--card-width) + (100vw - var(--card-width)) * var(--card-open)
   );
   height: calc(
-    var(--card-height) + (100svh - 152px - var(--card-height)) *
-      var(--card-open)
+    var(--card-height) + (100svh - var(--card-height)) * var(--card-open)
   );
   perspective: 1800px;
   container-type: inline-size;
@@ -478,25 +477,6 @@ body {
   font-weight: 550;
   line-height: 1.35;
   letter-spacing: -0.5px;
-}
-.bc-company-mark {
-  display: grid;
-  place-items: center;
-  width: 39px;
-  height: 39px;
-  flex: 0 0 39px;
-  background: #f6f8fc;
-  color: #143954;
-  font-family: Georgia, serif;
-  font-size: 25px;
-  border-radius: 4px;
-}
-.bc-company-mark-1 {
-  background: #ecf0f5;
-  color: #bb1528;
-  font-family: var(--font-sans);
-  font-size: 21px;
-  font-weight: 650;
 }
 .bc-job-role {
   font-size: 17px;
@@ -863,11 +843,10 @@ body {
     padding-block: 83px 60px;
   }
   .bc-card-frame {
-    --card-width: calc(100vw - 36px);
-    --card-height: 296px;
+    --card-width: calc(100vw - 20px);
+    --card-height: 302px;
     height: calc(
-      var(--card-height) + (100svh - 143px - var(--card-height)) *
-        var(--card-open)
+      var(--card-height) + (100svh - var(--card-height)) * var(--card-open)
     );
   }
   .bc-card-front {
@@ -995,12 +974,6 @@ body {
   .bc-company-heading h3 {
     font-size: 21px;
     letter-spacing: -0.5px;
-  }
-  .bc-company-mark {
-    width: 33px;
-    height: 33px;
-    flex-basis: 33px;
-    font-size: 22px;
   }
   .bc-job-role {
     font-size: 16px;
