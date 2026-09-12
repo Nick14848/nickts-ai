@@ -36,6 +36,7 @@ vi.mock("motion/react", async () => {
       article: element("article"),
     },
     useReducedMotion: vi.fn(() => false),
+    useInView: vi.fn(() => true),
     useScroll: () => ({ scrollYProgress: 0 }),
     useTransform: (_value: unknown, _input: unknown, output: unknown[]) =>
       output[0],
@@ -108,7 +109,9 @@ describe("Business card website", () => {
     expect(
       within(experience).getByText("BEng Data Science & Engineering"),
     ).toBeInTheDocument();
-    expect(screen.getByText("7K+")).toBeInTheDocument();
+    expect(
+      screen.getByLabelText("7,443 followers across platforms"),
+    ).toBeInTheDocument();
     expect(screen.queryByText("ByteDance")).not.toBeInTheDocument();
     expect(container.querySelector("#work")).toBeNull();
     expect(screen.getByRole("link", { name: "View résumé" })).toHaveAttribute(
@@ -161,7 +164,9 @@ describe("Business card website", () => {
   });
   it("keeps social destinations truthful and external links safe", () => {
     renderSite();
-    const rednote = screen.getByRole("link", { name: "RedNote" });
+    const rednote = screen.getByRole("link", {
+      name: "RedNote · @小菜Nick",
+    });
     const douyin = screen.getByRole("link", { name: "Douyin · Find 小菜Nick" });
     expect(rednote).toHaveAttribute("href", site.REDNOTE_URL);
     expect(douyin).toHaveAttribute("href", site.DOUYIN_URL);

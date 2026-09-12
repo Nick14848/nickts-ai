@@ -5,7 +5,7 @@ export const cardDetails = {
   phone: "+852 6990 2741",
   phoneHref: "tel:+85269902741",
   cities: ["Taiwan", "Hong Kong", "Shenzhen"],
-  followers: "7K+",
+  followers: 7443,
   degree: "BEng Data Science & Engineering",
   creatorImage: "/life/bike.jpg",
 } as const;

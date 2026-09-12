@@ -122,7 +122,7 @@ body {
 .bc-header-dark {
   background: rgb(16 35 55 / 94%);
   color: #f6f8fc;
-  border-color: #2d4157;
+  border-color: transparent;
 }
 .bc-header-dark .bc-highlight {
   color: #88abff;
@@ -145,6 +145,9 @@ body {
   padding-block: 88px 64px;
   perspective: 1800px;
   overflow: clip;
+}
+.bc-card-stage-dark {
+  background-color: #102337 !important;
 }
 .bc-stage-topline {
   position: absolute;
@@ -594,8 +597,11 @@ body {
 }
 .bc-creator {
   padding: 100px 0 110px;
-  background: #f7f8fa;
+  background:
+    radial-gradient(circle at 78% 22%, rgb(36 80 202 / 10%), transparent 34%),
+    #f7f8fa;
   scroll-margin-top: 76px;
+  overflow: hidden;
 }
 .bc-creator .bc-eyebrow {
   color: #66778b;
@@ -613,16 +619,31 @@ body {
 .bc-followers strong {
   display: block;
   color: #2450ca;
-  font-size: clamp(80px, 9vw, 132px);
+  font-size: clamp(76px, 8.4vw, 124px);
   font-weight: 520;
   line-height: 1;
-  letter-spacing: -0.08em;
+  letter-spacing: -0.075em;
+  font-variant-numeric: tabular-nums;
+  min-height: 1em;
+}
+.bc-followers strong > span {
+  display: inline-block;
 }
 .bc-followers > span {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 9px;
   color: #65758a;
   font-size: 15px;
   margin-top: 12px;
+}
+.bc-followers > span i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2450ca;
+  box-shadow: 0 0 0 5px rgb(36 80 202 / 10%);
+  animation: bc-counting-pulse 2.2s ease-in-out infinite;
 }
 .bc-creator-text h3 {
   font-size: 27px;
@@ -638,30 +659,76 @@ body {
   margin-top: 15px;
 }
 .bc-social-links {
-  display: flex;
-  gap: 32px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
   margin-top: 32px;
-  align-items: flex-start;
 }
 .bc-social-links a {
   display: grid;
-  grid-template-columns: 1fr 22px;
-  column-gap: 15px;
+  grid-template-columns: 42px minmax(0, 1fr) 22px;
+  column-gap: 13px;
   align-items: center;
-  font-size: 16px;
-  font-weight: 530;
-  min-height: 44px;
-  padding-top: 5px;
+  min-height: 72px;
+  padding: 14px;
+  border: 1px solid #dbe2ec;
+  border-radius: 8px;
+  background: rgb(255 255 255 / 72%);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
-.bc-social-links small {
-  grid-column: 1 / -1;
+.bc-social-links a:hover {
+  transform: translateY(-3px);
+  border-color: #b6c8ed;
+  box-shadow: 0 14px 30px -22px rgb(19 49 108 / 45%);
+}
+.bc-social-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+}
+.bc-social-icon img {
+  width: 23px;
+  height: 23px;
+  filter: invert(1);
+}
+.bc-social-icon-rednote {
+  background: #ff2442;
+}
+.bc-social-icon-douyin {
+  background: #111111;
+  box-shadow:
+    -2px 2px 0 #25f4ee,
+    2px -2px 0 #fe2c55;
+}
+.bc-social-copy {
+  min-width: 0;
+}
+.bc-social-copy strong {
+  display: block;
+  color: #203650;
+  font-size: 15px;
+  font-weight: 580;
+}
+.bc-social-copy small {
+  display: block;
   color: #728096;
   font-size: 12px;
   font-weight: 400;
   margin-top: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .bc-social-links a:hover .bc-arrow {
   transform: translateX(4px);
+}
+.bc-life-photo-reveal {
+  min-width: 0;
 }
 .bc-life-photo {
   margin: 0;
@@ -675,6 +742,21 @@ body {
   object-fit: cover;
   object-position: 52% center;
   border-radius: 5px;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.bc-life-photo:hover img {
+  transform: scale(1.018);
+}
+@keyframes bc-counting-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.75);
+  }
 }
 .bc-life-photo figcaption {
   font-size: 12px;
@@ -1074,7 +1156,7 @@ body {
     gap: 39px;
   }
   .bc-followers strong {
-    font-size: 108px;
+    font-size: 84px;
   }
   .bc-creator-text h3 {
     font-size: 25px;
@@ -1088,6 +1170,7 @@ body {
     object-position: center 58%;
   }
   .bc-social-links {
+    grid-template-columns: 1fr;
     margin-top: 25px;
   }
   .bc-footer {

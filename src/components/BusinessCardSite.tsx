@@ -5,6 +5,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   motion,
   useMotionValueEvent,
+  useInView,
   useReducedMotion,
   useScroll,
   useTransform,
@@ -30,6 +31,47 @@ function Arrow({ down = false }: { down?: boolean }) {
         strokeLinejoin="round"
       />
     </svg>
+  );
+}
+
+function FollowerCount({
+  value,
+  label,
+  reducedMotion,
+}: {
+  value: number;
+  label: string;
+  reducedMotion: boolean;
+}) {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.7 });
+  const [displayValue, setDisplayValue] = useState(reducedMotion ? value : 0);
+
+  useEffect(() => {
+    if (!inView || reducedMotion) return;
+
+    const duration = 1500;
+    const startedAt = performance.now();
+    let frame = 0;
+    const tick = (now: number) => {
+      const progress = Math.min((now - startedAt) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 4);
+      setDisplayValue(Math.round(value * eased));
+      if (progress < 1) frame = window.requestAnimationFrame(tick);
+    };
+    frame = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(frame);
+  }, [inView, reducedMotion, value]);
+
+  return (
+    <strong
+      ref={ref}
+      aria-label={`${value.toLocaleString("en-US")} ${label}`}
+    >
+      <span aria-hidden="true">
+        {(reducedMotion ? value : displayValue).toLocaleString("en-US")}
+      </span>
+    </strong>
   );
 }
 
@@ -244,7 +286,7 @@ export function BusinessCardSite() {
           }
         >
           <motion.div
-            className="bc-card-stage"
+            className={`bc-card-stage${darkNav ? " bc-card-stage-dark" : ""}`}
             style={{ backgroundColor: reducedMotion ? "#dfe7f1" : backdrop }}
           >
             <motion.div
@@ -423,18 +465,42 @@ export function BusinessCardSite() {
 
         <section id="community" className="bc-creator">
           <div className="bc-content">
-            <div className="bc-section-heading">
+            <motion.div
+              className="bc-section-heading"
+              initial={reducedMotion ? false : { opacity: 0, y: 18 }}
+              whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.55 }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            >
               <div>
                 <p className="bc-eyebrow">03 / 03</p>
                 <h2>{copy.creator.title}</h2>
               </div>
               <span className="bc-creator-handle">{copy.creator.name}</span>
-            </div>
+            </motion.div>
             <div className="bc-creator-grid">
-              <div className="bc-creator-text">
+              <motion.div
+                className="bc-creator-text"
+                initial={reducedMotion ? false : { opacity: 0, y: 34 }}
+                whileInView={
+                  reducedMotion ? undefined : { opacity: 1, y: 0 }
+                }
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{
+                  duration: 0.7,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
                 <div className="bc-followers">
-                  <strong>{cardDetails.followers}</strong>
-                  <span>{copy.creator.followers}</span>
+                  <FollowerCount
+                    value={cardDetails.followers}
+                    label={copy.creator.followers}
+                    reducedMotion={Boolean(reducedMotion)}
+                  />
+                  <span>
+                    <i aria-hidden="true" />
+                    {copy.creator.followers}
+                  </span>
                 </div>
                 <h3>{copy.creator.headline}</h3>
                 <p>{copy.creator.copy}</p>
@@ -443,8 +509,20 @@ export function BusinessCardSite() {
                     href={site.REDNOTE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={`${copy.creator.rednote} · @${copy.creator.name}`}
                   >
-                    {copy.creator.rednote}
+                    <span className="bc-social-icon bc-social-icon-rednote">
+                      <Image
+                        src="/social/xiaohongshu.svg"
+                        alt=""
+                        width={24}
+                        height={24}
+                      />
+                    </span>
+                    <span className="bc-social-copy">
+                      <strong>{copy.creator.rednote}</strong>
+                      <small>@{copy.creator.name}</small>
+                    </span>
                     <Arrow />
                   </a>
                   <a
@@ -453,22 +531,52 @@ export function BusinessCardSite() {
                     rel="noopener noreferrer"
                     aria-label={`${copy.creator.douyin} · ${copy.creator.douyinNote}`}
                   >
-                    {copy.creator.douyin}
+                    <span className="bc-social-icon bc-social-icon-douyin">
+                      <Image
+                        src="/social/douyin.svg"
+                        alt=""
+                        width={24}
+                        height={24}
+                      />
+                    </span>
+                    <span className="bc-social-copy">
+                      <strong>{copy.creator.douyin}</strong>
+                      <small>{copy.creator.douyinNote}</small>
+                    </span>
                     <Arrow />
-                    <small>{copy.creator.douyinNote}</small>
                   </a>
                 </div>
-              </div>
-              <figure className="bc-life-photo">
-                <Image
-                  src={cardDetails.creatorImage}
-                  alt={copy.creator.photoAlt}
-                  width={1080}
-                  height={1080}
-                  sizes="(max-width: 700px) 90vw, 450px"
-                />
-                <figcaption>{copy.creator.photoCaption}</figcaption>
-              </figure>
+              </motion.div>
+              <motion.div
+                className="bc-life-photo-reveal"
+                initial={
+                  reducedMotion
+                    ? false
+                    : { opacity: 0, y: 42, clipPath: "inset(12% 0 0 0)" }
+                }
+                whileInView={
+                  reducedMotion
+                    ? undefined
+                    : { opacity: 1, y: 0, clipPath: "inset(0% 0 0 0)" }
+                }
+                viewport={{ once: true, amount: 0.24 }}
+                transition={{
+                  duration: 0.85,
+                  delay: 0.12,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
+                <figure className="bc-life-photo">
+                  <Image
+                    src={cardDetails.creatorImage}
+                    alt={copy.creator.photoAlt}
+                    width={1080}
+                    height={1080}
+                    sizes="(max-width: 700px) 90vw, 450px"
+                  />
+                  <figcaption>{copy.creator.photoCaption}</figcaption>
+                </figure>
+              </motion.div>
             </div>
           </div>
         </section>
