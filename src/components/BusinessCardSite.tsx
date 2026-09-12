@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import {
   motion,
   useMotionValueEvent,
@@ -12,7 +12,7 @@ import {
   type MotionStyle,
 } from "motion/react";
 import { cardDetails, businessCardCopy } from "@/data/business-card";
-import { site } from "@/data/site";
+import { site, type Locale } from "@/data/site";
 import { useSite } from "./SiteProvider";
 
 const HKU_LOGO_URL =
@@ -86,18 +86,150 @@ export function CardWordmark() {
   );
 }
 
-export function FinanceSignature() {
+function RegionalBridgeMap({
+  locale,
+  reducedMotion,
+  active,
+}: {
+  locale: Locale;
+  reducedMotion: boolean;
+  active?: boolean;
+}) {
+  const mapId = useId().replaceAll(":", "");
+  const lineGradientId = `bc-map-line-${mapId}`;
+  const glowGradientId = `bc-map-glow-${mapId}`;
+  const nodes =
+    locale === "zh"
+      ? [
+          { city: "深圳", focus: "AI 科技创新", x: 184, y: 116 },
+          { city: "香港", focus: "国际金融", x: 232, y: 246 },
+          { city: "台湾", focus: "半导体产业", x: 554, y: 174 },
+        ]
+      : [
+          { city: "Shenzhen", focus: "AI innovation", x: 184, y: 116 },
+          { city: "Hong Kong", focus: "Global finance", x: 232, y: 246 },
+          { city: "Taiwan", focus: "Semiconductors", x: 554, y: 174 },
+        ];
+
   return (
-    <span className="bc-finance" aria-label="AI × Finance">
-      <span className="bc-highlight">AI</span>
-      <span className="bc-times" aria-hidden="true">
-        ×
-      </span>
-      <span>
-        F<span className="bc-highlight">i</span>n
-        <span className="bc-highlight">a</span>nce
-      </span>
-    </span>
+    <motion.figure
+      className="bc-network-map"
+      initial={reducedMotion ? false : { opacity: 0, y: 24 }}
+      animate={
+        reducedMotion || active === undefined
+          ? undefined
+          : active
+            ? { opacity: 1, y: 0 }
+            : { opacity: 0, y: 24 }
+      }
+      whileInView={
+        reducedMotion || active !== undefined ? undefined : { opacity: 1, y: 0 }
+      }
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <svg
+        viewBox="0 0 700 360"
+        role="img"
+        aria-label={
+          locale === "zh"
+            ? "连接深圳、香港与台湾的区域网络图"
+            : "Regional network connecting Shenzhen, Hong Kong and Taiwan"
+        }
+      >
+        <defs>
+          <linearGradient
+            id={lineGradientId}
+            x1="0"
+            y1="0"
+            x2="1"
+            y2="1"
+          >
+            <stop offset="0" stopColor="#73a0ff" />
+            <stop offset="1" stopColor="#c6d8ff" />
+          </linearGradient>
+          <radialGradient id={glowGradientId}>
+            <stop offset="0" stopColor="#78a4ff" stopOpacity="0.32" />
+            <stop offset="1" stopColor="#78a4ff" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+        <g className="bc-map-grid" aria-hidden="true">
+          <path d="M0 90H700M0 180H700M0 270H700" />
+          <path d="M140 0V360M280 0V360M420 0V360M560 0V360" />
+        </g>
+        <g className="bc-map-land" aria-hidden="true">
+          <path d="M26 35C92 31 147 56 158 93c9 28 1 58 25 82 16 17 48 18 62 41 17 28 3 70 27 107H26Z" />
+          <path d="M548 82c23 13 34 42 29 72-5 34-24 70-42 93-8-29-6-62 1-93 6-27 4-55 12-72Z" />
+        </g>
+        <motion.path
+          className="bc-map-route"
+          d="M184 116L232 246L554 174L184 116"
+          fill="none"
+          stroke={`url(#${lineGradientId})`}
+          initial={reducedMotion ? false : { pathLength: 0, opacity: 0.15 }}
+          animate={
+            reducedMotion || active === undefined
+              ? undefined
+              : active
+                ? { pathLength: 1, opacity: 1 }
+                : { pathLength: 0, opacity: 0.15 }
+          }
+          whileInView={
+            reducedMotion || active !== undefined
+              ? undefined
+              : { pathLength: 1, opacity: 1 }
+          }
+          viewport={{ once: true, amount: 0.55 }}
+          transition={{ duration: 1.4, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+        />
+        {nodes.map((node, index) => (
+          <motion.g
+            className="bc-map-node"
+            key={node.city}
+            initial={reducedMotion ? false : { opacity: 0, scale: 0.7 }}
+            animate={
+              reducedMotion || active === undefined
+                ? undefined
+                : active
+                  ? { opacity: 1, scale: 1 }
+                  : { opacity: 0, scale: 0.7 }
+            }
+            whileInView={
+              reducedMotion || active !== undefined
+                ? undefined
+                : { opacity: 1, scale: 1 }
+            }
+            viewport={{ once: true, amount: 0.55 }}
+            transition={{
+              duration: 0.5,
+              delay: 0.38 + index * 0.22,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            <circle
+              className="bc-map-halo"
+              cx={node.x}
+              cy={node.y}
+              r="48"
+              fill={`url(#${glowGradientId})`}
+            />
+            <circle className="bc-map-ring" cx={node.x} cy={node.y} r="12" />
+            <circle className="bc-map-dot" cx={node.x} cy={node.y} r="4" />
+            <text className="bc-map-city" x={node.x + 20} y={node.y - 5}>
+              {node.city}
+            </text>
+            <text className="bc-map-focus" x={node.x + 20} y={node.y + 20}>
+              {node.focus}
+            </text>
+          </motion.g>
+        ))}
+      </svg>
+      <figcaption>
+        {locale === "zh"
+          ? "三座城市，一套连接产业、资本与技术的视角"
+          : "Three cities. One perspective across technology, capital and industry."}
+      </figcaption>
+    </motion.figure>
   );
 }
 
@@ -254,7 +386,9 @@ export function BusinessCardSite() {
       <div className="bc-affiliations">
         <span>{copy.intro.affiliations}</span>
         <p>
-          HKU <i aria-hidden="true" /> HSBC <i aria-hidden="true" /> Archbridge
+          {copy.intro.organizations.map((organization) => (
+            <strong key={organization}>{organization}</strong>
+          ))}
         </p>
         <small>{copy.intro.credentials}</small>
       </div>
@@ -269,6 +403,10 @@ export function BusinessCardSite() {
           <span key={line}>{line}</span>
         ))}
       </h2>
+      <RegionalBridgeMap
+        locale={locale}
+        reducedMotion={Boolean(reducedMotion)}
+      />
       {renderIntroDetails()}
     </>
   );
@@ -361,11 +499,12 @@ export function BusinessCardSite() {
                     </a>
                   </div>
                   <div className="bc-card-bottom">
-                    <p className="bc-role">AI Builder</p>
+                    <p className="bc-role">{copy.card.role}</p>
                     <div
                       className="bc-cities"
-                      aria-label={cardDetails.cities.join(", ")}
+                      aria-label={`${copy.card.base} ${cardDetails.cities.join(", ")}`}
                     >
+                      <strong>{copy.card.base}</strong>
                       {cardDetails.cities.map((city) => (
                         <span key={city}>{city}</span>
                       ))}
@@ -381,10 +520,6 @@ export function BusinessCardSite() {
                       </a>
                       <a href={site.url}>{site.domain}</a>
                     </address>
-                  </div>
-                  <div className="bc-card-foot">
-                    <FinanceSignature />
-                    <span className="bc-card-rule" aria-hidden="true" />
                   </div>
                 </motion.div>
                 <motion.div
@@ -403,6 +538,11 @@ export function BusinessCardSite() {
                         <span key={line}>{line}</span>
                       ))}
                     </motion.h2>
+                    <RegionalBridgeMap
+                      locale={locale}
+                      reducedMotion={Boolean(reducedMotion)}
+                      active={showBack}
+                    />
                     {renderIntroDetails()}
                   </div>
                 </motion.div>
@@ -428,7 +568,13 @@ export function BusinessCardSite() {
           className="bc-mobile-intro bc-dark"
           aria-label={locale === "zh" ? "个人介绍详情" : "About Nick"}
         >
-          <div className="bc-content">{renderIntroDetails()}</div>
+          <div className="bc-content">
+            <RegionalBridgeMap
+              locale={locale}
+              reducedMotion={Boolean(reducedMotion)}
+            />
+            {renderIntroDetails()}
+          </div>
         </section>
 
         <section
@@ -478,7 +624,22 @@ export function BusinessCardSite() {
                       <h3>{job.company}</h3>
                     </div>
                     <p className="bc-job-role">{job.role}</p>
-                    <p className="bc-job-type">{job.type}</p>
+                    {job.type && <p className="bc-job-type">{job.type}</p>}
+                    {job.description && (
+                      <p className="bc-job-description">{job.description}</p>
+                    )}
+                    {job.website && (
+                      <a
+                        className="bc-job-website"
+                        href={job.website.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {locale === "zh" ? "官网：" : "Website · "}
+                        {job.website.label}
+                        <Arrow />
+                      </a>
+                    )}
                     <ul>
                       {job.points.map((point) => (
                         <li key={point}>{point}</li>

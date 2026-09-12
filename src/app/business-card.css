@@ -82,7 +82,9 @@ body {
   backdrop-filter: blur(14px);
   transition:
     color 0.3s,
-    background 0.3s;
+    background 0.3s,
+    border-color 0.3s,
+    box-shadow 0.3s;
 }
 .bc-header-inner {
   max-width: 1440px;
@@ -120,9 +122,10 @@ body {
   background: #bdc7d4;
 }
 .bc-header-dark {
-  background: rgb(16 35 55 / 94%);
+  background: rgb(7 22 38 / 96%);
   color: #f6f8fc;
-  border-color: transparent;
+  border-color: rgb(111 144 180 / 28%);
+  box-shadow: 0 14px 32px -26px rgb(0 0 0 / 78%);
 }
 .bc-header-dark .bc-highlight {
   color: #88abff;
@@ -306,6 +309,11 @@ body {
   margin-top: 6px;
   color: #4e6178;
 }
+.bc-cities strong {
+  margin-right: 5px;
+  font-weight: 520;
+  color: #273d57;
+}
 .bc-cities span + span::before {
   content: "×";
   display: inline-block;
@@ -314,6 +322,7 @@ body {
 }
 .bc-card-identity {
   margin: 0;
+  text-align: left;
 }
 .bc-card-identity h1 {
   color: #111111;
@@ -329,9 +338,13 @@ body {
   letter-spacing: 0.2em;
   margin-top: 9px;
   color: #263a53;
+  padding-left: 1px;
 }
 .bc-card-bottom {
   margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .bc-role {
   font-size: 17px;
@@ -366,40 +379,6 @@ body {
 }
 .bc-card-address a:last-child {
   margin-top: 2px;
-}
-.bc-card-foot {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 32px;
-  margin-top: 17px;
-  padding-top: 0;
-}
-.bc-finance {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 10px;
-  font-size: 27px;
-  line-height: 1.1;
-  font-weight: 550;
-  letter-spacing: -0.8px;
-  white-space: nowrap;
-}
-.bc-finance .bc-highlight {
-  color: #2450ca;
-}
-.bc-finance > .bc-highlight {
-  font-weight: 680;
-}
-.bc-times {
-  color: #98a5b6;
-  font-size: 21px;
-  font-weight: 350;
-}
-.bc-card-rule {
-  width: 80px;
-  height: 1px;
-  background: #bac6d5;
 }
 .bc-card-back {
   transform: rotateY(180deg);
@@ -438,8 +417,74 @@ body {
 .bc-intro-title span {
   display: block;
 }
-.bc-intro-title span:last-child {
+.bc-intro-title span + span {
   color: #9ebeff;
+}
+.bc-network-map {
+  position: relative;
+  margin: 25px 0 0;
+  border: 1px solid rgb(112 145 183 / 28%);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 78% 45%, rgb(77 116 178 / 15%), transparent 32%),
+    rgb(9 29 48 / 58%);
+  overflow: hidden;
+}
+.bc-network-map svg {
+  display: block;
+  width: 100%;
+  height: clamp(160px, 22svh, 220px);
+}
+.bc-map-grid path {
+  fill: none;
+  stroke: rgb(141 169 202 / 8%);
+  stroke-width: 1;
+}
+.bc-map-land path {
+  fill: rgb(109 142 180 / 8%);
+  stroke: rgb(127 159 195 / 21%);
+  stroke-width: 1.2;
+}
+.bc-map-route {
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 5 7;
+}
+.bc-map-halo {
+  opacity: 0.78;
+}
+.bc-map-ring {
+  fill: rgb(9 29 48 / 92%);
+  stroke: #82aaff;
+  stroke-width: 2;
+}
+.bc-map-dot {
+  fill: #edf4ff;
+}
+.bc-map-city,
+.bc-map-focus {
+  font-family: var(--font-geist-sans), sans-serif;
+}
+.bc-map-city {
+  fill: #f6f9ff;
+  font-size: 26px;
+  font-weight: 600;
+}
+.bc-map-focus {
+  fill: #9eb5cf;
+  font-size: 18px;
+  letter-spacing: 0.03em;
+}
+.bc-network-map figcaption {
+  position: absolute;
+  left: 18px;
+  bottom: 15px;
+  color: #8fa8c3;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 .bc-intro-copy {
   max-width: 860px;
@@ -486,11 +531,23 @@ body {
 .bc-affiliations p {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 0;
   font-size: 20px;
   letter-spacing: -0.5px;
   font-weight: 550;
   margin-top: 12px;
+}
+.bc-affiliations p strong {
+  font: inherit;
+  white-space: nowrap;
+}
+.bc-affiliations p strong + strong::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 13px;
+  margin-inline: 20px;
+  background: #62778e;
 }
 .bc-affiliations small {
   grid-column: 2;
@@ -502,11 +559,6 @@ body {
   letter-spacing: 0.06em;
   padding-bottom: 3px;
   white-space: nowrap;
-}
-.bc-affiliations i {
-  height: 13px;
-  width: 1px;
-  background: #62778e;
 }
 .bc-scroll-cue {
   position: absolute;
@@ -609,6 +661,29 @@ body {
   line-height: 1.7;
   color: #9db1ca;
   margin-top: 3px;
+}
+.bc-job-description {
+  max-width: 730px;
+  margin-top: 18px;
+  color: #c6d4e5;
+  font-size: 15px;
+  line-height: 1.75;
+}
+.bc-job-website {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  margin-top: 8px;
+  color: #91b2f8;
+  font-size: 13px;
+}
+.bc-job-website .bc-arrow {
+  width: 17px;
+  height: 17px;
+}
+.bc-job-website:hover .bc-arrow {
+  transform: translateX(3px);
 }
 .bc-career ul {
   list-style: none;
@@ -995,7 +1070,7 @@ body {
     --card-width: min(690px, calc(100vw - 64px));
   }
   .bc-cities {
-    gap: 12px;
+    gap: 0;
   }
   .bc-content {
     width: calc(100% - 64px);
@@ -1042,25 +1117,25 @@ body {
   }
   .bc-card-frame {
     --card-width: calc(100vw - 20px);
-    --card-height: 326px;
+    --card-height: 288px;
     height: calc(
       var(--card-height) + (100svh - var(--card-height)) * var(--card-open)
     );
   }
   .bc-card-front {
-    padding: 21px 23px 19px;
+    padding: 19px 23px 18px;
   }
   .bc-card-top {
     gap: 12px;
   }
   .bc-university {
-    width: 148px;
+    width: 142px;
     max-width: 42%;
   }
   .bc-cities {
     flex-direction: row;
     align-items: center;
-    font-size: 10px;
+    font-size: 9.5px;
     line-height: 1.5;
     margin-top: 5px;
     white-space: nowrap;
@@ -1069,20 +1144,20 @@ body {
     margin-inline: 6px;
   }
   .bc-card-identity h1 {
-    font-size: clamp(31px, 9vw, 38px);
+    font-size: clamp(30px, 8.5vw, 36px);
     letter-spacing: -1.5px;
   }
   .bc-chinese-name {
-    font-size: 14px;
+    font-size: 13px;
     margin-top: 5px;
     line-height: 1.3;
   }
   .bc-role {
-    font-size: 14px;
+    font-size: 13px;
     margin-top: 0;
   }
   .bc-card-address {
-    font-size: 12px;
+    font-size: 11.5px;
     line-height: 1.45;
     margin-top: 10px;
   }
@@ -1092,24 +1167,15 @@ body {
   .bc-card-address a:last-child {
     margin-top: 0;
   }
-  .bc-card-foot {
-    margin-top: 13px;
-    padding-top: 0;
-  }
-  .bc-finance {
-    font-size: 22px;
-    gap: 8px;
-  }
-  .bc-times {
-    font-size: 18px;
-  }
-  .bc-card-rule {
-    width: 45px;
+  .bc-card-back {
+    align-items: flex-end;
   }
   .bc-back-content {
-    padding: 88px 25px 34px;
+    margin: 0 auto;
+    padding: 0 25px 72px;
   }
-  .bc-card-back .bc-intro-details {
+  .bc-card-back .bc-intro-details,
+  .bc-card-back .bc-network-map {
     display: none;
   }
   .bc-intro-title {
@@ -1123,7 +1189,7 @@ body {
     position: relative;
     z-index: 2;
     margin-top: -1px;
-    padding: 16px 0 70px;
+    padding: 14px 0 70px;
   }
   .bc-mobile-intro::before {
     content: "";
@@ -1135,7 +1201,19 @@ body {
     background: linear-gradient(90deg, #648fe8, rgb(100 143 232 / 0%));
   }
   .bc-mobile-intro .bc-intro-copy {
+    margin-top: 24px;
+  }
+  .bc-mobile-intro .bc-network-map {
     margin-top: 0;
+  }
+  .bc-network-map svg {
+    height: auto;
+    aspect-ratio: 700 / 360;
+  }
+  .bc-network-map figcaption {
+    left: 12px;
+    bottom: 10px;
+    font-size: 8px;
   }
   .bc-intro-copy {
     font-size: 15px;
@@ -1164,13 +1242,23 @@ body {
   }
   .bc-affiliations p {
     font-size: 17px;
-    gap: 17px;
+    gap: 10px 0;
+    flex-wrap: wrap;
+  }
+  .bc-affiliations p strong + strong::before {
+    margin-right: 14px;
+    margin-left: 14px;
   }
   .bc-affiliations small {
     grid-column: 1;
     grid-row: auto;
     margin-top: 10px;
     font-size: 11px;
+  }
+  .bc-job-description {
+    margin-top: 15px;
+    font-size: 14px;
+    line-height: 1.72;
   }
   .bc-scroll-cue {
     bottom: 26px;
@@ -1309,7 +1397,7 @@ body {
 }
 @media (max-width: 360px) {
   .bc-card-frame {
-    --card-height: 318px;
+    --card-height: 280px;
   }
   .bc-header-inner {
     padding-inline: 16px;

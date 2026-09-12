@@ -86,11 +86,7 @@ describe("Business card website", () => {
     expect(
       screen.getByRole("link", { name: /E\s*nicktsai1221@gmail.com/ }),
     ).toHaveAttribute("href", "mailto:nicktsai1221@gmail.com");
-    expect(
-      Array.from(container.querySelectorAll(".bc-finance .bc-highlight")).map(
-        (node) => node.textContent,
-      ),
-    ).toEqual(["AI", "i", "a"]);
+    expect(container.querySelector(".bc-finance")).toBeNull();
   });
   it("shows the requested employers, education and creator section", () => {
     const { container } = renderSite();
@@ -128,7 +124,9 @@ describe("Business card website", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("往下滑查看更多")).toBeInTheDocument();
     expect(screen.getByText("很高兴认识你～")).toBeInTheDocument();
-    expect(screen.getByText("全平台粉丝")).toBeInTheDocument();
+    expect(screen.getByText("全平台粉丝量")).toBeInTheDocument();
+    expect(screen.getByText("AI 建造师")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "凯翔资本" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "查看简历" })).toHaveAttribute(
       "href",
       "/resume-zh.pdf",

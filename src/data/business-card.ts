@@ -12,7 +12,13 @@ export const cardDetails = {
 
 type CardCopy = {
   nav: { experience: string; language: string; skip: string };
-  card: { university: string; scroll: string; welcome: string };
+  card: {
+    university: string;
+    scroll: string;
+    welcome: string;
+    role: string;
+    base: string;
+  };
   intro: {
     label: string;
     title: string[];
@@ -20,6 +26,7 @@ type CardCopy = {
     bridges: { label: string; detail: string }[];
     credentials: string;
     affiliations: string;
+    organizations: string[];
   };
   experience: {
     title: string;
@@ -30,6 +37,8 @@ type CardCopy = {
       dates: string;
       location: string;
       type: string;
+      description?: string;
+      website?: { label: string; url: string };
       points: string[];
     }[];
     educationLabel: string;
@@ -83,6 +92,8 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       university: "The University of Hong Kong",
       scroll: "Scroll to discover more",
       welcome: "A pleasure to meet you.",
+      role: "AI Builder",
+      base: "Based in",
     },
     intro: {
       label: "AI × FINANCE · CROSS-CULTURAL BUILDER",
@@ -105,6 +116,11 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       ],
       credentials: "CFA Level I · IELTS 7.5",
       affiliations: "Education & experience",
+      organizations: [
+        "The University of Hong Kong",
+        "HSBC",
+        "Archbridge Capital",
+      ],
     },
     experience: {
       title: "Work experience",
@@ -116,6 +132,12 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
           dates: "Jun 2026 — Present",
           location: "Hong Kong",
           type: "AI × Finance · Private Markets",
+          description:
+            "A Hong Kong SFC-licensed (Types 4 & 9) asset manager overseeing approximately US$100 million in private and structured credit assets for family-office clients.",
+          website: {
+            label: "archbridgecap.com",
+            url: "https://archbridgecap.com/",
+          },
           points: [
             "Shape and build an integrated AI workspace for investment research and fund operations, connecting fragmented project data, internal systems and AI tools.",
             "Design human-in-the-loop AI agents for private-credit screening, turning unstructured deal materials into evidence-backed scorecards and review workflows.",
@@ -185,10 +207,12 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       university: "香港大学",
       scroll: "往下滑查看更多",
       welcome: "很高兴认识你。",
+      role: "AI 建造师",
+      base: "Based in",
     },
     intro: {
-      label: "AI × 金融 · 跨文化 BUILDER",
-      title: ["连接技术与商业，", "也连接不同的世界。"],
+      label: "AI × 金融 · 跨文化 建造师",
+      title: ["连接技术与商业的桥梁"],
       summary:
         "具备企业 AI 应用、数据分析与金融场景数字化落地经验，能够从真实业务需求出发，将 AI 工作台、AI Agent、私有化大模型与自动化工作流推进到实际应用。",
       bridges: [
@@ -207,17 +231,24 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       ],
       credentials: "CFA Level I · IELTS 7.5",
       affiliations: "教育与工作经历",
+      organizations: ["香港大学", "HSBC 汇丰", "凯翔资本"],
     },
     experience: {
       title: "工作经历",
       cv: "查看简历",
       jobs: [
         {
-          company: "Archbridge Capital Partners",
+          company: "凯翔资本",
           role: "AI 转型与资产管理分析师",
           dates: "2026.06 — 至今",
           location: "香港",
-          type: "AI × 金融 · 私募市场",
+          type: "",
+          description:
+            "香港证监会（SFC）第4/9类持牌资产管理机构，为家族办公室客户管理约 1 亿美元私募及结构化信贷资产。",
+          website: {
+            label: "archbridgecap.com",
+            url: "https://archbridgecap.com/",
+          },
           points: [
             "参与规划并开发一体化 AI 工作台，连接项目资料、内部数据与 AI 工具，服务投资研究及基金运营。",
             "设计 Human-in-the-loop AI Agent，将非结构化项目材料转化为基于证据的评分卡，支持私募信贷项目筛选与尽调。",
@@ -226,7 +257,7 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
         },
         {
           company: "HSBC 汇丰",
-          role: "数据与分析",
+          role: "数据分析",
           dates: "2025.07 — 2025.12",
           location: "香港",
           type: "企业与机构银行 · Corporate & Institutional Banking",
@@ -239,14 +270,14 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       ],
       educationLabel: "教育背景",
       school: "香港大学",
-      degree: "数据科学与工程 · 工学学士（在读）",
+      degree: "数据科学与工程 · 工学学士",
       educationDates: "2022 — 2026 · 预计 2026 年底毕业",
     },
     creator: {
       title: "工作之外",
-      followers: "全平台粉丝",
+      followers: "全平台粉丝量",
       name: "小菜Nick",
-      headline: "从消费者，成为创造者。",
+      headline: "从使用者，成为创造者。",
       copy: "热爱生活，也认真记录。把学习与实践转化为内容，在 AI 时代持续拓展能力，让每一次创造都成为个人品牌的长期积累。",
       photoAlt: "Nick 骑行时在路边镜子前记录生活",
       photoCaption: "记录生活，也记录成长。",
