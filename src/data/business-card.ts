@@ -17,6 +17,8 @@ type CardCopy = {
     label: string;
     title: string[];
     summary: string;
+    bridges: { label: string; detail: string }[];
+    credentials: string;
     affiliations: string;
   };
   experience: {
@@ -83,10 +85,25 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       welcome: "A pleasure to meet you.",
     },
     intro: {
-      label: "APPLIED AI · FINANCIAL SERVICES",
-      title: ["AI built for", "financial workflows."],
+      label: "AI × FINANCE · CROSS-CULTURAL BUILDER",
+      title: ["A bridge between", "technology and business."],
       summary:
-        "Bringing business context and hands-on implementation together. I build AI tools, internal platforms and automation for investment and operational workflows.",
+        "I combine enterprise AI, data analytics and financial-services experience to turn real operating needs into systems that ship — from AI workspaces and agents to private models and automated workflows.",
+      bridges: [
+        {
+          label: "Technical ↔ Business",
+          detail: "Translate business needs into deployable AI solutions.",
+        },
+        {
+          label: "Taiwan ↔ Hong Kong ↔ Shenzhen",
+          detail: "A cross-cultural perspective shaped by three cities.",
+        },
+        {
+          label: "Work ↔ Creation",
+          detail: "Build in finance while growing a creator-led personal brand.",
+        },
+      ],
+      credentials: "CFA Level I · IELTS 7.5",
       affiliations: "Education & experience",
     },
     experience: {
@@ -95,26 +112,26 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       jobs: [
         {
           company: "Archbridge Capital Partners",
-          role: "AI Transformation & Asset Management Analyst Intern",
+          role: "AI Transformation & Asset Management Analyst",
           dates: "Jun 2026 — Present",
           location: "Hong Kong",
-          type: "Internship · continuing part-time",
+          type: "AI × Finance · Private Markets",
           points: [
-            "Build internal AI tools and workflow automation across investment research and fund operations.",
-            "Deploy private LLM infrastructure for sensitive financial workflows.",
-            "Support private-credit deal screening, due diligence, financial analysis and investment committee preparation.",
+            "Shape and build an integrated AI workspace for investment research and fund operations, connecting fragmented project data, internal systems and AI tools.",
+            "Design human-in-the-loop AI agents for private-credit screening, turning unstructured deal materials into evidence-backed scorecards and review workflows.",
+            "Deploy private LLM infrastructure and automated market-intelligence pipelines for privacy-sensitive financial work.",
           ],
         },
         {
           company: "HSBC",
-          role: "Data & Analytics Intern",
+          role: "Data & Analytics",
           dates: "Jul 2025 — Dec 2025",
           location: "Hong Kong",
           type: "Corporate & Institutional Banking",
           points: [
-            "Analyze corporate-client onboarding and digital journeys to identify process bottlenecks.",
-            "Develop predictive analytics and explainable machine-learning models to support operational decisions.",
-            "Build governed data assets and reporting workflows using enterprise data platforms.",
+            "Analyzed end-to-end corporate-client onboarding journeys within HSBC CIB, identifying 8+ process bottlenecks and delay drivers.",
+            "Built governed analytics assets across three enterprise systems to support an AI-driven CRM and operational reporting.",
+            "Developed an explainable XGBoost + SHAP risk model that translated machine-learning outputs into operational decisions.",
           ],
         },
       ],
@@ -170,10 +187,25 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       welcome: "很高兴认识你。",
     },
     intro: {
-      label: "AI 应用 · 金融服务",
-      title: ["面向金融业务的", "AI 应用与转型。"],
+      label: "AI × 金融 · 跨文化 BUILDER",
+      title: ["连接技术与商业，", "也连接不同的世界。"],
       summary:
-        "结合金融业务理解与技术实施经验，开发 AI 工具、内部平台与自动化流程，支持投资研究及运营决策。",
+        "具备企业 AI 应用、数据分析与金融场景数字化落地经验，能够从真实业务需求出发，将 AI 工作台、AI Agent、私有化大模型与自动化工作流推进到实际应用。",
+      bridges: [
+        {
+          label: "技术 ↔ 商业",
+          detail: "理解业务、拆解问题，把 AI 方案真正落到工作流中。",
+        },
+        {
+          label: "台湾 ↔ 香港 ↔ 深圳",
+          detail: "三座城市的成长经历，形成跨文化的观察与沟通方式。",
+        },
+        {
+          label: "工作 ↔ 创作",
+          detail: "在 AI 与金融领域实践，也持续经营个人品牌与内容事业。",
+        },
+      ],
+      credentials: "CFA Level I · IELTS 7.5",
       affiliations: "教育与工作经历",
     },
     experience: {
@@ -182,26 +214,26 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       jobs: [
         {
           company: "Archbridge Capital Partners",
-          role: "AI 转型与资产管理分析实习生",
+          role: "AI 转型与资产管理分析师",
           dates: "2026.06 — 至今",
           location: "香港",
-          type: "暑期实习 · 现继续兼职",
+          type: "AI × 金融 · 私募市场",
           points: [
-            "开发内部 AI 工具与自动化流程，支持投资研究及基金运营。",
-            "部署私有大语言模型基础设施，服务敏感金融数据场景。",
-            "参与私募信贷项目筛选、尽职调查、财务分析及投委会材料准备。",
+            "参与规划并开发一体化 AI 工作台，连接项目资料、内部数据与 AI 工具，服务投资研究及基金运营。",
+            "设计 Human-in-the-loop AI Agent，将非结构化项目材料转化为基于证据的评分卡，支持私募信贷项目筛选与尽调。",
+            "部署私有化大模型环境与自动化市场监控流程，兼顾金融数据隐私与后续系统集成。",
           ],
         },
         {
           company: "HSBC 汇丰",
-          role: "数据与分析实习生",
+          role: "数据与分析",
           dates: "2025.07 — 2025.12",
           location: "香港",
           type: "企业与机构银行 · Corporate & Institutional Banking",
           points: [
-            "分析对公客户开户流程与数字旅程，识别业务及运营瓶颈。",
-            "开发预测分析与可解释机器学习模型，支持运营决策。",
-            "运用企业数据平台构建受治理的数据资产与报告工作流。",
+            "在汇丰香港 CIB 分析企业客户开户的端到端流程，识别 8+ 个关键流程瓶颈与延误驱动因素。",
+            "整合三个核心业务系统的数据，构建受治理的数据资产，支持 AI 驱动的 CRM 与运营分析。",
+            "基于 XGBoost + SHAP 构建可解释风险模型，将机器学习结果转化为可执行的业务判断。",
           ],
         },
       ],

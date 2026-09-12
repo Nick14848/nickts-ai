@@ -241,12 +241,12 @@ body {
   margin-top: 23px;
 }
 .bc-card-identity h1 {
-  color: #2048bd;
+  color: #111111;
   font-size: clamp(40px, 8.1cqw, 64px);
   line-height: 1.02;
   font-weight: 650;
   letter-spacing: -2.8px;
-  -webkit-text-fill-color: #2048bd;
+  -webkit-text-fill-color: #111111;
 }
 .bc-chinese-name {
   font-size: 17px;
@@ -360,16 +360,42 @@ body {
   color: #9ebeff;
 }
 .bc-intro-copy {
-  max-width: 680px;
-  font-size: 18px;
-  line-height: 1.85;
-  color: #bdccdd;
+  max-width: 860px;
+  font-size: 17px;
+  line-height: 1.75;
+  color: #d1dcea;
+  margin-top: 22px;
+}
+.bc-bridge-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
   margin-top: 26px;
+}
+.bc-bridge-item {
+  border-left: 2px solid #668fe4;
+  padding-left: 15px;
+}
+.bc-bridge-item strong {
+  display: block;
+  color: #f4f7fc;
+  font-size: 14px;
+  line-height: 1.45;
+  font-weight: 570;
+}
+.bc-bridge-item p {
+  color: #9fb2c8;
+  font-size: 13px;
+  line-height: 1.55;
+  margin-top: 6px;
 }
 .bc-affiliations {
   border-top: 1px solid #37506a;
-  margin-top: 34px;
-  padding-top: 20px;
+  margin-top: 26px;
+  padding-top: 17px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 30px;
 }
 .bc-affiliations > span {
   font-size: 12px;
@@ -383,6 +409,17 @@ body {
   letter-spacing: -0.5px;
   font-weight: 550;
   margin-top: 12px;
+}
+.bc-affiliations small {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: end;
+  color: #a9bdd6;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  padding-bottom: 3px;
+  white-space: nowrap;
 }
 .bc-affiliations i {
   height: 13px;
@@ -456,6 +493,7 @@ body {
   gap: 42px;
   padding: 40px 0;
   border-top: 1px solid #34495f;
+  will-change: transform, opacity;
 }
 .bc-career-meta {
   font-size: 14px;
@@ -916,17 +954,39 @@ body {
     margin-top: 25px;
   }
   .bc-intro-copy {
-    font-size: 16px;
-    line-height: 1.8;
-    margin-top: 24px;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-top: 18px;
+  }
+  .bc-bridge-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .bc-bridge-item {
+    padding-left: 11px;
+  }
+  .bc-bridge-item strong {
+    font-size: 13px;
+  }
+  .bc-bridge-item p {
+    font-size: 12px;
+    margin-top: 2px;
   }
   .bc-affiliations {
-    margin-top: 25px;
-    padding-top: 19px;
+    margin-top: 18px;
+    padding-top: 14px;
+    grid-template-columns: 1fr;
   }
   .bc-affiliations p {
     font-size: 17px;
     gap: 17px;
+  }
+  .bc-affiliations small {
+    grid-column: 1;
+    grid-row: auto;
+    margin-top: 10px;
+    font-size: 11px;
   }
   .bc-scroll-cue {
     bottom: 26px;

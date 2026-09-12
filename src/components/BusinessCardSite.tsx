@@ -135,7 +135,7 @@ export function BusinessCardSite() {
     offset: ["start start", "end end"],
   });
   const rotation = useTransform(scrollYProgress, [0, 0.08, 0.38], [0, 0, 180]);
-  const unfold = useTransform(scrollYProgress, [0.4, 0.73], [0, 1]);
+  const unfold = useTransform(scrollYProgress, [0.3, 0.52], [0, 1]);
   const paperOpacity = useTransform(
     scrollYProgress,
     [0, 0.06, 0.18],
@@ -143,11 +143,10 @@ export function BusinessCardSite() {
   );
   const backdrop = useTransform(
     scrollYProgress,
-    [0.42, 0.72],
+    [0.28, 0.46],
     ["#dfe7f1", "#102337"],
   );
   const radius = useTransform(unfold, [0, 1], [10, 0]);
-  const backDetails = useTransform(scrollYProgress, [0.45, 0.64], [0, 1]);
   const backTitleY = useTransform(scrollYProgress, [0.38, 0.7], [12, 0]);
   const shadow = useTransform(
     unfold,
@@ -160,7 +159,7 @@ export function BusinessCardSite() {
 
   useMotionValueEvent(scrollYProgress, "change", (progress) => {
     setBackVisible(!reducedMotion && progress > 0.23);
-    setDarkNav(progress > 0.6);
+    setDarkNav(progress > 0.38);
   });
 
   function openContact() {
@@ -177,6 +176,27 @@ export function BusinessCardSite() {
       });
   }
 
+  const renderIntroDetails = () => (
+    <div className="bc-intro-details">
+      <p className="bc-intro-copy">{copy.intro.summary}</p>
+      <div className="bc-bridge-grid">
+        {copy.intro.bridges.map((bridge) => (
+          <div className="bc-bridge-item" key={bridge.label}>
+            <strong>{bridge.label}</strong>
+            <p>{bridge.detail}</p>
+          </div>
+        ))}
+      </div>
+      <div className="bc-affiliations">
+        <span>{copy.intro.affiliations}</span>
+        <p>
+          HKU <i aria-hidden="true" /> HSBC <i aria-hidden="true" /> Archbridge
+        </p>
+        <small>{copy.intro.credentials}</small>
+      </div>
+    </div>
+  );
+
   const introContents = (
     <>
       <p className="bc-eyebrow">{copy.intro.label}</p>
@@ -185,13 +205,7 @@ export function BusinessCardSite() {
           <span key={line}>{line}</span>
         ))}
       </h2>
-      <p className="bc-intro-copy">{copy.intro.summary}</p>
-      <div className="bc-affiliations">
-        <span>{copy.intro.affiliations}</span>
-        <p>
-          HKU <i aria-hidden="true" /> HSBC <i aria-hidden="true" /> Archbridge
-        </p>
-      </div>
+      {renderIntroDetails()}
     </>
   );
 
@@ -313,19 +327,7 @@ export function BusinessCardSite() {
                         <span key={line}>{line}</span>
                       ))}
                     </motion.h2>
-                    <motion.div
-                      className="bc-intro-details"
-                      style={{ opacity: backDetails }}
-                    >
-                      <p className="bc-intro-copy">{copy.intro.summary}</p>
-                      <div className="bc-affiliations">
-                        <span>{copy.intro.affiliations}</span>
-                        <p>
-                          HKU <i aria-hidden="true" /> HSBC{" "}
-                          <i aria-hidden="true" /> Archbridge
-                        </p>
-                      </div>
-                    </motion.div>
+                    {renderIntroDetails()}
                   </div>
                 </motion.div>
               </motion.div>
@@ -371,8 +373,19 @@ export function BusinessCardSite() {
               </a>
             </div>
             <div className="bc-career-list">
-              {copy.experience.jobs.map((job) => (
-                <article className="bc-career" key={job.company}>
+              {copy.experience.jobs.map((job, index) => (
+                <motion.article
+                  className="bc-career"
+                  key={job.company}
+                  initial={reducedMotion ? false : { opacity: 0, y: 28 }}
+                  whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.24 }}
+                  transition={{
+                    duration: 0.65,
+                    delay: index * 0.08,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
                   <div className="bc-career-meta">
                     <p>{job.dates}</p>
                     <span>{job.location}</span>
@@ -389,7 +402,7 @@ export function BusinessCardSite() {
                       ))}
                     </ul>
                   </div>
-                </article>
+                </motion.article>
               ))}
             </div>
             <div className="bc-education">

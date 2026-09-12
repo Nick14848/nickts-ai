@@ -10,11 +10,31 @@ import { SiteProvider } from "./SiteProvider";
 vi.mock("motion/react", async () => {
   const { createElement, forwardRef } = await import("react");
   const element = (tag: string) =>
-    forwardRef<HTMLElement, Record<string, unknown>>((props, ref) =>
-      createElement(tag, { ...props, ref }),
+    forwardRef<HTMLElement, Record<string, unknown>>(
+      (
+        {
+          initial: _initial,
+          whileInView: _whileInView,
+          viewport: _viewport,
+          transition: _transition,
+          ...props
+        },
+        ref,
+      ) => {
+        void _initial;
+        void _whileInView;
+        void _viewport;
+        void _transition;
+        return createElement(tag, { ...props, ref });
+      },
     );
   return {
-    motion: { div: element("div"), h2: element("h2"), a: element("a") },
+    motion: {
+      div: element("div"),
+      h2: element("h2"),
+      a: element("a"),
+      article: element("article"),
+    },
     useReducedMotion: vi.fn(() => false),
     useScroll: () => ({ scrollYProgress: 0 }),
     useTransform: (_value: unknown, _input: unknown, output: unknown[]) =>
@@ -83,6 +103,8 @@ describe("Business card website", () => {
     expect(
       within(experience).getByRole("heading", { name: "HSBC" }),
     ).toBeInTheDocument();
+    expect(screen.getAllByText("A bridge between")).toHaveLength(2);
+    expect(screen.queryByText(/Intern/)).not.toBeInTheDocument();
     expect(
       within(experience).getByText("BEng Data Science & Engineering"),
     ).toBeInTheDocument();
