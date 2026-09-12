@@ -15,6 +15,9 @@ import { cardDetails, businessCardCopy } from "@/data/business-card";
 import { site } from "@/data/site";
 import { useSite } from "./SiteProvider";
 
+const HKU_LOGO_URL =
+  "https://www.hku.hk/adobe/dynamicmedia/deliver/dm-aid--afc8d43c-587a-43f0-b93c-26f8bd397e0e/logo-hku.svg.webp?width=416&preferwebp=true";
+
 function Arrow({ down = false }: { down?: boolean }) {
   return (
     <svg
@@ -176,8 +179,27 @@ export function BusinessCardSite() {
     target: storyRef,
     offset: ["start start", "end end"],
   });
-  const rotation = useTransform(scrollYProgress, [0, 0.08, 0.38], [0, 0, 180]);
-  const unfold = useTransform(scrollYProgress, [0.3, 0.52], [0, 1]);
+  const rotation = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.18, 0.42],
+    [0, 0, 18, 180],
+  );
+  const unfold = useTransform(scrollYProgress, [0.34, 0.6], [0, 1]);
+  const cardLift = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.28, 0.6],
+    [2, 2, -14, 0],
+  );
+  const cardScale = useTransform(
+    scrollYProgress,
+    [0, 0.12, 0.3, 0.6],
+    [1, 1, 1.018, 1],
+  );
+  const cardTilt = useTransform(
+    scrollYProgress,
+    [0, 0.12, 0.3, 0.6],
+    [-0.65, -0.65, 0.18, 0],
+  );
   const paperOpacity = useTransform(
     scrollYProgress,
     [0, 0.06, 0.18],
@@ -185,8 +207,8 @@ export function BusinessCardSite() {
   );
   const backdrop = useTransform(
     scrollYProgress,
-    [0.28, 0.46],
-    ["#dfe7f1", "#102337"],
+    [0.3, 0.52],
+    ["#cbd5e1", "#102337"],
   );
   const radius = useTransform(unfold, [0, 1], [10, 0]);
   const backTitleY = useTransform(scrollYProgress, [0.38, 0.7], [12, 0]);
@@ -200,8 +222,8 @@ export function BusinessCardSite() {
   );
 
   useMotionValueEvent(scrollYProgress, "change", (progress) => {
-    setBackVisible(!reducedMotion && progress > 0.23);
-    setDarkNav(progress > 0.38);
+    setBackVisible(!reducedMotion && progress > 0.29);
+    setDarkNav(progress > 0.4);
   });
 
   function openContact() {
@@ -278,7 +300,7 @@ export function BusinessCardSite() {
       <main id="home">
         <section
           ref={storyRef}
-          className="bc-card-story"
+          className={`bc-card-story${darkNav ? " bc-card-story-dark" : ""}`}
           aria-label={
             locale === "zh"
               ? "商务名片与个人介绍"
@@ -287,7 +309,7 @@ export function BusinessCardSite() {
         >
           <motion.div
             className={`bc-card-stage${darkNav ? " bc-card-stage-dark" : ""}`}
-            style={{ backgroundColor: reducedMotion ? "#dfe7f1" : backdrop }}
+            style={{ backgroundColor: reducedMotion ? "#cbd5e1" : backdrop }}
           >
             <motion.div
               className="bc-stage-topline"
@@ -299,7 +321,12 @@ export function BusinessCardSite() {
             <motion.div
               className="bc-card-frame"
               style={
-                { "--card-open": reducedMotion ? 0 : unfold } as MotionStyle
+                {
+                  "--card-open": reducedMotion ? 0 : unfold,
+                  y: reducedMotion ? 0 : cardLift,
+                  scale: reducedMotion ? 1 : cardScale,
+                  rotateZ: reducedMotion ? 0 : cardTilt,
+                } as MotionStyle
               }
             >
               <motion.div
@@ -313,6 +340,10 @@ export function BusinessCardSite() {
                   inert={showBack}
                 >
                   <div className="bc-card-top">
+                    <div className="bc-card-identity">
+                      <h1>Nick Tsai</h1>
+                      <p className="bc-chinese-name">蔡逸凯</p>
+                    </div>
                     <a
                       href="https://www.hku.hk/"
                       target="_blank"
@@ -320,9 +351,17 @@ export function BusinessCardSite() {
                       className="bc-university"
                       aria-label="The University of Hong Kong — 香港大学"
                     >
-                      <strong>HKU</strong>
-                      <span>{copy.card.university}</span>
+                      <Image
+                        src={HKU_LOGO_URL}
+                        alt=""
+                        width={208}
+                        height={40}
+                        unoptimized
+                      />
                     </a>
+                  </div>
+                  <div className="bc-card-bottom">
+                    <p className="bc-role">AI Builder</p>
                     <div
                       className="bc-cities"
                       aria-label={cardDetails.cities.join(", ")}
@@ -331,23 +370,18 @@ export function BusinessCardSite() {
                         <span key={city}>{city}</span>
                       ))}
                     </div>
+                    <address className="bc-card-address">
+                      <a href={cardDetails.phoneHref}>
+                        <span>T</span>
+                        {cardDetails.phone}
+                      </a>
+                      <a href={`mailto:${site.email}`}>
+                        <span>E</span>
+                        {site.email}
+                      </a>
+                      <a href={site.url}>{site.domain}</a>
+                    </address>
                   </div>
-                  <div className="bc-card-identity">
-                    <h1>Nick Tsai</h1>
-                    <p className="bc-chinese-name">蔡逸凯</p>
-                    <p className="bc-role">AI Builder</p>
-                  </div>
-                  <address className="bc-card-address">
-                    <a href={cardDetails.phoneHref}>
-                      <span>T</span>
-                      {cardDetails.phone}
-                    </a>
-                    <a href={`mailto:${site.email}`}>
-                      <span>E</span>
-                      {site.email}
-                    </a>
-                    <a href={site.url}>{site.domain}</a>
-                  </address>
                   <div className="bc-card-foot">
                     <FinanceSignature />
                     <span className="bc-card-rule" aria-hidden="true" />
@@ -388,6 +422,13 @@ export function BusinessCardSite() {
               <Arrow down />
             </motion.a>
           </motion.div>
+        </section>
+
+        <section
+          className="bc-mobile-intro bc-dark"
+          aria-label={locale === "zh" ? "个人介绍详情" : "About Nick"}
+        >
+          <div className="bc-content">{renderIntroDetails()}</div>
         </section>
 
         <section
@@ -669,7 +710,7 @@ export function BusinessCardSite() {
         </div>
       </Dialog>
       <noscript>
-        <style>{`.bc-card-story{height:auto!important}.bc-card-stage{position:relative!important;min-height:700px}.bc-reduced-intro{display:block!important}`}</style>
+        <style>{`.bc-card-story{height:auto!important}.bc-card-stage{position:relative!important;min-height:700px}.bc-reduced-intro{display:block!important}.bc-mobile-intro{display:none!important}`}</style>
       </noscript>
     </div>
   );
