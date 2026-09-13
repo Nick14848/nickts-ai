@@ -385,15 +385,28 @@ body {
   background: #102337;
   color: #f5f8ff;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
 }
 .bc-mobile-intro {
-  display: none;
+  display: block;
+  position: relative;
+  z-index: 2;
+  margin-top: -1px;
+  padding: 16px 0 96px;
+}
+.bc-mobile-intro::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: max(24px, calc((100% - 1120px) / 2));
+  right: max(24px, calc((100% - 1120px) / 2));
+  height: 1px;
+  background: linear-gradient(90deg, #648fe8, rgb(100 143 232 / 0%));
 }
 .bc-back-content {
   width: min(100%, 1120px);
-  margin: auto;
-  padding: 34px 42px;
+  margin: 0 auto;
+  padding: 0 42px 84px;
 }
 .bc-eyebrow {
   font-family: var(--font-geist-mono), ui-monospace, monospace;
@@ -414,72 +427,155 @@ body {
   letter-spacing: -0.045em;
   margin-top: 28px;
 }
-.bc-intro-title span {
+.bc-intro-title > span {
   display: block;
 }
-.bc-intro-title span + span {
+.bc-intro-title > span + span {
   color: #9ebeff;
+}
+.bc-intro-accent {
+  display: inline;
+  color: #8fb2ff;
+  text-shadow: 0 0 28px rgb(78 127 226 / 22%);
+}
+.bc-intro-tagline {
+  margin-top: 17px;
+  color: #dfe9f6;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 530;
+  line-height: 1.65;
+  letter-spacing: 0.095em;
 }
 .bc-network-map {
   position: relative;
-  margin: 25px 0 0;
+  height: clamp(190px, 23svh, 230px);
+  margin: 22px 0 0;
   border: 1px solid rgb(112 145 183 / 28%);
-  border-radius: 8px;
+  border-radius: 10px;
   background:
-    radial-gradient(circle at 78% 45%, rgb(77 116 178 / 15%), transparent 32%),
+    linear-gradient(rgb(135 166 202 / 7%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(135 166 202 / 7%) 1px, transparent 1px),
+    radial-gradient(circle at 72% 42%, rgb(74 119 201 / 18%), transparent 34%),
     rgb(9 29 48 / 58%);
+  background-size: 72px 72px, 72px 72px, auto, auto;
   overflow: hidden;
+  perspective: 900px;
 }
-.bc-network-map svg {
+.bc-network-map::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 42px rgb(2 12 24 / 42%);
+}
+.bc-network-lines {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
-  height: clamp(160px, 22svh, 220px);
+  height: 100%;
+  transform: perspective(700px) rotateX(9deg) translateY(-2px);
+  transform-origin: center;
 }
-.bc-map-grid path {
+.bc-network-route-shadow {
   fill: none;
-  stroke: rgb(141 169 202 / 8%);
-  stroke-width: 1;
+  stroke: rgb(69 115 202 / 24%);
+  stroke-width: 10;
+  filter: blur(8px);
 }
-.bc-map-land path {
-  fill: rgb(109 142 180 / 8%);
-  stroke: rgb(127 159 195 / 21%);
-  stroke-width: 1.2;
-}
-.bc-map-route {
-  stroke-width: 2;
+.bc-network-route {
+  stroke-width: 2.2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-dasharray: 5 7;
+  filter: drop-shadow(0 0 6px rgb(119 161 255 / 52%));
 }
-.bc-map-halo {
-  opacity: 0.78;
+.bc-network-nodes {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
 }
-.bc-map-ring {
-  fill: rgb(9 29 48 / 92%);
-  stroke: #82aaff;
-  stroke-width: 2;
+.bc-network-node {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 154px;
+  padding: 9px 12px;
+  border: 1px solid rgb(125 160 208 / 24%);
+  border-radius: 7px;
+  background: linear-gradient(135deg, rgb(28 58 90 / 94%), rgb(12 34 56 / 86%));
+  box-shadow:
+    0 14px 26px -16px rgb(0 0 0 / 80%),
+    inset 0 1px rgb(255 255 255 / 5%);
+  backdrop-filter: blur(8px);
 }
-.bc-map-dot {
-  fill: #edf4ff;
+.bc-network-node > i {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  flex: 0 0 10px;
+  border: 2px solid #e8f1ff;
+  border-radius: 50%;
+  background: #79a3ff;
+  box-shadow:
+    0 0 0 5px rgb(72 119 215 / 22%),
+    0 0 18px rgb(103 150 255 / 68%);
 }
-.bc-map-city,
-.bc-map-focus {
-  font-family: var(--font-geist-sans), sans-serif;
+.bc-network-node > i::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgb(127 166 252 / 32%);
+  border-radius: 50%;
+  animation: bc-node-pulse 2.8s ease-out infinite;
 }
-.bc-map-city {
-  fill: #f6f9ff;
-  font-size: 26px;
+.bc-network-node strong,
+.bc-network-node small {
+  display: block;
+}
+.bc-network-node strong {
+  color: #f5f8ff;
+  font-size: 13px;
   font-weight: 600;
+  line-height: 1.35;
 }
-.bc-map-focus {
-  fill: #9eb5cf;
-  font-size: 18px;
-  letter-spacing: 0.03em;
+.bc-network-node small {
+  margin-top: 2px;
+  color: #9eb3cb;
+  font-size: 10px;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+.bc-network-node-shenzhen {
+  top: 13%;
+  left: 11%;
+}
+.bc-network-node-hongkong {
+  bottom: 12%;
+  left: 22%;
+}
+.bc-network-node-taiwan {
+  top: 38%;
+  right: 8%;
+  flex-direction: row-reverse;
+  text-align: right;
+}
+@keyframes bc-node-pulse {
+  from {
+    opacity: 0.7;
+    transform: scale(0.72);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.45);
+  }
 }
 .bc-network-map figcaption {
   position: absolute;
   left: 18px;
-  bottom: 15px;
+  bottom: 12px;
+  z-index: 3;
   color: #8fa8c3;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 10px;
@@ -579,16 +675,19 @@ body {
   color: #f3f7fd;
 }
 .bc-experience {
+  background: linear-gradient(180deg, #dce5ee 0%, #e9eef4 100%);
+  color: #17304b;
   padding: 42px 0 110px;
   position: relative;
   scroll-margin-top: 76px;
+  border-top: 1px solid rgb(151 171 191 / 48%);
 }
 .bc-experience::before {
   content: "";
   position: absolute;
-  height: 32px;
-  background: #102337;
-  top: -31px;
+  height: 64px;
+  background: linear-gradient(180deg, #102337 0%, #1d354d 18%, #dce5ee 100%);
+  top: -64px;
   left: 0;
   right: 0;
 }
@@ -600,7 +699,7 @@ body {
   margin-bottom: 48px;
 }
 .bc-section-heading .bc-eyebrow {
-  color: #9aadc2;
+  color: #647a91;
   margin-bottom: 14px;
 }
 .bc-section-heading h2 {
@@ -615,7 +714,7 @@ body {
   align-items: center;
   min-height: 44px;
   font-size: 14px;
-  color: #b8cdf3;
+  color: #244fa8;
   white-space: nowrap;
 }
 .bc-text-link:hover .bc-arrow {
@@ -626,18 +725,18 @@ body {
   grid-template-columns: 220px 1fr;
   gap: 42px;
   padding: 40px 0;
-  border-top: 1px solid #34495f;
+  border-top: 1px solid #b9c7d4;
   will-change: transform, opacity;
 }
 .bc-career-meta {
   font-size: 14px;
   line-height: 1.8;
-  color: #c9d5e4;
+  color: #38536d;
 }
 .bc-career-meta span {
   display: block;
   margin-top: 4px;
-  color: #99acc3;
+  color: #6c8095;
 }
 .bc-company-heading {
   display: flex;
@@ -654,18 +753,18 @@ body {
   font-size: 17px;
   line-height: 1.6;
   margin-top: 16px;
-  color: #e4ecf9;
+  color: #263f59;
 }
 .bc-job-type {
   font-size: 14px;
   line-height: 1.7;
-  color: #9db1ca;
+  color: #60758a;
   margin-top: 3px;
 }
 .bc-job-description {
   max-width: 730px;
   margin-top: 18px;
-  color: #c6d4e5;
+  color: #435d74;
   font-size: 15px;
   line-height: 1.75;
 }
@@ -675,7 +774,7 @@ body {
   gap: 7px;
   min-height: 38px;
   margin-top: 8px;
-  color: #91b2f8;
+  color: #2450ad;
   font-size: 13px;
 }
 .bc-job-website .bc-arrow {
@@ -694,7 +793,7 @@ body {
 .bc-career li {
   font-size: 16px;
   line-height: 1.8;
-  color: #bdcada;
+  color: #405a71;
   position: relative;
   padding-left: 18px;
   margin-top: 9px;
@@ -707,10 +806,10 @@ body {
   position: absolute;
   left: 0;
   top: 0.8em;
-  background: #8dadde;
+  background: #3d6dc8;
 }
 .bc-education {
-  border-top: 1px solid #34495f;
+  border-top: 1px solid #b9c7d4;
   padding-top: 37px;
   display: grid;
   grid-template-columns: 220px 1fr;
@@ -718,7 +817,7 @@ body {
   margin-top: 10px;
 }
 .bc-education > p {
-  color: #9fb4cc;
+  color: #617890;
   padding-top: 4px;
 }
 .bc-education h3 {
@@ -731,18 +830,18 @@ body {
   font-size: 17px;
   line-height: 1.7;
   margin-top: 7px;
-  color: #d2dfed;
+  color: #354f68;
 }
 .bc-education div > p.bc-degree-en {
   font-size: 14px;
-  color: #adbed2;
+  color: #61768b;
   margin-top: 3px;
 }
 .bc-education div > span {
   display: block;
   font-size: 14px;
   line-height: 1.6;
-  color: #9fb2c9;
+  color: #677c91;
   margin-top: 14px;
 }
 .bc-reduced-intro {
@@ -1172,7 +1271,7 @@ body {
   }
   .bc-back-content {
     margin: 0 auto;
-    padding: 0 25px 72px;
+    padding: 0 25px 58px;
   }
   .bc-card-back .bc-intro-details,
   .bc-card-back .bc-network-map {
@@ -1183,6 +1282,13 @@ body {
     letter-spacing: -0.04em;
     line-height: 1.22;
     margin-top: 25px;
+  }
+  .bc-intro-tagline {
+    max-width: 330px;
+    margin-top: 13px;
+    font-size: 9px;
+    line-height: 1.65;
+    letter-spacing: 0.07em;
   }
   .bc-mobile-intro {
     display: block;
@@ -1206,9 +1312,38 @@ body {
   .bc-mobile-intro .bc-network-map {
     margin-top: 0;
   }
-  .bc-network-map svg {
-    height: auto;
-    aspect-ratio: 700 / 360;
+  .bc-network-map {
+    height: 236px;
+    background-size: 48px 48px, 48px 48px, auto, auto;
+  }
+  .bc-network-lines {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+  .bc-network-node {
+    min-width: 0;
+    padding: 8px 10px;
+    gap: 8px;
+  }
+  .bc-network-node strong {
+    font-size: 12px;
+  }
+  .bc-network-node small {
+    font-size: 9px;
+  }
+  .bc-network-node-shenzhen {
+    top: 8%;
+    left: 11%;
+  }
+  .bc-network-node-hongkong {
+    bottom: 9%;
+    left: 22%;
+  }
+  .bc-network-node-taiwan {
+    top: 37%;
+    right: 5%;
+    flex-direction: row-reverse;
+    text-align: right;
   }
   .bc-network-map figcaption {
     left: 12px;

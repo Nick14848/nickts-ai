@@ -22,6 +22,7 @@ type CardCopy = {
   intro: {
     label: string;
     title: string[];
+    tagline: string;
     summary: string;
     bridges: { label: string; detail: string }[];
     credentials: string;
@@ -98,16 +99,17 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
     intro: {
       label: "AI × FINANCE · CROSS-CULTURAL BUILDER",
       title: ["A bridge between", "technology and business."],
+      tagline: "HKU DATA SCIENCE × HONG KONG PRIVATE MARKETS × REGIONAL TECH NETWORKS",
       summary:
-        "I combine enterprise AI, data analytics and financial-services experience to turn real operating needs into systems that ship — from AI workspaces and agents to private models and automated workflows.",
+        "With a Data Science & Engineering background from HKU, I now work across AI transformation and asset management at a Hong Kong SFC-licensed private-markets firm. My network and perspective span over a decade in Shenzhen's Nanshan district, Hong Kong finance and the semiconductor ecosystem around Hsinchu, Taiwan.",
       bridges: [
         {
           label: "Technical ↔ Business",
-          detail: "Translate business needs into deployable AI solutions.",
+          detail: "Turn AI and data capabilities into deployable investment and fund-operation workflows.",
         },
         {
-          label: "Taiwan ↔ Hong Kong ↔ Shenzhen",
-          detail: "A cross-cultural perspective shaped by three cities.",
+          label: "Shenzhen ↔ Hong Kong ↔ Taiwan",
+          detail: "Connect AI innovation, financial capital and the semiconductor ecosystem across three regions.",
         },
         {
           label: "Work ↔ Creation",
@@ -213,16 +215,17 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
     intro: {
       label: "AI × 金融 · 跨文化 建造师",
       title: ["连接技术与商业的桥梁"],
+      tagline: "港大数据科学 × 香港私募资管 × 深港台产业网络",
       summary:
-        "具备企业 AI 应用、数据分析与金融场景数字化落地经验，能够从真实业务需求出发，将 AI 工作台、AI Agent、私有化大模型与自动化工作流推进到实际应用。",
+        "香港大学数据科学与工程本科背景，现于香港 SFC 第4/9类持牌私募资管机构担任 AI 转型与资产管理分析师，参与服务约 1 亿美元私募及结构化信贷资产。在深圳南山区拥有 10+ 年生活与人脉积累，并长期连接台湾新竹周边半导体产业网络，理解三个地区不同的市场需求、产业结构与文化差异。",
       bridges: [
         {
           label: "技术 ↔ 商业",
-          detail: "理解业务、拆解问题，把 AI 方案真正落到工作流中。",
+          detail: "以数据与工程为底，把 AI 能力转化为投资研究与基金运营工作流。",
         },
         {
-          label: "台湾 ↔ 香港 ↔ 深圳",
-          detail: "三座城市的成长经历，形成跨文化的观察与沟通方式。",
+          label: "深圳 ↔ 香港 ↔ 台湾",
+          detail: "连接 AI 创新、金融资本与半导体产业，理解三个地区的真实需求与文化差异。",
         },
         {
           label: "工作 ↔ 创作",

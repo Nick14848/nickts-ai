@@ -89,47 +89,36 @@ export function CardWordmark() {
 function RegionalBridgeMap({
   locale,
   reducedMotion,
-  active,
 }: {
   locale: Locale;
   reducedMotion: boolean;
-  active?: boolean;
 }) {
-  const mapId = useId().replaceAll(":", "");
-  const lineGradientId = `bc-map-line-${mapId}`;
-  const glowGradientId = `bc-map-glow-${mapId}`;
+  const lineGradientId = `bc-network-line-${useId().replaceAll(":", "")}`;
   const nodes =
     locale === "zh"
       ? [
-          { city: "深圳", focus: "AI 科技创新", x: 184, y: 116 },
-          { city: "香港", focus: "国际金融", x: 232, y: 246 },
-          { city: "台湾", focus: "半导体产业", x: 554, y: 174 },
+          { region: "深圳南山", focus: "AI 科技创新", position: "shenzhen" },
+          { region: "香港", focus: "国际金融与私募资管", position: "hongkong" },
+          { region: "台湾新竹", focus: "半导体产业生态", position: "taiwan" },
         ]
       : [
-          { city: "Shenzhen", focus: "AI innovation", x: 184, y: 116 },
-          { city: "Hong Kong", focus: "Global finance", x: 232, y: 246 },
-          { city: "Taiwan", focus: "Semiconductors", x: 554, y: 174 },
+          { region: "Shenzhen · Nanshan", focus: "AI & tech innovation", position: "shenzhen" },
+          { region: "Hong Kong", focus: "Finance & private markets", position: "hongkong" },
+          { region: "Taiwan · Hsinchu", focus: "Semiconductor ecosystem", position: "taiwan" },
         ];
 
   return (
     <motion.figure
       className="bc-network-map"
       initial={reducedMotion ? false : { opacity: 0, y: 24 }}
-      animate={
-        reducedMotion || active === undefined
-          ? undefined
-          : active
-            ? { opacity: 1, y: 0 }
-            : { opacity: 0, y: 24 }
-      }
-      whileInView={
-        reducedMotion || active !== undefined ? undefined : { opacity: 1, y: 0 }
-      }
+      whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
       <svg
-        viewBox="0 0 700 360"
+        className="bc-network-lines"
+        viewBox="0 0 700 300"
+        preserveAspectRatio="none"
         role="img"
         aria-label={
           locale === "zh"
@@ -148,57 +137,31 @@ function RegionalBridgeMap({
             <stop offset="0" stopColor="#73a0ff" />
             <stop offset="1" stopColor="#c6d8ff" />
           </linearGradient>
-          <radialGradient id={glowGradientId}>
-            <stop offset="0" stopColor="#78a4ff" stopOpacity="0.32" />
-            <stop offset="1" stopColor="#78a4ff" stopOpacity="0" />
-          </radialGradient>
         </defs>
-        <g className="bc-map-grid" aria-hidden="true">
-          <path d="M0 90H700M0 180H700M0 270H700" />
-          <path d="M140 0V360M280 0V360M420 0V360M560 0V360" />
-        </g>
-        <g className="bc-map-land" aria-hidden="true">
-          <path d="M26 35C92 31 147 56 158 93c9 28 1 58 25 82 16 17 48 18 62 41 17 28 3 70 27 107H26Z" />
-          <path d="M548 82c23 13 34 42 29 72-5 34-24 70-42 93-8-29-6-62 1-93 6-27 4-55 12-72Z" />
-        </g>
+        <path
+          className="bc-network-route-shadow"
+          d="M105 65L175 235L620 138L105 65"
+        />
         <motion.path
-          className="bc-map-route"
-          d="M184 116L232 246L554 174L184 116"
+          className="bc-network-route"
+          d="M105 65L175 235L620 138L105 65"
           fill="none"
           stroke={`url(#${lineGradientId})`}
           initial={reducedMotion ? false : { pathLength: 0, opacity: 0.15 }}
-          animate={
-            reducedMotion || active === undefined
-              ? undefined
-              : active
-                ? { pathLength: 1, opacity: 1 }
-                : { pathLength: 0, opacity: 0.15 }
-          }
           whileInView={
-            reducedMotion || active !== undefined
-              ? undefined
-              : { pathLength: 1, opacity: 1 }
+            reducedMotion ? undefined : { pathLength: 1, opacity: 1 }
           }
           viewport={{ once: true, amount: 0.55 }}
           transition={{ duration: 1.4, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
         />
+      </svg>
+      <div className="bc-network-nodes">
         {nodes.map((node, index) => (
-          <motion.g
-            className="bc-map-node"
-            key={node.city}
-            initial={reducedMotion ? false : { opacity: 0, scale: 0.7 }}
-            animate={
-              reducedMotion || active === undefined
-                ? undefined
-                : active
-                  ? { opacity: 1, scale: 1 }
-                  : { opacity: 0, scale: 0.7 }
-            }
-            whileInView={
-              reducedMotion || active !== undefined
-                ? undefined
-                : { opacity: 1, scale: 1 }
-            }
+          <motion.div
+            className={`bc-network-node bc-network-node-${node.position}`}
+            key={node.region}
+            initial={reducedMotion ? false : { opacity: 0, y: 14 }}
+            whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.55 }}
             transition={{
               duration: 0.5,
@@ -206,28 +169,18 @@ function RegionalBridgeMap({
               ease: [0.22, 1, 0.36, 1],
             }}
           >
-            <circle
-              className="bc-map-halo"
-              cx={node.x}
-              cy={node.y}
-              r="48"
-              fill={`url(#${glowGradientId})`}
-            />
-            <circle className="bc-map-ring" cx={node.x} cy={node.y} r="12" />
-            <circle className="bc-map-dot" cx={node.x} cy={node.y} r="4" />
-            <text className="bc-map-city" x={node.x + 20} y={node.y - 5}>
-              {node.city}
-            </text>
-            <text className="bc-map-focus" x={node.x + 20} y={node.y + 20}>
-              {node.focus}
-            </text>
-          </motion.g>
+            <i aria-hidden="true" />
+            <span>
+              <strong>{node.region}</strong>
+              <small>{node.focus}</small>
+            </span>
+          </motion.div>
         ))}
-      </svg>
+      </div>
       <figcaption>
         {locale === "zh"
-          ? "三座城市，一套连接产业、资本与技术的视角"
-          : "Three cities. One perspective across technology, capital and industry."}
+          ? "三个地区，一套连接技术、资本与产业的长期视角"
+          : "Three regions. One long-term network across technology, capital and industry."}
       </figcaption>
     </motion.figure>
   );
@@ -395,14 +348,21 @@ export function BusinessCardSite() {
     </div>
   );
 
+  const renderIntroTitle = () =>
+    locale === "zh" ? (
+      <span>
+        连接<span className="bc-intro-accent">技术</span>与
+        <span className="bc-intro-accent">商业</span>的桥梁
+      </span>
+    ) : (
+      copy.intro.title.map((line) => <span key={line}>{line}</span>)
+    );
+
   const introContents = (
     <>
       <p className="bc-eyebrow">{copy.intro.label}</p>
-      <h2 className="bc-intro-title">
-        {copy.intro.title.map((line) => (
-          <span key={line}>{line}</span>
-        ))}
-      </h2>
+      <h2 className="bc-intro-title">{renderIntroTitle()}</h2>
+      <p className="bc-intro-tagline">{copy.intro.tagline}</p>
       <RegionalBridgeMap
         locale={locale}
         reducedMotion={Boolean(reducedMotion)}
@@ -534,16 +494,9 @@ export function BusinessCardSite() {
                       className="bc-intro-title"
                       style={{ y: backTitleY }}
                     >
-                      {copy.intro.title.map((line) => (
-                        <span key={line}>{line}</span>
-                      ))}
+                      {renderIntroTitle()}
                     </motion.h2>
-                    <RegionalBridgeMap
-                      locale={locale}
-                      reducedMotion={Boolean(reducedMotion)}
-                      active={showBack}
-                    />
-                    {renderIntroDetails()}
+                    <p className="bc-intro-tagline">{copy.intro.tagline}</p>
                   </div>
                 </motion.div>
               </motion.div>
@@ -584,7 +537,7 @@ export function BusinessCardSite() {
           <div className="bc-content">{introContents}</div>
         </section>
 
-        <section id="experience" className="bc-experience bc-dark">
+        <section id="experience" className="bc-experience">
           <div className="bc-content">
             <div className="bc-section-heading">
               <div>
