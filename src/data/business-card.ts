@@ -4,6 +4,8 @@ import type { Locale } from "./site";
 export const cardDetails = {
   phone: "+852 6990 2741",
   phoneHref: "tel:+85269902741",
+  phoneChina: "+86 18617190373",
+  phoneChinaHref: "tel:+8618617190373",
   cities: ["Taiwan", "Hong Kong", "Shenzhen"],
   followers: 7443,
   degree: "BEng Data Science & Engineering",
@@ -25,9 +27,6 @@ type CardCopy = {
     tagline: string;
     summary: string;
     bridges: { label: string; detail: string }[];
-    credentials: string;
-    affiliations: string;
-    organizations: string[];
   };
   experience: {
     title: string;
@@ -46,6 +45,8 @@ type CardCopy = {
     school: string;
     degree: string;
     educationDates: string;
+    credentials: string;
+    languages: string;
   };
   creator: {
     title: string;
@@ -97,31 +98,28 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       base: "Based in",
     },
     intro: {
-      label: "AI × FINANCE · CROSS-CULTURAL BUILDER",
+      label: "About Me",
       title: ["A bridge between", "technology and business."],
-      tagline: "HKU DATA SCIENCE × HONG KONG PRIVATE MARKETS × REGIONAL TECH NETWORKS",
+      tagline:
+        "I love working across disciplines to put AI to work in real business — building products that solve real problems and create lasting value.",
       summary:
         "With a Data Science & Engineering background from HKU, I now work across AI transformation and asset management at a Hong Kong SFC-licensed private-markets firm. My network and perspective span over a decade in Shenzhen's Nanshan district, Hong Kong finance and the semiconductor ecosystem around Hsinchu, Taiwan.",
       bridges: [
         {
           label: "Technical ↔ Business",
-          detail: "Turn AI and data capabilities into deployable investment and fund-operation workflows.",
+          detail:
+            "Grounded in data and engineering, I bring AI into real workflows to automate investment research and fund operations.",
         },
         {
           label: "Shenzhen ↔ Hong Kong ↔ Taiwan",
-          detail: "Connect AI innovation, financial capital and the semiconductor ecosystem across three regions.",
+          detail:
+            "Connect AI innovation, financial capital and semiconductor ecosystems — and understand how needs and cultures differ across the three regions.",
         },
         {
           label: "Work ↔ Creation",
-          detail: "Build in finance while growing a creator-led personal brand.",
+          detail:
+            "Alongside AI and finance, I continue building a personal brand and an independent creative practice.",
         },
-      ],
-      credentials: "CFA Level I · IELTS 7.5",
-      affiliations: "Education & experience",
-      organizations: [
-        "The University of Hong Kong",
-        "HSBC",
-        "Archbridge Capital",
       ],
     },
     experience: {
@@ -163,6 +161,9 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       school: "The University of Hong Kong",
       degree: "BEng Data Science & Engineering",
       educationDates: "2022 — 2026 · Expected graduation: late 2026",
+      credentials: "CFA Level I · IELTS 7.5",
+      languages:
+        "Mandarin (native) · English (fluent) · Cantonese (basic)",
     },
     creator: {
       title: "Beyond work",
@@ -213,28 +214,29 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       base: "Based in",
     },
     intro: {
-      label: "AI × 金融 · 跨文化 建造师",
-      title: ["连接技术与商业的桥梁"],
-      tagline: "港大数据科学 × 香港私募资管 × 深港台产业网络",
+      label: "关于我",
+      title: ["连接技术与业务的桥梁"],
+      tagline:
+        "热爱与不同背景的人并肩，把 AI 带进真实业务，做成真正解决问题、创造长期价值的产品。",
       summary:
-        "香港大学数据科学与工程本科背景，现于香港 SFC 第4/9类持牌私募资管机构担任 AI 转型与资产管理分析师，参与服务约 1 亿美元私募及结构化信贷资产。在深圳南山区拥有 10+ 年生活与人脉积累，并长期连接台湾新竹周边半导体产业网络，理解三个地区不同的市场需求、产业结构与文化差异。",
+        "香港大学数据科学与工程本科背景，现于香港 SFC 第4/9类持牌私募资管机构担任 AI 转型与资产管理分析师，参与服务约 1 亿美元私募及结构化信贷资产。常居深圳南山区并拥有 10+ 年生活与人脉积累，长期连接台湾新竹周边半导体产业网络，理解三个地区不同的市场需求、产业结构与文化差异。",
       bridges: [
         {
           label: "技术 ↔ 商业",
-          detail: "以数据与工程为底，把 AI 能力转化为投资研究与基金运营工作流。",
+          detail:
+            "以数据与工程为底，把 AI 应用落地到真实业务场景，自动化投资研究与基金运营工作流。",
         },
         {
           label: "深圳 ↔ 香港 ↔ 台湾",
-          detail: "连接 AI 创新、金融资本与半导体产业，理解三个地区的真实需求与文化差异。",
+          detail:
+            "连接 AI 创新科技、金融资本与半导体产业，理解三个地区的真实需求与文化差异。",
         },
         {
           label: "工作 ↔ 创作",
-          detail: "在 AI 与金融领域实践，也持续经营个人品牌与内容事业。",
+          detail:
+            "除了在 AI 与金融领域实践，也持续经营个人品牌与内容事业。",
         },
       ],
-      credentials: "CFA Level I · IELTS 7.5",
-      affiliations: "教育与工作经历",
-      organizations: ["香港大学", "HSBC 汇丰", "凯翔资本"],
     },
     experience: {
       title: "工作经历",
@@ -275,6 +277,8 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       school: "香港大学",
       degree: "数据科学与工程 · 工学学士",
       educationDates: "2022 — 2026 · 预计 2026 年底毕业",
+      credentials: "CFA Level I · IELTS 7.5",
+      languages: "普通话（母语） · 英语（流利） · 粤语（基础）",
     },
     creator: {
       title: "工作之外",

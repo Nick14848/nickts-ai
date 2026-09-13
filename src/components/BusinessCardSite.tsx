@@ -98,12 +98,12 @@ function RegionalBridgeMap({
     locale === "zh"
       ? [
           { region: "深圳南山", focus: "AI 科技创新", position: "shenzhen" },
-          { region: "香港", focus: "国际金融与私募资管", position: "hongkong" },
+          { region: "香港中环", focus: "国际金融与私募资管", position: "hongkong" },
           { region: "台湾新竹", focus: "半导体产业生态", position: "taiwan" },
         ]
       : [
           { region: "Shenzhen · Nanshan", focus: "AI & tech innovation", position: "shenzhen" },
-          { region: "Hong Kong", focus: "Finance & private markets", position: "hongkong" },
+          { region: "Hong Kong · Central", focus: "Finance & private markets", position: "hongkong" },
           { region: "Taiwan · Hsinchu", focus: "Semiconductor ecosystem", position: "taiwan" },
         ];
 
@@ -115,72 +115,78 @@ function RegionalBridgeMap({
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
-      <svg
-        className="bc-network-lines"
-        viewBox="0 0 700 300"
-        preserveAspectRatio="none"
-        role="img"
-        aria-label={
-          locale === "zh"
-            ? "连接深圳、香港与台湾的区域网络图"
-            : "Regional network connecting Shenzhen, Hong Kong and Taiwan"
-        }
-      >
-        <defs>
-          <linearGradient
-            id={lineGradientId}
-            x1="0"
-            y1="0"
-            x2="1"
-            y2="1"
-          >
-            <stop offset="0" stopColor="#73a0ff" />
-            <stop offset="1" stopColor="#c6d8ff" />
-          </linearGradient>
-        </defs>
-        <path
-          className="bc-network-route-shadow"
-          d="M105 65L175 235L620 138L105 65"
-        />
-        <motion.path
-          className="bc-network-route"
-          d="M105 65L175 235L620 138L105 65"
-          fill="none"
-          stroke={`url(#${lineGradientId})`}
-          initial={reducedMotion ? false : { pathLength: 0, opacity: 0.15 }}
-          whileInView={
-            reducedMotion ? undefined : { pathLength: 1, opacity: 1 }
+      <div className="bc-network-scene">
+        <svg
+          className="bc-network-lines"
+          viewBox="0 0 700 300"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label={
+            locale === "zh"
+              ? "连接深圳、香港与台湾的区域网络图"
+              : "Regional network connecting Shenzhen, Hong Kong and Taiwan"
           }
-          viewport={{ once: true, amount: 0.55 }}
-          transition={{ duration: 1.4, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-        />
-      </svg>
-      <div className="bc-network-nodes">
-        {nodes.map((node, index) => (
-          <motion.div
-            className={`bc-network-node bc-network-node-${node.position}`}
-            key={node.region}
-            initial={reducedMotion ? false : { opacity: 0, y: 14 }}
-            whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+        >
+          <defs>
+            <linearGradient
+              id={lineGradientId}
+              x1="0"
+              y1="0"
+              x2="1"
+              y2="1"
+            >
+              <stop offset="0" stopColor="#73a0ff" />
+              <stop offset="1" stopColor="#c6d8ff" />
+            </linearGradient>
+          </defs>
+          <path
+            className="bc-network-route-shadow"
+            d="M105 65L175 235L620 138L105 65"
+          />
+          <motion.path
+            className="bc-network-route"
+            d="M105 65L175 235L620 138L105 65"
+            fill="none"
+            stroke={`url(#${lineGradientId})`}
+            initial={reducedMotion ? false : { pathLength: 0, opacity: 0.15 }}
+            whileInView={
+              reducedMotion ? undefined : { pathLength: 1, opacity: 1 }
+            }
             viewport={{ once: true, amount: 0.55 }}
-            transition={{
-              duration: 0.5,
-              delay: 0.38 + index * 0.22,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-          >
-            <i aria-hidden="true" />
-            <span>
-              <strong>{node.region}</strong>
-              <small>{node.focus}</small>
-            </span>
-          </motion.div>
-        ))}
+            transition={{ duration: 1.4, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+          />
+          <path
+            className="bc-network-travel"
+            d="M105 65L175 235L620 138L105 65"
+          />
+        </svg>
+        <div className="bc-network-nodes">
+          {nodes.map((node, index) => (
+            <motion.div
+              className={`bc-network-node bc-network-node-${node.position}`}
+              key={node.region}
+              initial={reducedMotion ? false : { opacity: 0, y: 14 }}
+              whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.55 }}
+              transition={{
+                duration: 0.5,
+                delay: 0.38 + index * 0.22,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              <i aria-hidden="true" />
+              <span>
+                <strong>{node.region}</strong>
+                <small>{node.focus}</small>
+              </span>
+            </motion.div>
+          ))}
+        </div>
       </div>
       <figcaption>
         {locale === "zh"
-          ? "三个地区，一套连接技术、资本与产业的长期视角"
-          : "Three regions. One long-term network across technology, capital and industry."}
+          ? "深港日常通勤，连接台湾产业网络：在流动中理解市场与人"
+          : "Moving between markets, connecting people, capital and industry across the region."}
       </figcaption>
     </motion.figure>
   );
@@ -293,7 +299,7 @@ export function BusinessCardSite() {
   const backdrop = useTransform(
     scrollYProgress,
     [0.3, 0.52],
-    ["#cbd5e1", "#102337"],
+    ["#526572", "#102337"],
   );
   const radius = useTransform(unfold, [0, 1], [10, 0]);
   const backTitleY = useTransform(scrollYProgress, [0.38, 0.7], [12, 0]);
@@ -336,15 +342,6 @@ export function BusinessCardSite() {
           </div>
         ))}
       </div>
-      <div className="bc-affiliations">
-        <span>{copy.intro.affiliations}</span>
-        <p>
-          {copy.intro.organizations.map((organization) => (
-            <strong key={organization}>{organization}</strong>
-          ))}
-        </p>
-        <small>{copy.intro.credentials}</small>
-      </div>
     </div>
   );
 
@@ -352,10 +349,16 @@ export function BusinessCardSite() {
     locale === "zh" ? (
       <span>
         连接<span className="bc-intro-accent">技术</span>与
-        <span className="bc-intro-accent">商业</span>的桥梁
+        <span className="bc-intro-accent">业务</span>的桥梁
       </span>
     ) : (
-      copy.intro.title.map((line) => <span key={line}>{line}</span>)
+      <>
+        <span>A bridge between</span>
+        <span>
+          <span className="bc-intro-accent">technology</span> and{" "}
+          <span className="bc-intro-accent">business</span>.
+        </span>
+      </>
     );
 
   const introContents = (
@@ -407,7 +410,7 @@ export function BusinessCardSite() {
         >
           <motion.div
             className={`bc-card-stage${darkNav ? " bc-card-stage-dark" : ""}`}
-            style={{ backgroundColor: reducedMotion ? "#cbd5e1" : backdrop }}
+            style={{ backgroundColor: reducedMotion ? "#526572" : backdrop }}
           >
             <motion.div
               className="bc-stage-topline"
@@ -473,6 +476,10 @@ export function BusinessCardSite() {
                       <a href={cardDetails.phoneHref}>
                         <span>T</span>
                         {cardDetails.phone}
+                      </a>
+                      <a href={cardDetails.phoneChinaHref}>
+                        <span>T</span>
+                        {cardDetails.phoneChina}
                       </a>
                       <a href={`mailto:${site.email}`}>
                         <span>E</span>
@@ -615,6 +622,22 @@ export function BusinessCardSite() {
                 <span>{copy.experience.educationDates}</span>
               </div>
             </div>
+            <motion.div
+              className="bc-qualification-strip"
+              initial={reducedMotion ? false : { opacity: 0, y: 22 }}
+              whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div>
+                <span>{locale === "zh" ? "专业资质" : "Credentials"}</span>
+                <strong>{copy.experience.credentials}</strong>
+              </div>
+              <div>
+                <span>{locale === "zh" ? "语言" : "Languages"}</span>
+                <strong>{copy.experience.languages}</strong>
+              </div>
+            </motion.div>
           </div>
         </section>
 
@@ -781,6 +804,13 @@ export function BusinessCardSite() {
           <a href={cardDetails.phoneHref}>
             <span>{copy.contact.phone}</span>
             <strong>{cardDetails.phone}</strong>
+            <Arrow />
+          </a>
+          <a href={cardDetails.phoneChinaHref}>
+            <span>
+              {locale === "zh" ? "电话 · 中国大陆" : "Phone · Mainland China"}
+            </span>
+            <strong>{cardDetails.phoneChina}</strong>
             <Arrow />
           </a>
         </div>

@@ -34,6 +34,8 @@ vi.mock("motion/react", async () => {
       h2: element("h2"),
       a: element("a"),
       article: element("article"),
+      figure: element("figure"),
+      path: element("path"),
     },
     useReducedMotion: vi.fn(() => false),
     useInView: vi.fn(() => true),
@@ -84,6 +86,9 @@ describe("Business card website", () => {
       screen.getByRole("link", { name: /T\s*\+852 6990 2741/ }),
     ).toHaveAttribute("href", "tel:+85269902741");
     expect(
+      screen.getByRole("link", { name: /T\s*\+86 18617190373/ }),
+    ).toHaveAttribute("href", "tel:+8618617190373");
+    expect(
       screen.getByRole("link", { name: /E\s*nicktsai1221@gmail.com/ }),
     ).toHaveAttribute("href", "mailto:nicktsai1221@gmail.com");
     expect(container.querySelector(".bc-finance")).toBeNull();
@@ -106,6 +111,14 @@ describe("Business card website", () => {
       within(experience).getByText("BEng Data Science & Engineering"),
     ).toBeInTheDocument();
     expect(
+      within(experience).getByText("CFA Level I · IELTS 7.5"),
+    ).toBeInTheDocument();
+    expect(
+      within(experience).getByText(
+        "Mandarin (native) · English (fluent) · Cantonese (basic)",
+      ),
+    ).toBeInTheDocument();
+    expect(
       screen.getByLabelText("7,443 followers across platforms"),
     ).toBeInTheDocument();
     expect(screen.queryByText("ByteDance")).not.toBeInTheDocument();
@@ -123,7 +136,8 @@ describe("Business card website", () => {
       screen.getByRole("heading", { name: "工作经历" }),
     ).toBeInTheDocument();
     expect(screen.getByText("往下滑查看更多")).toBeInTheDocument();
-    expect(screen.getByText("很高兴认识你～")).toBeInTheDocument();
+    expect(screen.getByText("很高兴认识你。")).toBeInTheDocument();
+    expect(screen.getAllByText("关于我")).toHaveLength(2);
     expect(screen.getByText("全平台粉丝量")).toBeInTheDocument();
     expect(screen.getByText("AI 建造师")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "凯翔资本" })).toBeInTheDocument();
