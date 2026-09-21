@@ -168,23 +168,27 @@ body {
 }
 .bc-card-stage::before {
   z-index: -2;
-  background:
-    radial-gradient(circle at 48% 42%, rgb(226 235 240 / 24%), transparent 40%),
-    linear-gradient(122deg, rgb(255 255 255 / 8%), transparent 42%),
-    repeating-linear-gradient(
-      98deg,
-      rgb(236 242 245 / 2.4%) 0,
-      rgb(236 242 245 / 2.4%) 1px,
-      transparent 1px,
-      transparent 5px
-    );
+  inset: -12px;
+  background-image:
+    linear-gradient(180deg, rgb(8 20 34 / 22%), transparent 38%, rgb(7 18 31 / 20%)),
+    radial-gradient(circle at 50% 47%, rgb(121 157 191 / 4%) 0, rgb(5 15 27 / 18%) 78%),
+    url("/hero/rainy-harbour-desktop.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: saturate(1.08) contrast(1.02) brightness(1.03);
+  transform: scale(1.012);
 }
 .bc-card-stage::after {
   z-index: -1;
+  background:
+    linear-gradient(180deg, rgb(5 14 25 / 16%), transparent 32%, rgb(7 18 31 / 12%)),
+    radial-gradient(ellipse at center, transparent 34%, rgb(4 13 23 / 32%) 100%);
   box-shadow: inset 0 0 150px rgb(13 29 40 / 30%);
 }
 .bc-card-stage-dark::before {
-  opacity: 0.12;
+  opacity: 0.1;
+  filter: saturate(0.78) brightness(0.62) blur(2px);
 }
 .bc-card-stage-dark::after {
   opacity: 0;
@@ -1188,6 +1192,12 @@ body {
   }
 }
 @media (max-width: 600px) {
+  .bc-card-stage::before {
+    background-image:
+      linear-gradient(180deg, rgb(8 20 34 / 18%), transparent 38%, rgb(7 18 31 / 18%)),
+      radial-gradient(circle at 50% 46%, rgb(121 157 191 / 3%) 0, rgb(5 15 27 / 18%) 80%),
+      url("/hero/rainy-harbour-mobile.jpg");
+  }
   .bc-header {
     height: 65px;
   }
