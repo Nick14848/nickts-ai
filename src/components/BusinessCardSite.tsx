@@ -301,13 +301,13 @@ export function BusinessCardSite() {
     [0.3, 0.52],
     ["#526572", "#102337"],
   );
-  const radius = useTransform(unfold, [0, 1], [10, 0]);
+  const radius = useTransform(unfold, [0, 1], [5, 0]);
   const backTitleY = useTransform(scrollYProgress, [0.38, 0.7], [12, 0]);
   const shadow = useTransform(
     unfold,
     [0, 1],
     [
-      "0px 30px 80px -25px rgba(25,42,69,0.27)",
+      "0px 2px 5px rgba(4,16,28,0.28), 0px 16px 34px -16px rgba(4,16,28,0.46), 0px 34px 70px -38px rgba(4,16,28,0.62)",
       "0px 0px 0px 0px rgba(25,42,69,0)",
     ],
   );
@@ -353,10 +353,10 @@ export function BusinessCardSite() {
       </span>
     ) : (
       <>
-        <span>A bridge between</span>
+        <span>A Bridge Between</span>
         <span>
-          <span className="bc-intro-accent">technology</span> and{" "}
-          <span className="bc-intro-accent">business</span>.
+          <span className="bc-intro-accent">Technology</span> and{" "}
+          <span className="bc-intro-accent">Business</span>.
         </span>
       </>
     );
@@ -424,6 +424,7 @@ export function BusinessCardSite() {
               style={
                 {
                   "--card-open": reducedMotion ? 0 : unfold,
+                  "--card-contact": reducedMotion ? 1 : paperOpacity,
                   y: reducedMotion ? 0 : cardLift,
                   scale: reducedMotion ? 1 : cardScale,
                   rotateZ: reducedMotion ? 0 : cardTilt,

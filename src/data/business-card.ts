@@ -99,7 +99,7 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
     },
     intro: {
       label: "About Me",
-      title: ["A bridge between", "technology and business."],
+      title: ["A Bridge Between", "Technology and Business."],
       tagline:
         "I love working across disciplines to put AI to work in real business — building products that solve real problems and create lasting value.",
       summary:
@@ -210,7 +210,7 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       university: "香港大学",
       scroll: "往下滑查看更多",
       welcome: "很高兴认识你。",
-      role: "AI 建造师",
+      role: "AI Builder",
       base: "Based in",
     },
     intro: {

@@ -105,7 +105,7 @@ describe("Business card website", () => {
     expect(
       within(experience).getByRole("heading", { name: "HSBC" }),
     ).toBeInTheDocument();
-    expect(screen.getAllByText("A bridge between")).toHaveLength(2);
+    expect(screen.getAllByText("A Bridge Between")).toHaveLength(2);
     expect(screen.queryByText(/Intern/)).not.toBeInTheDocument();
     expect(
       within(experience).getByText("BEng Data Science & Engineering"),
@@ -139,7 +139,7 @@ describe("Business card website", () => {
     expect(screen.getByText("很高兴认识你。")).toBeInTheDocument();
     expect(screen.getAllByText("关于我")).toHaveLength(2);
     expect(screen.getByText("全平台粉丝量")).toBeInTheDocument();
-    expect(screen.getByText("AI 建造师")).toBeInTheDocument();
+    expect(screen.getByText("AI Builder")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "凯翔资本" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "查看简历" })).toHaveAttribute(
       "href",
