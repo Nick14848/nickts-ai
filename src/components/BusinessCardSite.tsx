@@ -136,8 +136,8 @@ function RegionalBridgeMap({
               x2="1"
               y2="1"
             >
-              <stop offset="0" stopColor="#73a0ff" />
-              <stop offset="1" stopColor="#c6d8ff" />
+              <stop offset="0" stopColor="#3979b4" />
+              <stop offset="1" stopColor="#77a7c0" />
             </linearGradient>
           </defs>
           <path
@@ -371,7 +371,13 @@ export function BusinessCardSite() {
         />
       </div>
       <div className="bc-card-portrait-name">
-        <span>Nick Tsai</span><span>蔡逸凯 · AI Builder</span>
+        <p className="bc-portrait-display-name">Nick Tsai</p>
+        <p className="bc-portrait-chinese-name">蔡逸凯</p>
+        <div className="bc-portrait-highlights">
+          <p className="bc-portrait-value">{locale === "zh" ? "把 AI 用在真实业务里" : "AI for real business."}</p>
+          <p>{locale === "zh" ? "港大数据科学 · 香港私募资管" : "HKU Data Science · Private markets"}</p>
+          <p>{locale === "zh" ? "往返深港台，做产品，也创作" : <>Shenzhen · HK · Taiwan<br />Products &amp; content</>}</p>
+        </div>
       </div>
     </div>
   );

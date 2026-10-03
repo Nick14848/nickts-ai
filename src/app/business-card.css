@@ -1,16 +1,17 @@
-/* Digital business card: editorial precision, paper -> deep-blue canvas. */
+/* Digital business card: warm paper, clear blue and restrained champagne. */
 html,
 body {
-  background: #102337;
+  background: #faf8f3;
   color: #14253b;
 }
 .bc-app {
-  --bc-blue: #2450ca;
+  --bc-blue: #286696;
+  --bc-paper: #faf8f3;
   --bc-ink: #14253b;
   --bc-muted: #596b7f;
   --bc-dark: #102337;
   --bc-line: #cdd5df;
-  background: #102337;
+  background: var(--bc-paper);
   color: var(--bc-ink);
 }
 .bc-app *,
@@ -126,26 +127,26 @@ body {
   color: #c2d3ff;
 }
 .bc-header-dark {
-  background: rgb(7 22 38 / 96%);
-  color: #f6f8fc;
-  border-color: rgb(111 144 180 / 28%);
-  box-shadow: 0 14px 32px -26px rgb(0 0 0 / 78%);
+  background: rgb(255 253 248 / 94%);
+  color: #1e3d51;
+  border-color: rgb(172 187 192 / 30%);
+  box-shadow: 0 14px 32px -26px rgb(55 78 91 / 24%);
 }
 .bc-header-dark .bc-highlight {
-  color: #88abff;
+  color: #286696;
 }
 .bc-header-dark .bc-nav-divider {
-  background: #4b5e73;
+  background: #bcc9cc;
 }
 .bc-card-story {
   height: 180lvh;
   min-height: 1000px;
   position: relative;
-  background: #102337;
+  background: var(--bc-paper);
   transition: background-color 0.35s ease;
 }
 .bc-card-story-dark {
-  background: #102337;
+  background: var(--bc-paper);
 }
 .bc-card-stage {
   position: sticky;
@@ -176,7 +177,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  filter: saturate(1.08) contrast(1.02) brightness(1.03);
+  filter: saturate(0.98) contrast(0.98) brightness(1.16);
   transform: scale(1.012);
 }
 .bc-card-stage::after {
@@ -401,8 +402,8 @@ body {
 }
 .bc-card-back {
   transform: rotateY(180deg);
-  background: #102337;
-  color: #f5f8ff;
+  background: var(--bc-paper);
+  color: var(--bc-ink);
   display: flex;
   align-items: flex-end;
 }
@@ -437,7 +438,7 @@ body {
 .bc-card-back .bc-eyebrow,
 .bc-mobile-intro .bc-eyebrow,
 .bc-reduced-intro .bc-eyebrow {
-  color: #9eb8d6;
+  color: #687b82;
 }
 .bc-intro-title {
   font-size: clamp(35px, 5.5vw, 74px);
@@ -450,17 +451,16 @@ body {
   display: block;
 }
 .bc-intro-title > span + span {
-  color: #f5f8ff;
+  color: var(--bc-ink);
 }
 .bc-intro-accent {
   display: inline;
-  color: #8fb2ff;
-  text-shadow: 0 0 28px rgb(78 127 226 / 22%);
+  color: var(--bc-blue);
 }
 .bc-intro-tagline {
   margin-top: 17px;
   max-width: 850px;
-  color: #dce6f0;
+  color: #425b68;
   font-size: 17px;
   font-weight: 430;
   line-height: 1.72;
@@ -472,17 +472,17 @@ body {
   border: 1px solid rgb(112 145 183 / 28%);
   border-radius: 10px;
   overflow: hidden;
-  background: rgb(9 29 48 / 58%);
-  box-shadow: inset 0 0 42px rgb(2 12 24 / 36%);
+  background: #edf4f6;
+  box-shadow: 0 20px 42px -34px rgb(67 98 117 / 28%);
 }
 .bc-network-scene {
   position: relative;
   height: clamp(190px, 23svh, 230px);
   background:
-    linear-gradient(rgb(135 166 202 / 7%) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(135 166 202 / 7%) 1px, transparent 1px),
-    radial-gradient(circle at 72% 42%, rgb(74 119 201 / 18%), transparent 34%),
-    rgb(9 29 48 / 58%);
+    linear-gradient(rgb(92 135 157 / 8%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(92 135 157 / 8%) 1px, transparent 1px),
+    radial-gradient(circle at 72% 42%, rgb(219 183 113 / 18%), transparent 40%),
+    #edf4f6;
   background-size: 72px 72px, 72px 72px, auto, auto;
   overflow: hidden;
   perspective: 900px;
@@ -492,7 +492,7 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  box-shadow: inset 0 0 42px rgb(2 12 24 / 42%);
+  box-shadow: inset 0 0 42px rgb(218 233 239 / 25%);
 }
 .bc-network-lines {
   position: absolute;
@@ -517,7 +517,7 @@ body {
 }
 .bc-network-travel {
   fill: none;
-  stroke: #d7bf8a;
+  stroke: #a47732;
   stroke-width: 3.2;
   stroke-linecap: round;
   stroke-dasharray: 1 22;
@@ -538,10 +538,10 @@ body {
   padding: 9px 12px;
   border: 1px solid rgb(125 160 208 / 24%);
   border-radius: 7px;
-  background: linear-gradient(135deg, rgb(32 60 87 / 96%), rgb(14 35 54 / 91%));
+  background: linear-gradient(135deg, #fffefb, #f3f7f6);
   box-shadow:
-    0 14px 26px -16px rgb(0 0 0 / 80%),
-    inset 0 1px rgb(255 255 255 / 5%);
+    0 14px 26px -16px rgb(73 102 122 / 30%),
+    inset 0 1px rgb(255 255 255 / 90%);
   backdrop-filter: blur(8px);
 }
 .bc-network-node > i {
@@ -569,14 +569,14 @@ body {
   display: block;
 }
 .bc-network-node strong {
-  color: #f5f8ff;
+  color: #213e52;
   font-size: 13px;
   font-weight: 600;
   line-height: 1.35;
 }
 .bc-network-node small {
   margin-top: 2px;
-  color: #9eb3cb;
+  color: #577181;
   font-size: 10px;
   line-height: 1.35;
   white-space: nowrap;
@@ -615,7 +615,7 @@ body {
   z-index: 4;
   padding: 12px 18px 13px;
   border-top: 1px solid rgb(112 145 183 / 20%);
-  color: #8fa8c3;
+  color: #577181;
   font-size: 11px;
   line-height: 1.55;
   letter-spacing: 0.015em;
@@ -624,7 +624,7 @@ body {
   max-width: 860px;
   font-size: 17px;
   line-height: 1.75;
-  color: #d1dcea;
+  color: #425b68;
   margin-top: 22px;
 }
 .bc-bridge-grid {
@@ -639,13 +639,13 @@ body {
 }
 .bc-bridge-item strong {
   display: block;
-  color: #f4f7fc;
+  color: #213e52;
   font-size: 14px;
   line-height: 1.45;
   font-weight: 570;
 }
 .bc-bridge-item p {
-  color: #9fb2c8;
+  color: #577181;
   font-size: 13px;
   line-height: 1.65;
   margin-top: 8px;
@@ -665,11 +665,11 @@ body {
   transform: rotate(90deg) translateX(4px);
 }
 .bc-dark {
-  background: #102337;
-  color: #f3f7fd;
+  background: var(--bc-paper);
+  color: var(--bc-ink);
 }
 .bc-experience {
-  background: linear-gradient(180deg, #dce5ee 0%, #e9eef4 100%);
+  background: linear-gradient(180deg, #edf4f6 0%, #f3f7f7 100%);
   color: #17304b;
   padding: 42px 0 110px;
   position: relative;
@@ -680,7 +680,7 @@ body {
   content: "";
   position: absolute;
   height: 64px;
-  background: linear-gradient(180deg, #102337 0%, #1d354d 18%, #dce5ee 100%);
+  background: linear-gradient(180deg, var(--bc-paper) 0%, #edf4f6 100%);
   top: -64px;
   left: 0;
   right: 0;
@@ -895,8 +895,8 @@ body {
 .bc-creator {
   padding: 100px 0 110px;
   background:
-    radial-gradient(circle at 78% 22%, rgb(36 80 202 / 10%), transparent 34%),
-    #f7f8fa;
+    radial-gradient(circle at 78% 22%, rgb(216 173 93 / 12%), transparent 34%),
+    #fffdf8;
   scroll-margin-top: 76px;
   overflow: hidden;
 }
@@ -915,7 +915,7 @@ body {
 }
 .bc-followers strong {
   display: block;
-  color: #2450ca;
+  color: var(--bc-blue);
   font-size: clamp(76px, 8.4vw, 124px);
   font-weight: 520;
   line-height: 1;
@@ -1061,7 +1061,7 @@ body {
   color: #6b7c90;
 }
 .bc-footer {
-  background: #e8edf4;
+  background: #f1f2eb;
   padding: 74px 0 25px;
 }
 .bc-footer-main {
@@ -1659,20 +1659,23 @@ body {
 }
 
 /* One portrait composition from the flip through the normal page scroll. */
-.bc-card-back { display: block; background: #102337; }
+.bc-card-back { display: block; background: var(--bc-paper); }
 .bc-portrait-card {
   display: grid;
   grid-template-columns: 47% 1fr;
   align-items: center;
-  background: #102337;
+  background: var(--bc-paper);
   width: 100%;
   height: 100%;
 }
 .bc-card-portrait { position: relative; height: 100%; }
 .bc-card-portrait img { object-fit: cover; object-position: center 38%; }
-.bc-card-portrait-name { display: grid; gap: 12px; padding: 24px; }
-.bc-card-portrait-name span:first-child { font-size: clamp(25px, 5cqw, 42px); letter-spacing: -.04em; }
-.bc-card-portrait-name span:last-child { color: #c7b899; font-size: clamp(10px, 2cqw, 15px); }
+.bc-card-portrait-name { padding: 28px 30px; }
+.bc-portrait-display-name { font-size: clamp(25px, 5cqw, 42px); letter-spacing: -.04em; line-height: 1.12; color: #213e52; }
+.bc-portrait-chinese-name { margin-top: 9px; color: #697b80; font-size: clamp(12px, 2cqw, 16px); letter-spacing: .09em; }
+.bc-portrait-highlights { display: grid; gap: 13px; margin-top: 25px; padding-top: 19px; border-top: 1px solid #dcded4; }
+.bc-portrait-highlights p { font-size: clamp(11px, 1.8cqw, 14px); line-height: 1.65; color: #586e77; text-wrap: pretty; }
+.bc-portrait-highlights .bc-portrait-value { color: #286696; font-weight: 580; font-size: clamp(12px, 2.1cqw, 16px); }
 .bc-static-portrait {
   display: none;
   padding: 48px 32px;
@@ -1694,13 +1697,23 @@ body {
 }
 .bc-no-motion .bc-mobile-intro { margin-top: 0; }
 @media (max-width: 600px) {
-  .bc-card-portrait-name { padding: 16px; gap: 8px; }
+  .bc-card-portrait-name { padding: 12px 14px; }
+  .bc-portrait-chinese-name { margin-top: 5px; }
+  .bc-portrait-highlights { margin-top: 12px; padding-top: 10px; gap: 7px; }
+  .bc-portrait-highlights p { font-size: 11px; line-height: 1.45; }
+  .bc-portrait-highlights .bc-portrait-value { font-size: 12px; }
   .bc-mobile-intro {
     margin-top: calc(-50lvh + min(123px, (100vw - 28px) / 3.16) + 48px);
     padding-top: 32px;
   }
   .bc-static-portrait { padding: 32px 14px; }
   .bc-static-portrait .bc-portrait-card { height: min(246px, calc((100vw - 28px) / 1.58)); }
+}
+@media (max-width: 360px) {
+  .bc-portrait-display-name { font-size: 24px; }
+  .bc-portrait-highlights { margin-top: 8px; padding-top: 8px; gap: 5px; }
+  .bc-portrait-highlights p { font-size: 10px; }
+  .bc-portrait-highlights .bc-portrait-value { font-size: 11px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .bc-static-portrait { display: block; }

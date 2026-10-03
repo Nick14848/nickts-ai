@@ -108,6 +108,7 @@ describe("Business card website", () => {
     ).toBeInTheDocument();
     expect(screen.getAllByText("A Bridge Between")).toHaveLength(1);
     expect(screen.getAllByAltText("Portrait of Nick Tsai")).toHaveLength(2);
+    expect(screen.getAllByText("AI for real business.")).toHaveLength(2);
     expect(document.querySelector(".bc-portrait-reveal")).not.toBeInTheDocument();
     expect(screen.queryByText(/Intern/)).not.toBeInTheDocument();
     expect(
@@ -141,6 +142,7 @@ describe("Business card website", () => {
     expect(screen.getByText("往下滑查看更多")).toBeInTheDocument();
     expect(screen.getByText("很高兴认识你。")).toBeInTheDocument();
     expect(screen.getAllByText("关于我")).toHaveLength(1);
+    expect(screen.getAllByText("把 AI 用在真实业务里")).toHaveLength(2);
     expect(screen.getByText("全平台粉丝量")).toBeInTheDocument();
     expect(screen.getByText("AI Builder")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "凯翔资本" })).toBeInTheDocument();
