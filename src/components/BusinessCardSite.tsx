@@ -8,6 +8,7 @@ import {
   useInView,
   useReducedMotion,
   useScroll,
+  useSpring,
   useTransform,
   type MotionStyle,
 } from "motion/react";
@@ -270,51 +271,43 @@ export function BusinessCardSite() {
     target: storyRef,
     offset: ["start start", "end end"],
   });
+  // A damped JS timeline avoids native scroll-timeline interpolation glitches
+  // and absorbs abrupt touch-scroll changes without animating layout.
+  const timeline = useSpring(scrollYProgress, { stiffness: 220, damping: 32, mass: 0.3 });
   const rotation = useTransform(
-    scrollYProgress,
+    timeline,
     [0, 0.1, 0.18, 0.42],
     [0, 0, 18, 180],
   );
-  const unfold = useTransform(scrollYProgress, [0.34, 0.6], [0, 1]);
+  // Keep layout fixed during the flip: only composite transforms and opacity.
+  const cardOpacity = useTransform(timeline, [0.52, 0.68], [1, 0]);
+  const portraitOpacity = useTransform(timeline, [0.48, 0.68], [0, 1]);
+  const portraitY = useTransform(timeline, [0.48, 0.72], [24, 0]);
   const cardLift = useTransform(
-    scrollYProgress,
+    timeline,
     [0, 0.1, 0.28, 0.6],
     [2, 2, -14, 0],
   );
   const cardScale = useTransform(
-    scrollYProgress,
+    timeline,
     [0, 0.12, 0.3, 0.6],
     [1, 1, 1.018, 1],
   );
   const cardTilt = useTransform(
-    scrollYProgress,
+    timeline,
     [0, 0.12, 0.3, 0.6],
     [-0.65, -0.65, 0.18, 0],
   );
   const paperOpacity = useTransform(
-    scrollYProgress,
+    timeline,
     [0, 0.06, 0.18],
     [1, 1, 0],
   );
-  const backdrop = useTransform(
-    scrollYProgress,
-    [0.3, 0.52],
-    ["#526572", "#102337"],
-  );
-  const radius = useTransform(unfold, [0, 1], [5, 0]);
-  const backTitleY = useTransform(scrollYProgress, [0.38, 0.7], [12, 0]);
-  const shadow = useTransform(
-    unfold,
-    [0, 1],
-    [
-      "0px 2px 5px rgba(4,16,28,0.28), 0px 16px 34px -16px rgba(4,16,28,0.46), 0px 34px 70px -38px rgba(4,16,28,0.62)",
-      "0px 0px 0px 0px rgba(25,42,69,0)",
-    ],
-  );
-
-  useMotionValueEvent(scrollYProgress, "change", (progress) => {
-    setBackVisible(!reducedMotion && progress > 0.29);
-    setDarkNav(progress > 0.4);
+  useMotionValueEvent(timeline, "change", (progress) => {
+    const nextBack = !reducedMotion && progress > 0.29;
+    const nextDark = progress > 0.4;
+    if (nextBack !== backVisible) setBackVisible(nextBack);
+    if (nextDark !== darkNav) setDarkNav(nextDark);
   });
 
   function openContact() {
@@ -374,6 +367,25 @@ export function BusinessCardSite() {
     </>
   );
 
+  const portraitContents = (
+    <div className="bc-portrait-inner">
+      <div className="bc-portrait-caption">
+        <p className="bc-eyebrow">{locale === "zh" ? "很高兴认识你" : "A pleasure to meet you"}</p>
+        <p className="bc-portrait-name">Nick Tsai<span>蔡逸凯</span></p>
+        <p className="bc-portrait-position">AI Builder · Taiwan × Hong Kong × Shenzhen</p>
+      </div>
+      <div className="bc-portrait-photo">
+        <Image
+          src="/portrait/nick-tsai-editorial.jpg"
+          alt={locale === "zh" ? "蔡逸凯，港湾蓝调背景下的个人肖像" : "Nick Tsai, an editorial portrait overlooking the harbour"}
+          fill
+          sizes="(max-width: 600px) 90vw, (max-width: 900px) 48vw, 520px"
+          loading="eager"
+        />
+      </div>
+    </div>
+  );
+
   return (
     <div className={`bc-app${reducedMotion ? " bc-no-motion" : ""}`}>
       <a className="bc-skip" href="#experience">
@@ -410,7 +422,6 @@ export function BusinessCardSite() {
         >
           <motion.div
             className={`bc-card-stage${darkNav ? " bc-card-stage-dark" : ""}`}
-            style={{ backgroundColor: reducedMotion ? "#526572" : backdrop }}
           >
             <motion.div
               className="bc-stage-topline"
@@ -423,8 +434,8 @@ export function BusinessCardSite() {
               className="bc-card-frame"
               style={
                 {
-                  "--card-open": reducedMotion ? 0 : unfold,
                   "--card-contact": reducedMotion ? 1 : paperOpacity,
+                  opacity: reducedMotion ? 1 : cardOpacity,
                   y: reducedMotion ? 0 : cardLift,
                   scale: reducedMotion ? 1 : cardScale,
                   rotateZ: reducedMotion ? 0 : cardTilt,
@@ -437,7 +448,6 @@ export function BusinessCardSite() {
               >
                 <motion.div
                   className="bc-card-face bc-card-front"
-                  style={{ borderRadius: radius, boxShadow: shadow }}
                   aria-hidden={showBack}
                   inert={showBack}
                 >
@@ -492,25 +502,23 @@ export function BusinessCardSite() {
                 </motion.div>
                 <motion.div
                   className="bc-card-face bc-card-back"
-                  style={{ borderRadius: radius }}
-                  aria-hidden={!showBack}
-                  inert={!showBack}
+                  aria-hidden="true"
+                  inert
                 >
-                  <div className="bc-back-content" id="intro">
-                    <p className="bc-eyebrow">{copy.intro.label}</p>
-                    <motion.h2
-                      className="bc-intro-title"
-                      style={{ y: backTitleY }}
-                    >
-                      {renderIntroTitle()}
-                    </motion.h2>
-                    <p className="bc-intro-tagline">{copy.intro.tagline}</p>
+                  <div className="bc-card-portrait">
+                    <Image src="/portrait/nick-tsai-editorial.jpg" alt="" fill sizes="(max-width: 600px) 180px, 360px" loading="eager" />
+                  </div>
+                  <div className="bc-card-portrait-name">
+                    <span>Nick Tsai</span><span>蔡逸凯 · AI Builder</span>
                   </div>
                 </motion.div>
               </motion.div>
             </motion.div>
+            <motion.div className="bc-portrait-reveal" style={{ opacity: reducedMotion ? 0 : portraitOpacity, y: reducedMotion ? 0 : portraitY }} aria-hidden={reducedMotion || !showBack}>
+              {portraitContents}
+            </motion.div>
             <motion.a
-              href="#experience"
+              href="#intro"
               className="bc-scroll-cue"
               style={{
                 opacity: reducedMotion ? 1 : paperOpacity,
@@ -525,24 +533,16 @@ export function BusinessCardSite() {
           </motion.div>
         </section>
 
+        <section className="bc-static-portrait bc-dark" aria-label={locale === "zh" ? "个人肖像" : "Portrait"}>{portraitContents}</section>
+
         <section
+          id="intro"
           className="bc-mobile-intro bc-dark"
           aria-label={locale === "zh" ? "个人介绍详情" : "About Nick"}
         >
           <div className="bc-content">
-            <RegionalBridgeMap
-              locale={locale}
-              reducedMotion={Boolean(reducedMotion)}
-            />
-            {renderIntroDetails()}
+            {introContents}
           </div>
-        </section>
-
-        <section
-          className="bc-reduced-intro bc-dark"
-          aria-label={copy.intro.label}
-        >
-          <div className="bc-content">{introContents}</div>
         </section>
 
         <section id="experience" className="bc-experience">
@@ -855,7 +855,7 @@ export function BusinessCardSite() {
         </div>
       </Dialog>
       <noscript>
-        <style>{`.bc-card-story{height:auto!important}.bc-card-stage{position:relative!important;min-height:700px}.bc-reduced-intro{display:block!important}.bc-mobile-intro{display:none!important}`}</style>
+        <style>{`.bc-card-story{height:auto!important}.bc-card-stage{position:relative!important;min-height:700px}.bc-portrait-reveal{display:none!important}.bc-static-portrait{display:block!important}.bc-mobile-intro{display:block!important}`}</style>
       </noscript>
     </div>
   );

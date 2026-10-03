@@ -40,6 +40,7 @@ vi.mock("motion/react", async () => {
     useReducedMotion: vi.fn(() => false),
     useInView: vi.fn(() => true),
     useScroll: () => ({ scrollYProgress: 0 }),
+    useSpring: (value: unknown) => value,
     useTransform: (_value: unknown, _input: unknown, output: unknown[]) =>
       output[0],
     useMotionValueEvent: vi.fn(),
@@ -105,7 +106,8 @@ describe("Business card website", () => {
     expect(
       within(experience).getByRole("heading", { name: "HSBC" }),
     ).toBeInTheDocument();
-    expect(screen.getAllByText("A Bridge Between")).toHaveLength(2);
+    expect(screen.getAllByText("A Bridge Between")).toHaveLength(1);
+    expect(screen.getAllByAltText(/Nick Tsai, an editorial portrait/)).toHaveLength(2);
     expect(screen.queryByText(/Intern/)).not.toBeInTheDocument();
     expect(
       within(experience).getByText("BEng Data Science & Engineering"),
@@ -137,7 +139,7 @@ describe("Business card website", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("往下滑查看更多")).toBeInTheDocument();
     expect(screen.getByText("很高兴认识你。")).toBeInTheDocument();
-    expect(screen.getAllByText("关于我")).toHaveLength(2);
+    expect(screen.getAllByText("关于我")).toHaveLength(1);
     expect(screen.getByText("全平台粉丝量")).toBeInTheDocument();
     expect(screen.getByText("AI Builder")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "凯翔资本" })).toBeInTheDocument();
