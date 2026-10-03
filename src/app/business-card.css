@@ -138,8 +138,8 @@ body {
   background: #4b5e73;
 }
 .bc-card-story {
-  height: 230lvh;
-  min-height: 1300px;
+  height: 180lvh;
+  min-height: 1000px;
   position: relative;
   background: #102337;
   transition: background-color 0.35s ease;
@@ -1258,8 +1258,8 @@ body {
     font-size: 12px;
   }
   .bc-card-story {
-    height: 185lvh;
-    min-height: 1050px;
+    height: 180lvh;
+    min-height: 900px;
   }
   .bc-card-stage {
     min-height: 100svh;
@@ -1658,60 +1658,51 @@ body {
   }
 }
 
-/* A photographic reveal, independent of the rotating card's layout. */
-.bc-card-back {
+/* One portrait composition from the flip through the normal page scroll. */
+.bc-card-back { display: block; background: #102337; }
+.bc-portrait-card {
   display: grid;
   grid-template-columns: 47% 1fr;
   align-items: center;
   background: #102337;
+  width: 100%;
+  height: 100%;
 }
 .bc-card-portrait { position: relative; height: 100%; }
 .bc-card-portrait img { object-fit: cover; object-position: center 38%; }
 .bc-card-portrait-name { display: grid; gap: 12px; padding: 24px; }
 .bc-card-portrait-name span:first-child { font-size: clamp(25px, 5cqw, 42px); letter-spacing: -.04em; }
 .bc-card-portrait-name span:last-child { color: #c7b899; font-size: clamp(10px, 2cqw, 15px); }
-.bc-portrait-reveal {
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  display: grid;
-  align-items: center;
-  padding: 110px 48px 50px;
-  pointer-events: none;
-  will-change: transform, opacity;
+.bc-static-portrait {
+  display: none;
+  padding: 48px 32px;
 }
-.bc-portrait-inner {
-  width: min(100%, 1120px);
+.bc-static-portrait .bc-portrait-card {
+  width: min(760px, 100%);
+  height: 460px;
   margin: auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: center;
+  container-type: inline-size;
+  border-radius: 5px;
+  overflow: hidden;
 }
-.bc-portrait-caption .bc-eyebrow { color: #bfae8e; }
-.bc-portrait-name { margin: 24px 0; font-size: clamp(46px, 6vw, 78px); letter-spacing: -.05em; line-height: 1.1; color: #f8f6f0; }
-.bc-portrait-name span { display: block; margin-top: 18px; font-size: .32em; letter-spacing: .12em; color: #bdcbd7; }
-.bc-portrait-position { color: #a5b7c7; font-size: 13px; line-height: 1.8; }
-.bc-portrait-photo { position: relative; width: 100%; height: min(68lvh, 630px); border-radius: 4px; overflow: hidden; background: #203951; }
-.bc-portrait-photo img { object-fit: cover; object-position: center 35%; }
-.bc-portrait-photo::after { content: ""; position: absolute; inset: 0; border: 1px solid rgb(226 231 235 / 14%); border-radius: inherit; pointer-events: none; }
-.bc-static-portrait { display: none; padding: 70px 32px; }
-.bc-no-motion .bc-portrait-reveal { display: none; }
 .bc-no-motion .bc-static-portrait { display: block; }
-.bc-mobile-intro { padding-top: 72px; }
+.bc-mobile-intro {
+  /* Reuse the stage's unused lower half, so the card scrolls straight into
+     About Me rather than leaving a viewport-sized empty region. */
+  margin-top: calc(-50lvh + 230px + 64px);
+  padding-top: 48px;
+}
+.bc-no-motion .bc-mobile-intro { margin-top: 0; }
 @media (max-width: 600px) {
-  .bc-portrait-reveal { padding: 87px 22px 28px; }
-  .bc-portrait-inner { grid-template-columns: 1fr; gap: 20px; max-width: 420px; }
-  .bc-portrait-caption { order: 2; }
-  .bc-portrait-photo { height: min(56lvh, 510px); }
-  .bc-portrait-caption .bc-eyebrow { font-size: 10px; }
-  .bc-portrait-name { font-size: 35px; margin: 8px 0; display: flex; gap: 16px; align-items: baseline; }
-  .bc-portrait-name span { margin: 0; font-size: 15px; }
-  .bc-portrait-position { font-size: 10px; margin: 0; }
   .bc-card-portrait-name { padding: 16px; gap: 8px; }
-  .bc-mobile-intro { padding-top: 42px; }
+  .bc-mobile-intro {
+    margin-top: calc(-50lvh + min(123px, (100vw - 28px) / 3.16) + 48px);
+    padding-top: 32px;
+  }
+  .bc-static-portrait { padding: 32px 14px; }
+  .bc-static-portrait .bc-portrait-card { height: min(246px, calc((100vw - 28px) / 1.58)); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .bc-portrait-reveal { display: none; }
   .bc-static-portrait { display: block; }
+  .bc-mobile-intro { margin-top: 0; }
 }

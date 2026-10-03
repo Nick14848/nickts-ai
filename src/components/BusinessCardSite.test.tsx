@@ -107,7 +107,8 @@ describe("Business card website", () => {
       within(experience).getByRole("heading", { name: "HSBC" }),
     ).toBeInTheDocument();
     expect(screen.getAllByText("A Bridge Between")).toHaveLength(1);
-    expect(screen.getAllByAltText(/Nick Tsai, an editorial portrait/)).toHaveLength(2);
+    expect(screen.getAllByAltText("Portrait of Nick Tsai")).toHaveLength(2);
+    expect(document.querySelector(".bc-portrait-reveal")).not.toBeInTheDocument();
     expect(screen.queryByText(/Intern/)).not.toBeInTheDocument();
     expect(
       within(experience).getByText("BEng Data Science & Engineering"),

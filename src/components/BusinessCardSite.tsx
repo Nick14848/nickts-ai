@@ -276,22 +276,14 @@ export function BusinessCardSite() {
   const timeline = useSpring(scrollYProgress, { stiffness: 220, damping: 32, mass: 0.3 });
   const rotation = useTransform(
     timeline,
-    [0, 0.1, 0.18, 0.42],
-    [0, 0, 18, 180],
+    [0, 0.12, 0.25, 0.64],
+    [0, 0, 22, 180],
   );
-  // Keep layout fixed during the flip: only composite transforms and opacity.
-  const cardOpacity = useTransform(timeline, [0.52, 0.68], [1, 0]);
-  const portraitOpacity = useTransform(timeline, [0.48, 0.68], [0, 1]);
-  const portraitY = useTransform(timeline, [0.48, 0.72], [24, 0]);
+  // The back is the final portrait composition; never replace or enlarge it.
   const cardLift = useTransform(
     timeline,
     [0, 0.1, 0.28, 0.6],
     [2, 2, -14, 0],
-  );
-  const cardScale = useTransform(
-    timeline,
-    [0, 0.12, 0.3, 0.6],
-    [1, 1, 1.018, 1],
   );
   const cardTilt = useTransform(
     timeline,
@@ -304,8 +296,8 @@ export function BusinessCardSite() {
     [1, 1, 0],
   );
   useMotionValueEvent(timeline, "change", (progress) => {
-    const nextBack = !reducedMotion && progress > 0.29;
-    const nextDark = progress > 0.4;
+    const nextBack = !reducedMotion && progress > 0.43;
+    const nextDark = progress > 0.48;
     if (nextBack !== backVisible) setBackVisible(nextBack);
     if (nextDark !== darkNav) setDarkNav(nextDark);
   });
@@ -368,20 +360,18 @@ export function BusinessCardSite() {
   );
 
   const portraitContents = (
-    <div className="bc-portrait-inner">
-      <div className="bc-portrait-caption">
-        <p className="bc-eyebrow">{locale === "zh" ? "很高兴认识你" : "A pleasure to meet you"}</p>
-        <p className="bc-portrait-name">Nick Tsai<span>蔡逸凯</span></p>
-        <p className="bc-portrait-position">AI Builder · Taiwan × Hong Kong × Shenzhen</p>
-      </div>
-      <div className="bc-portrait-photo">
+    <div className="bc-portrait-card">
+      <div className="bc-card-portrait">
         <Image
-          src="/portrait/nick-tsai-editorial.jpg"
-          alt={locale === "zh" ? "蔡逸凯，港湾蓝调背景下的个人肖像" : "Nick Tsai, an editorial portrait overlooking the harbour"}
+          src="/portrait/nick-tsai-natural.jpg"
+          alt={locale === "zh" ? "蔡逸凯的个人肖像" : "Portrait of Nick Tsai"}
           fill
-          sizes="(max-width: 600px) 90vw, (max-width: 900px) 48vw, 520px"
+          sizes="(max-width: 600px) 47vw, 360px"
           loading="eager"
         />
+      </div>
+      <div className="bc-card-portrait-name">
+        <span>Nick Tsai</span><span>蔡逸凯 · AI Builder</span>
       </div>
     </div>
   );
@@ -435,9 +425,7 @@ export function BusinessCardSite() {
               style={
                 {
                   "--card-contact": reducedMotion ? 1 : paperOpacity,
-                  opacity: reducedMotion ? 1 : cardOpacity,
                   y: reducedMotion ? 0 : cardLift,
-                  scale: reducedMotion ? 1 : cardScale,
                   rotateZ: reducedMotion ? 0 : cardTilt,
                 } as MotionStyle
               }
@@ -502,20 +490,12 @@ export function BusinessCardSite() {
                 </motion.div>
                 <motion.div
                   className="bc-card-face bc-card-back"
-                  aria-hidden="true"
-                  inert
+                  aria-hidden={!showBack}
+                  inert={!showBack}
                 >
-                  <div className="bc-card-portrait">
-                    <Image src="/portrait/nick-tsai-editorial.jpg" alt="" fill sizes="(max-width: 600px) 180px, 360px" loading="eager" />
-                  </div>
-                  <div className="bc-card-portrait-name">
-                    <span>Nick Tsai</span><span>蔡逸凯 · AI Builder</span>
-                  </div>
+                  {portraitContents}
                 </motion.div>
               </motion.div>
-            </motion.div>
-            <motion.div className="bc-portrait-reveal" style={{ opacity: reducedMotion ? 0 : portraitOpacity, y: reducedMotion ? 0 : portraitY }} aria-hidden={reducedMotion || !showBack}>
-              {portraitContents}
             </motion.div>
             <motion.a
               href="#intro"
@@ -855,7 +835,7 @@ export function BusinessCardSite() {
         </div>
       </Dialog>
       <noscript>
-        <style>{`.bc-card-story{height:auto!important}.bc-card-stage{position:relative!important;min-height:700px}.bc-portrait-reveal{display:none!important}.bc-static-portrait{display:block!important}.bc-mobile-intro{display:block!important}`}</style>
+        <style>{`.bc-card-story{height:auto!important}.bc-card-stage{position:relative!important;min-height:700px}.bc-static-portrait{display:block!important}.bc-mobile-intro{display:block!important;margin-top:0!important}`}</style>
       </noscript>
     </div>
   );
