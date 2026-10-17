@@ -40,7 +40,9 @@ export function SiteProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
-      setLocaleState(getLocaleSnapshot());
+      const language = new URLSearchParams(window.location.search).get("lang");
+      if (language === "zh" || language === "en") storeLocale(language);
+      setLocaleState(language === "zh" || language === "en" ? language : getLocaleSnapshot());
       setLensState(getLensSnapshot());
     });
     return () => window.cancelAnimationFrame(frame);
@@ -76,6 +78,11 @@ export function SiteProvider({ children }: { children: React.ReactNode }) {
     setLocaleState((current) => {
       const next = current === "en" ? "zh" : "en";
       storeLocale(next);
+      const url = new URL(window.location.href);
+      if (url.searchParams.has("lang")) {
+        url.searchParams.set("lang", next);
+        window.history.replaceState(window.history.state, "", url);
+      }
       return next;
     });
   }, []);

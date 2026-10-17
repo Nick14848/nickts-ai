@@ -15,6 +15,7 @@ import {
 import { cardDetails, businessCardCopy } from "@/data/business-card";
 import { site, type Locale } from "@/data/site";
 import { useSite } from "./SiteProvider";
+import { ProfileNavigation } from "./ProfileNavigation";
 
 const HKU_LOGO_URL =
   "https://www.hku.hk/adobe/dynamicmedia/deliver/dm-aid--afc8d43c-587a-43f0-b93c-26f8bd397e0e/logo-hku.svg.webp?width=416&preferwebp=true";
@@ -49,7 +50,7 @@ function FollowerCount({
 }) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.7 });
-  const [displayValue, setDisplayValue] = useState(reducedMotion ? value : 0);
+  const [displayValue, setDisplayValue] = useState(value);
 
   useEffect(() => {
     if (!inView || reducedMotion) return;
@@ -260,7 +261,6 @@ export function BusinessCardSite() {
     emailCopied,
   } = useSite();
   const copy = businessCardCopy[locale];
-  const resumePath = locale === "zh" ? site.resumePathZh : site.resumePath;
   const storyRef = useRef<HTMLElement>(null);
   const reducedMotion = useReducedMotion();
   const [backVisible, setBackVisible] = useState(false);
@@ -393,7 +393,7 @@ export function BusinessCardSite() {
             <CardWordmark />
           </a>
           <nav aria-label={locale === "zh" ? "主导航" : "Main navigation"}>
-            <a href="#experience">{copy.nav.experience}</a>
+            <ProfileNavigation locale={locale} mode="human" />
             <span className="bc-nav-divider" aria-hidden="true" />
             <button
               onClick={toggleLocale}
@@ -478,19 +478,14 @@ export function BusinessCardSite() {
                       ))}
                     </div>
                     <address className="bc-card-address">
-                      <a href={cardDetails.phoneHref}>
-                        <span>T</span>
-                        {cardDetails.phone}
-                      </a>
-                      <a href={cardDetails.phoneChinaHref}>
-                        <span>T</span>
-                        {cardDetails.phoneChina}
-                      </a>
                       <a href={`mailto:${site.email}`}>
                         <span>E</span>
                         {site.email}
                       </a>
                       <a href={site.url}>{site.domain}</a>
+                      <span className="bc-business-contact">
+                        {locale === "zh" ? "商务咨询 · 微信" : "Business · WeChat"} {site.businessWechat}
+                      </span>
                     </address>
                   </div>
                 </motion.div>
@@ -538,15 +533,6 @@ export function BusinessCardSite() {
                 <p className="bc-eyebrow">02 / 03</p>
                 <h2>{copy.experience.title}</h2>
               </div>
-              <a
-                className="bc-text-link"
-                href={resumePath}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {copy.experience.cv}
-                <Arrow />
-              </a>
             </div>
             <div className="bc-career-list">
               {copy.experience.jobs.map((job, index) => (
@@ -788,18 +774,7 @@ export function BusinessCardSite() {
             <strong>{site.email}</strong>
             <Arrow />
           </a>
-          <a href={cardDetails.phoneHref}>
-            <span>{copy.contact.phone}</span>
-            <strong>{cardDetails.phone}</strong>
-            <Arrow />
-          </a>
-          <a href={cardDetails.phoneChinaHref}>
-            <span>
-              {locale === "zh" ? "电话 · 中国大陆" : "Phone · Mainland China"}
-            </span>
-            <strong>{cardDetails.phoneChina}</strong>
-            <Arrow />
-          </a>
+          <p className="bc-business-contact">{locale === "zh" ? "商务咨询 · 微信" : "Business inquiries · WeChat"} <strong>{site.businessWechat}</strong></p>
         </div>
         <button
           className="bc-copy-email"
@@ -829,9 +804,7 @@ export function BusinessCardSite() {
           <button type="button" onClick={openContact}>
             {copy.commands.contact}
           </button>
-          <a href={resumePath} target="_blank" rel="noopener noreferrer">
-            {copy.commands.resume} ↗
-          </a>
+          <a href={`/agent/${locale}`}>Agent view ↗</a>
           <a href={site.githubUrl} target="_blank" rel="noopener noreferrer">
             {copy.commands.github} ↗
           </a>

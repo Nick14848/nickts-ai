@@ -7,6 +7,7 @@ export const site = {
   name: "Nick Tsai",
   nameZh: "蔡逸凯",
   email,
+  businessWechat: "nickt1221",
   inquiryEmail: "nicktsai1221@163.com",
   githubUrl: "https://github.com/Nick14848",
   resumePath: "/resume.pdf",

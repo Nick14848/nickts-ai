@@ -5,9 +5,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: site.url,
-      lastModified: new Date("2026-08-28"),
+      lastModified: new Date("2026-10-17"),
       changeFrequency: "monthly",
       priority: 1,
     },
+    ...["en", "zh"].map((lang) => ({ url: `${site.url}/agent/${lang}`, lastModified: new Date("2026-10-17"), priority: 0.8 })),
   ];
 }

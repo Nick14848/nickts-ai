@@ -2,10 +2,6 @@ import type { Locale } from "./site";
 
 /** Public, user-approved details. Edit these rather than presentation components. */
 export const cardDetails = {
-  phone: "+852 6990 2741",
-  phoneHref: "tel:+85269902741",
-  phoneChina: "+86 18617190373",
-  phoneChinaHref: "tel:+8618617190373",
   cities: ["Taiwan", "Hong Kong", "Shenzhen"],
   followers: 7443,
   degree: "BEng Data Science & Engineering",
@@ -103,7 +99,7 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       tagline:
         "I love working across disciplines to put AI to work in real business — building products that solve real problems and create lasting value.",
       summary:
-        "With a Data Science & Engineering background from HKU, I now work across AI transformation and asset management at a Hong Kong SFC-licensed private-markets firm. My network and perspective span over a decade in Shenzhen's Nanshan district, Hong Kong finance and the semiconductor ecosystem around Hsinchu, Taiwan.",
+        "With a Data Science & Engineering background from HKU, I work across AI transformation and investment analysis at a Hong Kong private-markets firm. Over a decade in Shenzhen's Nanshan district, hands-on experience in Hong Kong finance and longstanding personal connections around Taiwan's semiconductor industry give me a grounded perspective on connecting technology, people and business across the three regions.",
       bridges: [
         {
           label: "Technical ↔ Business",
@@ -113,7 +109,7 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
         {
           label: "Shenzhen ↔ Hong Kong ↔ Taiwan",
           detail:
-            "Connect AI innovation, financial capital and semiconductor ecosystems — and understand how needs and cultures differ across the three regions.",
+            "Bring together local knowledge and personal networks across AI innovation, finance and semiconductors to identify opportunities between the three regions.",
         },
         {
           label: "Work ↔ Creation",
@@ -128,7 +124,7 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       jobs: [
         {
           company: "Archbridge Capital Partners",
-          role: "AI Transformation & Asset Management Analyst",
+          role: "AI Transformation & Investment Analyst",
           dates: "Jun 2026 — Present",
           location: "Hong Kong",
           type: "AI × Finance · Private Markets",
@@ -146,14 +142,14 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
         },
         {
           company: "HSBC",
-          role: "Data & Analytics",
+          role: "Data & Analytics Intern",
           dates: "Jul 2025 — Dec 2025",
           location: "Hong Kong",
           type: "Corporate & Institutional Banking",
           points: [
-            "Analyzed end-to-end corporate-client onboarding journeys within HSBC CIB, identifying 8+ process bottlenecks and delay drivers.",
-            "Built governed analytics assets across three enterprise systems to support an AI-driven CRM and operational reporting.",
-            "Developed an explainable XGBoost + SHAP risk model that translated machine-learning outputs into operational decisions.",
+            "Supported analysis of corporate-client onboarding journeys, helping teams understand opportunities for process improvement.",
+            "Prepared and analyzed business data to support operational reporting and analytics use cases.",
+            "Applied interpretable machine-learning methods to explore process delays and communicate findings to business stakeholders.",
           ],
         },
       ],
@@ -161,7 +157,7 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       school: "The University of Hong Kong",
       degree: "BEng Data Science & Engineering",
       educationDates: "2022 — 2026 · Expected graduation: late 2026",
-      credentials: "CFA Level I · IELTS 7.5",
+      credentials: "CFA Level I passed · IELTS 7.5",
       languages:
         "Mandarin (native) · English (fluent) · Cantonese (basic)",
     },
@@ -219,7 +215,7 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       tagline:
         "热爱与不同背景的人并肩，把 AI 带进真实业务，做成真正解决问题、创造长期价值的产品。",
       summary:
-        "香港大学数据科学与工程本科背景，现于香港 SFC 第4/9类持牌私募资管机构担任 AI 转型与资产管理分析师，参与服务约 1 亿美元私募及结构化信贷资产。常居深圳南山区并拥有 10+ 年生活与人脉积累，长期连接台湾新竹周边半导体产业网络，理解三个地区不同的市场需求、产业结构与文化差异。",
+        "香港大学数据科学与工程本科背景，现于香港私募资管机构从事 AI 转型与投资分析。在深圳南山拥有 10+ 年生活与人脉积累，在香港金融业务中实践，与台湾半导体产业保持长期个人联系。熟悉三地不同的产业环境与沟通方式，善于连接技术、人才与业务需求，发现跨地区的合作机会。",
       bridges: [
         {
           label: "技术 ↔ 商业",
@@ -229,7 +225,7 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
         {
           label: "深圳 ↔ 香港 ↔ 台湾",
           detail:
-            "连接 AI 创新科技、金融资本与半导体产业，理解三个地区的真实需求与文化差异。",
+            "结合 AI 科技、金融与半导体领域的产业接触及人脉积累，连接三地真实需求，发现跨地区合作机会。",
         },
         {
           label: "工作 ↔ 创作",
@@ -244,7 +240,7 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       jobs: [
         {
           company: "凯翔资本",
-          role: "AI 转型与资产管理分析师",
+          role: "AI 转型与投资分析师",
           dates: "2026.06 — 至今",
           location: "香港",
           type: "",
@@ -262,14 +258,14 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
         },
         {
           company: "HSBC 汇丰",
-          role: "数据分析",
+          role: "数据分析实习生 · Intern",
           dates: "2025.07 — 2025.12",
           location: "香港",
           type: "企业与机构银行 · Corporate & Institutional Banking",
           points: [
-            "在汇丰香港 CIB 分析企业客户开户的端到端流程，识别 8+ 个关键流程瓶颈与延误驱动因素。",
-            "整合三个核心业务系统的数据，构建受治理的数据资产，支持 AI 驱动的 CRM 与运营分析。",
-            "基于 XGBoost + SHAP 构建可解释风险模型，将机器学习结果转化为可执行的业务判断。",
+            "参与企业客户开户流程分析，帮助业务团队理解流程改进机会。",
+            "整理与分析业务数据，支持运营报告及数据分析场景。",
+            "运用可解释机器学习方法探索流程延误因素，将分析发现转化为便于业务理解的结论。",
           ],
         },
       ],
@@ -277,7 +273,7 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       school: "香港大学",
       degree: "数据科学与工程 · 工学学士",
       educationDates: "2022 — 2026 · 预计 2026 年底毕业",
-      credentials: "CFA Level I · IELTS 7.5",
+      credentials: "CFA 一级考试通过 · IELTS 7.5",
       languages: "普通话（母语） · 英语（流利） · 粤语（基础）",
     },
     creator: {

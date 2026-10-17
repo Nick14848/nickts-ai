@@ -1,3 +1,5 @@
 # Public files
-# Replace resume.pdf to update the résumé download.
-# Life photos live in /life.
+
+Only assets intentionally published on the current website belong here.
+Private résumés and retired photos are kept outside the repository's public directory.
+Public profile exports are generated from src/data/public-profile.ts.

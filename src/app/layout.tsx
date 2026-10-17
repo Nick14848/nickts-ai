@@ -48,7 +48,7 @@ const jsonLd = {
     "@type": "Organization",
     name: "Archbridge Capital Partners",
   },
-  alumniOf: {
+  memberOf: {
     "@type": "CollegeOrUniversity",
     name: "The University of Hong Kong",
   },
@@ -62,6 +62,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       lang="en"
       className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}
     >
+      <head>
+        <link rel="describedby" href="/llms.txt" type="text/plain" />
+        <link rel="alternate" href="/about.en.md" type="text/markdown" hrefLang="en" />
+        <link rel="alternate" href="/about.zh.md" type="text/markdown" hrefLang="zh" />
+        <link rel="alternate" href="/profile.json" type="application/json" />
+      </head>
       <body className="min-h-full bg-bg font-sans text-ink">
         <script
           type="application/ld+json"

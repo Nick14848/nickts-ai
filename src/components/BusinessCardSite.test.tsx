@@ -83,12 +83,8 @@ describe("Business card website", () => {
         name: /The University of Hong Kong — 香港大学/,
       }),
     ).toHaveAttribute("href", "https://www.hku.hk/");
-    expect(
-      screen.getByRole("link", { name: /T\s*\+852 6990 2741/ }),
-    ).toHaveAttribute("href", "tel:+85269902741");
-    expect(
-      screen.getByRole("link", { name: /T\s*\+86 18617190373/ }),
-    ).toHaveAttribute("href", "tel:+8618617190373");
+    expect(container.querySelector('a[href^="tel:"]')).toBeNull();
+    expect(screen.getByText(/Business · WeChat nickt1221/)).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: /E\s*nicktsai1221@gmail.com/ }),
     ).toHaveAttribute("href", "mailto:nicktsai1221@gmail.com");
@@ -110,12 +106,12 @@ describe("Business card website", () => {
     expect(screen.getAllByAltText("Portrait of Nick Tsai")).toHaveLength(2);
     expect(screen.getAllByText("AI for real business.")).toHaveLength(2);
     expect(document.querySelector(".bc-portrait-reveal")).not.toBeInTheDocument();
-    expect(screen.queryByText(/Intern/)).not.toBeInTheDocument();
+    expect(screen.getByText("Data & Analytics Intern")).toBeInTheDocument();
     expect(
       within(experience).getByText("BEng Data Science & Engineering"),
     ).toBeInTheDocument();
     expect(
-      within(experience).getByText("CFA Level I · IELTS 7.5"),
+      within(experience).getByText("CFA Level I passed · IELTS 7.5"),
     ).toBeInTheDocument();
     expect(
       within(experience).getByText(
@@ -127,10 +123,8 @@ describe("Business card website", () => {
     ).toBeInTheDocument();
     expect(screen.queryByText("ByteDance")).not.toBeInTheDocument();
     expect(container.querySelector("#work")).toBeNull();
-    expect(screen.getByRole("link", { name: "View résumé" })).toHaveAttribute(
-      "href",
-      "/resume.pdf",
-    );
+    expect(container.querySelector('a[href$=".pdf"]')).toBeNull();
+    expect(screen.getByRole("link", { name: "Agent" })).toHaveAttribute("href", "/agent/en");
   });
   it("switches to Chinese and persists the choice", async () => {
     const user = userEvent.setup();
@@ -146,14 +140,11 @@ describe("Business card website", () => {
     expect(screen.getByText("全平台粉丝量")).toBeInTheDocument();
     expect(screen.getByText("AI Builder")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "凯翔资本" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "查看简历" })).toHaveAttribute(
-      "href",
-      "/resume-zh.pdf",
-    );
+    expect(screen.queryByRole("link", { name: "查看简历" })).not.toBeInTheDocument();
     expect(window.localStorage.getItem(STORAGE_KEYS.locale)).toBe("zh");
     expect(document.documentElement.lang).toBe("zh-CN");
   });
-  it("opens and closes the contact dialog with phone and email destinations", async () => {
+  it("opens and closes the contact dialog with public business contacts", async () => {
     const user = userEvent.setup();
     renderSite();
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
@@ -164,9 +155,8 @@ describe("Business card website", () => {
         name: /Email nicktsai1221@gmail.com/,
       }),
     ).toHaveAttribute("href", "mailto:nicktsai1221@gmail.com");
-    expect(
-      within(dialog).getByRole("link", { name: /Phone \+852 6990 2741/ }),
-    ).toHaveAttribute("href", "tel:+85269902741");
+    expect(within(dialog).getByText("nickt1221")).toBeInTheDocument();
+    expect(dialog.querySelector('a[href^="tel:"]')).toBeNull();
     expect(document.body.style.overflow).toBe("hidden");
     await user.click(within(dialog).getByRole("button", { name: "Close" }));
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
