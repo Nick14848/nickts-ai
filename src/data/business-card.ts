@@ -97,7 +97,7 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       label: "About Me",
       title: ["A Bridge Between", "Technology and Business."],
       tagline:
-        "I love working across disciplines to put AI to work in real business — building products that solve real problems and create lasting value.",
+        "Bringing AI into real business. Making AI something every person and every business can truly own and use.",
       summary:
         "With a Data Science & Engineering background from HKU, I work across AI transformation and investment analysis at a Hong Kong private-markets firm. Over a decade in Shenzhen's Nanshan district, hands-on experience in Hong Kong finance and longstanding personal connections around Taiwan's semiconductor industry give me a grounded perspective on connecting technology, people and business across the three regions.",
       bridges: [
@@ -213,7 +213,7 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
       label: "关于我",
       title: ["连接技术与业务的桥梁"],
       tagline:
-        "热爱与不同背景的人并肩，把 AI 带进真实业务，做成真正解决问题、创造长期价值的产品。",
+        "让AI进入真实业务。让每个人，每家企业，都能真正拥有和使用AI。",
       summary:
         "香港大学数据科学与工程本科背景，现于香港私募资管机构从事 AI 转型与投资分析。在深圳南山拥有 10+ 年生活与人脉积累，在香港金融业务中实践，与台湾半导体产业保持长期个人联系。熟悉三地不同的产业环境与沟通方式，善于连接技术、人才与业务需求，发现跨地区的合作机会。",
       bridges: [

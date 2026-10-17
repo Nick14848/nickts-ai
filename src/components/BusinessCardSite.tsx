@@ -350,7 +350,6 @@ export function BusinessCardSite() {
     <>
       <p className="bc-eyebrow">{copy.intro.label}</p>
       <h2 className="bc-intro-title">{renderIntroTitle()}</h2>
-      <p className="bc-intro-tagline">{copy.intro.tagline}</p>
       <RegionalBridgeMap
         locale={locale}
         reducedMotion={Boolean(reducedMotion)}
@@ -374,9 +373,8 @@ export function BusinessCardSite() {
         <p className="bc-portrait-display-name">Nick Tsai</p>
         <p className="bc-portrait-chinese-name">蔡逸凯</p>
         <div className="bc-portrait-highlights">
-          <p className="bc-portrait-value">{locale === "zh" ? "把 AI 用在真实业务里" : "AI for real business."}</p>
-          <p>{locale === "zh" ? "港大数据科学 · 香港私募资管" : "HKU Data Science · Private markets"}</p>
-          <p>{locale === "zh" ? "往返深港台，做产品，也创作" : <>Shenzhen · HK · Taiwan<br />Products &amp; content</>}</p>
+          <p className="bc-portrait-value">{locale === "zh" ? "让AI进入真实业务" : "Bringing AI into real business."}</p>
+          <p>{locale === "zh" ? "让每个人，每家企业，都能真正拥有和使用AI" : "Making AI something every person and every business can truly own and use."}</p>
         </div>
       </div>
     </div>
@@ -482,9 +480,8 @@ export function BusinessCardSite() {
                         <span>E</span>
                         {site.email}
                       </a>
-                      <a href={site.url}>{site.domain}</a>
                       <span className="bc-business-contact">
-                        {locale === "zh" ? "商务咨询 · 微信" : "Business · WeChat"} {site.businessWechat}
+                        {locale === "zh" ? "商务咨询" : "Business inquiries"} {site.businessWechat}
                       </span>
                     </address>
                   </div>

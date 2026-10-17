@@ -84,7 +84,7 @@ describe("Business card website", () => {
       }),
     ).toHaveAttribute("href", "https://www.hku.hk/");
     expect(container.querySelector('a[href^="tel:"]')).toBeNull();
-    expect(screen.getByText(/Business · WeChat nickt1221/)).toBeInTheDocument();
+    expect(screen.getByText(/Business inquiries nickt1221/)).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: /E\s*nicktsai1221@gmail.com/ }),
     ).toHaveAttribute("href", "mailto:nicktsai1221@gmail.com");
@@ -104,7 +104,7 @@ describe("Business card website", () => {
     ).toBeInTheDocument();
     expect(screen.getAllByText("A Bridge Between")).toHaveLength(1);
     expect(screen.getAllByAltText("Portrait of Nick Tsai")).toHaveLength(2);
-    expect(screen.getAllByText("AI for real business.")).toHaveLength(2);
+    expect(screen.getAllByText("Bringing AI into real business.")).toHaveLength(2);
     expect(document.querySelector(".bc-portrait-reveal")).not.toBeInTheDocument();
     expect(screen.getByText("Data & Analytics Intern")).toBeInTheDocument();
     expect(
@@ -136,7 +136,8 @@ describe("Business card website", () => {
     expect(screen.getByText("往下滑查看更多")).toBeInTheDocument();
     expect(screen.getByText("很高兴认识你。")).toBeInTheDocument();
     expect(screen.getAllByText("关于我")).toHaveLength(1);
-    expect(screen.getAllByText("把 AI 用在真实业务里")).toHaveLength(2);
+    expect(screen.getAllByText("让AI进入真实业务")).toHaveLength(2);
+    expect(screen.getByRole("link", { name: "智能体" })).toHaveAttribute("href", "/agent/zh");
     expect(screen.getByText("全平台粉丝量")).toBeInTheDocument();
     expect(screen.getByText("AI Builder")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "凯翔资本" })).toBeInTheDocument();
