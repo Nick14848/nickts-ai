@@ -164,14 +164,14 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
     creator: {
       title: "Beyond work",
       followers: "followers across platforms",
-      name: "小菜Nick",
+      name: "尼克NickTsai",
       headline: "From consumer to creator.",
       copy: "I document life, share what I learn and turn curiosity into things I make. Content is both a creative practice and a way to build a lasting personal brand — one useful piece at a time.",
       photoAlt: "Nick taking a photo in a roadside mirror during a ride",
       photoCaption: "Life, in progress.",
       rednote: "RedNote",
       douyin: "Douyin",
-      douyinNote: "Find 小菜Nick",
+      douyinNote: "Find 尼克NickTsai",
     },
     contact: {
       greeting: "A pleasure to meet you.",
@@ -279,14 +279,14 @@ export const businessCardCopy: Record<Locale, CardCopy> = {
     creator: {
       title: "工作之外",
       followers: "全平台粉丝量",
-      name: "小菜Nick",
+      name: "尼克NickTsai",
       headline: "从使用者，成为创造者。",
       copy: "热爱生活，也认真记录。把学习与实践转化为内容，在 AI 时代持续拓展能力，让每一次创造都成为个人品牌的长期积累。",
       photoAlt: "Nick 骑行时在路边镜子前记录生活",
       photoCaption: "记录生活，也记录成长。",
       rednote: "小红书",
       douyin: "抖音",
-      douyinNote: "查找小菜Nick",
+      douyinNote: "查找尼克NickTsai",
     },
     contact: {
       greeting: "很高兴认识你～",

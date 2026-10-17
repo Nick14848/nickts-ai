@@ -101,7 +101,7 @@ test("external links and command navigation are available", async ({
   page,
 }) => {
   await page.goto("/");
-  for (const name of ["RedNote", "Douyin · Find 小菜Nick", "GitHub ↗"]) {
+  for (const name of ["RedNote", "Douyin · Find 尼克NickTsai", "GitHub ↗"]) {
     const link = page.getByRole("link", { name, exact: true });
     await expect(link).toHaveAttribute("target", "_blank");
     await expect(link).toHaveAttribute("rel", /noopener/);

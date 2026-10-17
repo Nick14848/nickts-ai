@@ -13,7 +13,7 @@ export const site = {
   resumePath: "/resume.pdf",
   resumePathZh: "/resume-zh.pdf",
   REDNOTE_URL: "https://xhslink.com/m/8uQvbHfgDI6",
-  DOUYIN_URL: "https://www.douyin.com/search/%E5%B0%8F%E8%8F%9CNick",
+  DOUYIN_URL: "https://www.douyin.com/search/%E5%B0%BC%E5%85%8BNickTsai",
   deepPivotUrl: null as string | null,
   location: "Taiwan · Shenzhen · Hong Kong",
   identity: "AI × FINANCE × SYSTEMS × PRODUCT",
@@ -22,7 +22,7 @@ export const site = {
     "Nick Tsai builds AI systems for financial workflows across enterprise AI, data and investment technology.",
   headline: "Long-termism",
   ogAlt: `${domain} — Nick Tsai / 蔡逸凯. Long-termism.`,
-  creatorName: "小菜Nick",
+  creatorName: "尼克NickTsai",
 } as const;
 
 export function splitDomain(value: string = site.domain): {

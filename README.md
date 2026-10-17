@@ -37,7 +37,7 @@ Previous V1 components and translations remain for reference, but the homepage n
 ### Social links
 
 - RedNote uses the existing personal sharing URL.
-- **Douyin currently uses the existing search for 小菜Nick, not a verified profile URL.** The button is labelled accordingly. Replace `DOUYIN_URL` in `src/data/site.ts` when the exact profile link is available; also update `creator.douyinNote` in both languages.
+- **Douyin currently uses the existing search for 尼克NickTsai, not a verified profile URL.** The button is labelled accordingly. Replace `DOUYIN_URL` in `src/data/site.ts` when the exact profile link is available; also update `creator.douyinNote` in both languages.
 - The `7K+` total is user-provided and manually maintained, not a live counter.
 
 ### Accuracy and privacy
