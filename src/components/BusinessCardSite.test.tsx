@@ -173,9 +173,9 @@ describe("Business card website", () => {
   it("keeps social destinations truthful and external links safe", () => {
     renderSite();
     const rednote = screen.getByRole("link", {
-      name: "RedNote · @尼克NickTsai",
+      name: "RedNote · @尼克菜Nick",
     });
-    const douyin = screen.getByRole("link", { name: "Douyin · Find 尼克NickTsai" });
+    const douyin = screen.getByRole("link", { name: "Douyin · Find 尼克菜Nick" });
     expect(rednote).toHaveAttribute("href", site.REDNOTE_URL);
     expect(douyin).toHaveAttribute("href", site.DOUYIN_URL);
     for (const link of [rednote, douyin]) {

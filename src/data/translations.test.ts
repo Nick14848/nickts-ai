@@ -116,7 +116,7 @@ describe("translations", () => {
         "HKU Data Science",
         "Hong Kong AI + Finance",
         "ex-HSBC CIB",
-        "尼克NickTsai",
+        "尼克菜Nick",
       ],
       corridorHint: "Hi guys, welcome to",
       explore: "About ↓",
@@ -154,7 +154,7 @@ describe("translations", () => {
         },
         creator: {
           title: "Media",
-          description: "尼克NickTsai — content off-camera.",
+          description: "尼克菜Nick — content off-camera.",
           action: "Content →",
         },
       },
@@ -173,7 +173,7 @@ describe("translations", () => {
       homepage: "的个人主页",
       thesis: "投资自己 · 构建系统 · 长期主义",
       line3: "Stay Childish.",
-      credentials: ["港大 数据科学", "香港 AI + Finance", "ex-HSBC CIB", "尼克NickTsai"],
+      credentials: ["港大 数据科学", "香港 AI + Finance", "ex-HSBC CIB", "尼克菜Nick"],
       corridorHint: "Hi guys 欢迎来到",
       explore: "关于我 ↓",
       resume: "简历 ↗",
@@ -215,7 +215,7 @@ describe("translations", () => {
         },
         creator: {
           title: "自媒体",
-          description: "镜头外的尼克NickTsai。",
+          description: "镜头外的尼克菜Nick。",
           action: "看内容 →",
         },
       },
@@ -230,7 +230,7 @@ describe("translations", () => {
       "Haha — the chubby kid in the photos is me. I later started cutting fat and training seriously, just because I felt I should be healthier. And why not?",
       "I've come to think fitness, investing, work, even building a company, are essentially the same game: discipline, the long term, resilience, compounding, and building systems.",
       "I study Data Science at HKU, graduating at the end of 2026. I previously did analytics at HSBC CIB. Now I do AI Transformation at a Hong Kong asset manager — building private AI systems and working inside real investment workflows.",
-      "Outside work I make content on RedNote and Douyin as 尼克NickTsai — mostly study abroad, job hunting, AI, life in Hong Kong, and things I'm learning and trying.",
+      "Outside work I make content on RedNote and Douyin as 尼克菜Nick — mostly study abroad, job hunting, AI, life in Hong Kong, and things I'm learning and trying.",
       "I like investing and asset allocation, and I like cycling, basketball, and training. More than talking about ideas, I like actually making things — using AI to solve problems for companies and friends, and building products people will use and that create real value.",
     ]);
     expect(dictionaries.en.story.photos["used-to-be-fat"].title).toBe(
@@ -319,7 +319,7 @@ describe("translations", () => {
       "哈哈，照片里那个小胖子是我。后来开始认真减脂、训练，只是因为觉得自己应该更健康一点。And why not?",
       "我越来越觉得，健身、投资、工作甚至创业，本质上其实很像：自律、长期、韧性、复利，以及建立系统。",
       "我在港大读 Data Science，预计 2026 年底毕业。之前在 HSBC CIB 做数据分析，现在在香港一家资产管理机构里做 AI Transformation，搭建私有 AI 系统，也参与真实的投资工作流。",
-      "工作之外，我在小红书和抖音做内容，叫 尼克NickTsai。主要记录留学、求职、AI、香港生活，以及一些我正在学习和尝试的东西。",
+      "工作之外，我在小红书和抖音做内容，叫 尼克菜Nick。主要记录留学、求职、AI、香港生活，以及一些我正在学习和尝试的东西。",
       "我喜欢投资和资产配置，也喜欢骑车、篮球、健身。比起单纯讨论想法，我更喜欢真正把东西做出来——用 AI 帮企业和朋友解决问题，做一些真正有人会用、有价值的产品。",
     ]);
     expect(dictionaries.zh.story.photos["used-to-be-fat"].title).toBe("以前真的好胖");
